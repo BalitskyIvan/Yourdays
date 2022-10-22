@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ZeroEmotionView">
+        <attr name="anxiety" format="float" />
+        <attr name="joy" format="float" />
+        <attr name="sadness" format="float" />
+        <attr name="calmness" format="float" />
+        <attr name="size" format="float"/>
+    </declare-styleable>
+</resources>
