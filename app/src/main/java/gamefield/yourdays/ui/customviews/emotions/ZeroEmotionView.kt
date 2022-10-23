@@ -2,44 +2,41 @@ package gamefield.yourdays.ui.customviews.emotions
 
 import android.content.Context
 import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
 import android.util.AttributeSet
-import android.view.View
 
 class ZeroEmotionView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
-) : View(context, attrs, defStyleAttr) {
+) : EmotionView(context, attrs, defStyleAttr, ALPHA_DIVIDER) {
 
-
-    private val paint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        style = Paint.Style.FILL
+    private companion object {
+        const val ALPHA_DIVIDER = 200f
     }
 
-    var size = 100
-
-    init {
-        paint.color = Color.BLUE
-    }
+    private var circleX = 0f
+    private var circleY = 0f
+    private var radius = 0f
+    private var innerRadius = 0f
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
+        circleX = width / 2f
+        circleY = height / 2f
+        radius = width / 2.1f
+        innerRadius = width / 4.1f
     }
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
-        canvas?.drawRect(
-            width / 2f + (width / 200f) * size,
-            height / 2f + (height / 200f) * size,
-            width / 2f - (width / 200f) * size,
-            height / 2f - (height / 200f) * size,
-            paint
-        )
+
+        canvas?.drawCircle(circleX, circleY, radius, verticalPaint)
+        canvas?.drawCircle(circleX, circleY, radius, horizontalPaint)
+        canvas?.drawCircle(circleX, circleY, innerRadius, invisiblePaint)
+        if (isDrawStroke) {
+            canvas?.drawCircle(circleX, circleY, radius, strokePaint)
+            canvas?.drawCircle(circleX, circleY, innerRadius, strokePaint)
+        }
     }
 
-    override fun onDetachedFromWindow() {
-        super.onDetachedFromWindow()
-    }
 }
