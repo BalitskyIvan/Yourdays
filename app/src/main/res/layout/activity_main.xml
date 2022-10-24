@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
     tools:context=".MainActivity">
 
     <FrameLayout
@@ -22,6 +21,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
+        android:thumb="@android:color/transparent"
+        android:progressDrawable="@drawable/seekbar_emotion_anxiety_style"
         app:layout_constraintTop_toBottomOf="@id/emotionContainer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -31,6 +32,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
+        android:thumb="@android:color/transparent"
+        android:progressDrawable="@drawable/seekbar_emotion_joy_style"
         app:layout_constraintTop_toBottomOf="@id/anxienty"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -40,6 +43,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
+        android:thumb="@android:color/transparent"
+        android:progressDrawable="@drawable/seekbar_emotion_sadness_style"
         app:layout_constraintTop_toBottomOf="@id/joy"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -49,6 +54,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
+        android:thumb="@android:color/transparent"
+        android:progressDrawable="@drawable/seekbar_emotion_calmness_style"
         app:layout_constraintTop_toBottomOf="@id/sadness"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
