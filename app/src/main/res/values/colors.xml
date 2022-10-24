@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+
     <!-- Emotion colors -->
     <color name="anxiety">#FF0000</color>
     <color name="anxiety_20_alpha">#A4FF0000</color>
