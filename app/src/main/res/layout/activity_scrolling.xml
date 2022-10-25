@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context=".ScrollingActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        android:paddingBottom="25dp">
+
+        <TextView
+            android:id="@+id/tite_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Text20sp.Thin"
+            android:text="Feb, 13"
+            android:layout_marginTop="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/tite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Text40sp.Thin"
+            android:text="How are you?"
+            android:layout_marginTop="6dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tite_date"
+            />
+
+        <gamefield.yourdays.ui.customviews.emotions.PlusEmotionView
+            android:id="@+id/emotion_view"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:minHeight="100dp"
+            android:layout_marginTop="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tite"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <include
+        android:id="@+id/scrolling_period"
+        layout="@layout/content_scrolling" />
+</LinearLayout>
