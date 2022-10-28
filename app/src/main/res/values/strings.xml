@@ -31,4 +31,10 @@
     <string name="four">4</string>
     <string name="five">5</string>
 
+    <!-- Emotions -->
+    <string name="anxiety">ANXIETY</string>
+    <string name="joy">JOY</string>
+    <string name="sadness">SADNESS</string>
+    <string name="calmness">CALMNESS</string>
+
 </resources>

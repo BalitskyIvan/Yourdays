@@ -5,43 +5,47 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".ScrollingActivity"
-    tools:showIn="@layout/activity_scrolling">
+    tools:context=".MainActivity"
+    tools:showIn="@layout/activity_main">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include layout="@layout/card_period_month"
+        <include
+            layout="@layout/card_period_month"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
 
-        <include layout="@layout/card_period_month"
+        <include
+            layout="@layout/card_period_month"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-             />
+            android:layout_marginTop="20dp" />
 
-        <include layout="@layout/card_period_month"
+        <include
+            layout="@layout/card_period_month"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            />
-        <include layout="@layout/card_period_month"
+            android:layout_marginTop="20dp" />
+
+        <include
+            layout="@layout/card_period_month"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            />
-        <include layout="@layout/card_period_month"
+            android:layout_marginTop="20dp" />
+
+        <include
+            layout="@layout/card_period_month"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            />
-        <include layout="@layout/card_period_month"
+            android:layout_marginTop="20dp" />
+
+        <include
+            layout="@layout/card_period_month"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            />
+            android:layout_marginTop="20dp" />
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="270dp">
+
+    <TextView
+        android:id="@+id/anxiety_text"
+        style="@style/Text20sp.Thin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="3dp"
+        android:text="@string/anxiety"
+        app:layout_constraintBottom_toTopOf="@id/anxiety"
+        app:layout_constraintStart_toStartOf="@id/anxiety" />
+
+    <TextView
+        android:id="@+id/anxiety_score"
+        style="@style/Text20sp.Thin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="3dp"
+        android:text="5/10"
+        app:layout_constraintBottom_toTopOf="@id/anxiety"
+        app:layout_constraintEnd_toEndOf="@id/anxiety" />
+
+    <SeekBar
+        android:id="@+id/anxiety"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:progressDrawable="@drawable/seekbar_emotion_anxiety_style"
+        android:thumb="@android:color/transparent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/joy_text"
+        style="@style/Text20sp.Thin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="3dp"
+        android:text="@string/joy"
+        app:layout_constraintBottom_toTopOf="@id/joy"
+        app:layout_constraintStart_toStartOf="@id/joy" />
+
+    <TextView
+        android:id="@+id/joy_score"
+        style="@style/Text20sp.Thin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="3dp"
+        android:text="5/10"
+        app:layout_constraintBottom_toTopOf="@id/joy"
+        app:layout_constraintEnd_toEndOf="@id/joy" />
+
+    <SeekBar
+        android:id="@+id/joy"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:progressDrawable="@drawable/seekbar_emotion_joy_style"
+        android:thumb="@android:color/transparent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/anxiety" />
+
+    <SeekBar
+        android:id="@+id/sadness"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:progressDrawable="@drawable/seekbar_emotion_sadness_style"
+        android:thumb="@android:color/transparent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/joy" />
+
+    <SeekBar
+        android:id="@+id/calmness"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:progressDrawable="@drawable/seekbar_emotion_calmness_style"
+        android:thumb="@android:color/transparent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/sadness" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
