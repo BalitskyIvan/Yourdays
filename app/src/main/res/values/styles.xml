@@ -34,17 +34,29 @@
         <item name="android:textSize">20sp</item>
     </style>
 
+    <style name="Text30sp">
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textSize">30sp</item>
+    </style>
+
     <style name="Text40sp">
         <item name="android:textColor">@android:color/black</item>
         <item name="android:textSize">40sp</item>
     </style>
 
+    <style name="Text12sp.Thin">
+        <item name="android:fontFamily">@font/roboto_thin</item>
+    </style>
 
     <style name="Text20sp.Thin">
         <item name="android:fontFamily">@font/roboto_thin</item>
     </style>
 
     <style name="Text40sp.Thin">
+        <item name="android:fontFamily">@font/roboto_thin</item>
+    </style>
+
+    <style name="Text30sp.Thin">
         <item name="android:fontFamily">@font/roboto_thin</item>
     </style>
 

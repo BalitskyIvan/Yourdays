@@ -1,4 +1,4 @@
-package gamefield.yourdays.ui.views
+package gamefield.yourdays.ui.fragments.emotion_fragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

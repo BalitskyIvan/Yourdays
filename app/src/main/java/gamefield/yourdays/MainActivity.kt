@@ -2,7 +2,7 @@ package gamefield.yourdays
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import gamefield.yourdays.fragments.screens.MainScreenFragment
+import gamefield.yourdays.ui.fragments.screens.MainScreenFragment
 
 class MainActivity : AppCompatActivity() {
 

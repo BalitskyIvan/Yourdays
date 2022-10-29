@@ -1,4 +1,4 @@
-package gamefield.yourdays.fragments.screens
+package gamefield.yourdays.ui.fragments.screens
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,8 +8,8 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import gamefield.yourdays.R
 import gamefield.yourdays.databinding.FragmentMainScreenBinding
-import gamefield.yourdays.ui.views.ChangeEmotionFragment
-import gamefield.yourdays.ui.views.MainScreenEmotionFragment
+import gamefield.yourdays.ui.fragments.emotion_fragment.ChangeEmotionFragment
+import gamefield.yourdays.ui.fragments.emotion_fragment.MainScreenEmotionFragment
 import gamefield.yourdays.viewmodels.MainScreenFragmentViewModel
 
 class MainScreenFragment : Fragment() {
