@@ -21,19 +21,16 @@ class MainScreenFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         binding = FragmentMainScreenBinding.inflate(inflater, container, false)
 
         childFragmentManager
             .beginTransaction()
             .replace(R.id.change_emotion_container, ChangeEmotionFragment.newInstance())
             .commitNow()
-
         childFragmentManager
             .beginTransaction()
             .replace(R.id.emotion_container, MainScreenEmotionFragment.newInstance())
             .commitNow()
-
 
         return binding.root
     }
@@ -55,9 +52,7 @@ class MainScreenFragment : Fragment() {
     }
 
     companion object {
-
         @JvmStatic
-        fun newInstance() =
-            MainScreenFragment()
+        fun newInstance() = MainScreenFragment()
     }
 }

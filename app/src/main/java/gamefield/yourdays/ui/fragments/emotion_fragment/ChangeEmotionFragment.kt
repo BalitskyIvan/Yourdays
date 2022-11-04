@@ -1,5 +1,6 @@
 package gamefield.yourdays.ui.fragments.emotion_fragment
 
+import android.app.ActionBar.LayoutParams
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -7,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import gamefield.yourdays.databinding.FragmentChangeEmotionBinding
+import gamefield.yourdays.extensions.setOnRippleClickListener
 import gamefield.yourdays.utils.EmotionSeekBarListener
 import gamefield.yourdays.viewmodels.MainScreenFragmentViewModel
 
@@ -25,8 +27,17 @@ class ChangeEmotionFragment : Fragment() {
         binding = FragmentChangeEmotionBinding.inflate(inflater, container, false)
 
         setSeekBarListeners()
+        setOkButtonListener()
+        observeEmotionActions()
 
         return binding.root
+    }
+
+    private fun observeEmotionActions() {
+        viewModel.clickEmotionFillEvent.observe(viewLifecycleOwner) {
+            binding.root.layoutParams.height = LayoutParams.WRAP_CONTENT
+            binding.root.requestLayout()
+        }
     }
 
     private fun setSeekBarListeners() {
@@ -35,6 +46,13 @@ class ChangeEmotionFragment : Fragment() {
             joy.setOnSeekBarChangeListener(EmotionSeekBarListener(viewModel::joyChanged))
             sadness.setOnSeekBarChangeListener(EmotionSeekBarListener(viewModel::sadnessChanged))
             calmness.setOnSeekBarChangeListener(EmotionSeekBarListener(viewModel::calmnessChanged))
+        }
+    }
+
+    private fun setOkButtonListener() {
+        binding.changeEmotionFragmentOkButton.setOnRippleClickListener {
+            binding.root.layoutParams.height = 0
+            binding.root.requestLayout()
         }
     }
 

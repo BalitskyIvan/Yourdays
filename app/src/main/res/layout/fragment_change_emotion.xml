@@ -139,6 +139,7 @@
         app:layout_constraintTop_toBottomOf="@id/sadness" />
 
     <gamefield.yourdays.ui.customviews.buttons.OkButton
+        android:id="@+id/change_emotion_fragment_ok_button"
         android:layout_width="91dp"
         android:layout_height="55dp"
         android:layout_marginTop="25dp"
