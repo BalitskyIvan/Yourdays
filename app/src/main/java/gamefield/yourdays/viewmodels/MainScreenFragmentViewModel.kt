@@ -1,8 +1,15 @@
 package gamefield.yourdays.viewmodels
 
+import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import gamefield.yourdays.domain.usecase.AddDayUseCase
+import gamefield.yourdays.domain.usecase.GetAllMonthsListUseCase
 import gamefield.yourdays.extensions.toImmutable
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 
 class MainScreenFragmentViewModel : ViewModel() {
 
@@ -23,6 +30,18 @@ class MainScreenFragmentViewModel : ViewModel() {
 
     private val _emotionsPeriodScrolled = MutableLiveData<Int>()
     val emotionsPeriodScrolled = _emotionsPeriodScrolled.toImmutable()
+
+    private lateinit var addDayUseCase: AddDayUseCase
+    private lateinit var getAllMonthsListUseCase: GetAllMonthsListUseCase
+
+    fun initDatabaseWithContext(context: Context) {
+        addDayUseCase = AddDayUseCase(context)
+        getAllMonthsListUseCase = GetAllMonthsListUseCase(context)
+
+        viewModelScope.launch(Dispatchers.IO) {
+            addDayUseCase.invoke()
+        }
+    }
 
     fun anxietyChanged(progress: Int) {
         _anxietyEmotionChangedEvent.value = progress

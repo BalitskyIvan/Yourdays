@@ -39,6 +39,7 @@ class MainScreenFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(requireActivity())
             .get(MainScreenFragmentViewModel::class.java)
+        viewModel.initDatabaseWithContext(requireActivity().applicationContext)
         binding.scrollingPeriod.root.setOnScrollChangeListener { p0, p1, p2, p3, p4 ->
             viewModel.onEmotionPeriodScrolled(y = p2)
         }

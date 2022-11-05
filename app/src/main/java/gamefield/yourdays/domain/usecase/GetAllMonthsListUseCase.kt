@@ -1,12 +1,17 @@
 package gamefield.yourdays.domain.usecase
 
+import android.content.Context
+import gamefield.yourdays.data.AppDatabase
+import gamefield.yourdays.data.Repository
 import gamefield.yourdays.data.entity.Month
 import kotlinx.coroutines.flow.Flow
 
-class GetAllMonthsListUseCase {
+class GetAllMonthsListUseCase(
+    context: Context
+) {
 
-    operator fun invoke(): Flow<List<Month>> {
+    private val repository = Repository.getInstance(AppDatabase.getInstance(context = context).monthDao())
 
-    }
+    suspend operator fun invoke(): Flow<List<Month>> = repository.getMonths()
 
 }

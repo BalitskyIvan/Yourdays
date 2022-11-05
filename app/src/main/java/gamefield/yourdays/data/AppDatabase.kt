@@ -8,7 +8,7 @@ import androidx.room.TypeConverters
 import gamefield.yourdays.data.dao.MonthDao
 import gamefield.yourdays.data.entity.Month
 
-@Database(entities = [Month::class], version = 1)
+@Database(entities = [Month::class], version = 1, exportSchema = true)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
 
@@ -28,7 +28,8 @@ abstract class AppDatabase : RoomDatabase() {
         }
 
         private fun buildDatabase(context: Context): AppDatabase {
-            return Room.databaseBuilder(context, AppDatabase::class.java, DATABASE_NAME)
+            return Room
+                .databaseBuilder(context, AppDatabase::class.java, DATABASE_NAME)
                 .build()
         }
     }

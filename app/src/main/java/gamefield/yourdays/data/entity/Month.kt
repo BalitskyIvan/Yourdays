@@ -4,13 +4,15 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import gamefield.yourdays.data.Converters
+import java.util.UUID
 
 @Entity(tableName = "months")
 data class Month(
     @PrimaryKey
-    val id: Int,
-    val monthName: String,
+    val id: UUID,
+    val monthNumber: Int,
+    val year: Int,
 
     @TypeConverters(Converters::class)
-    val months: List<Week>
+    val weeks: List<Week>
 )
