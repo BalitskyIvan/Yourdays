@@ -74,7 +74,7 @@ class MainScreenEmotionFragment : Fragment() {
             emotionContainerHeight = layoutParams.width
 
             setOnClickListener {
-             //   mainScreenViewModel.onFillEmotionClicked()
+                mainScreenViewModel.onFillEmotionClicked()
                 viewModel.onEmotionClicked()
                 binding.clickToFillText.visibility = View.GONE
             }

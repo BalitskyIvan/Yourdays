@@ -29,6 +29,11 @@ class MainScreenFragmentViewModel : ViewModel() {
     private val _clickEmotionFillEvent = MutableLiveData<Boolean>()
     val clickEmotionFillEvent = _clickEmotionFillEvent.toImmutable()
 
+    private val _changeEmotionFragmentOpenCloseAction = MutableLiveData<Boolean>()
+    val changeEmotionFragmentOpeCloseAction = _changeEmotionFragmentOpenCloseAction.toImmutable()
+
+    private var isChangeEmotionContainerOpened = false
+
     private val _emotionsPeriodScrolled = MutableLiveData<Int>()
     val emotionsPeriodScrolled = _emotionsPeriodScrolled.toImmutable()
 
@@ -67,8 +72,17 @@ class MainScreenFragmentViewModel : ViewModel() {
         _sadnessEmotionChangedEvent.value = progress
     }
 
+    fun emotionContainerOkButtonClicked() {
+        isChangeEmotionContainerOpened = false
+        _changeEmotionFragmentOpenCloseAction.postValue(false)
+    }
+
     fun onFillEmotionClicked() {
-        _clickEmotionFillEvent.postValue(true)
+        if (!isChangeEmotionContainerOpened) {
+            isChangeEmotionContainerOpened = true
+            _clickEmotionFillEvent.postValue(true)
+            _changeEmotionFragmentOpenCloseAction.postValue(true)
+        }
     }
 
     fun onEmotionPeriodScrolled(y: Int) {

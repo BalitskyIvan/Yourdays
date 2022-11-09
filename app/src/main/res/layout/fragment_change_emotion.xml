@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="0dp"
+    android:animateLayoutChanges="true"
     android:fitsSystemWindows="true">
 
     <TextView
@@ -23,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="3dp"
-        android:text="5/10"
+        android:text="0/10"
         app:layout_constraintBottom_toTopOf="@id/anxiety"
         app:layout_constraintEnd_toEndOf="@id/anxiety" />
 
@@ -57,7 +58,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="3dp"
-        android:text="5/10"
+        android:text="0/10"
         app:layout_constraintBottom_toTopOf="@id/joy"
         app:layout_constraintEnd_toEndOf="@id/joy" />
 
@@ -90,7 +91,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="3dp"
-        android:text="5/10"
+        android:text="0/10"
         app:layout_constraintBottom_toTopOf="@id/sadness"
         app:layout_constraintEnd_toEndOf="@id/sadness" />
 
@@ -123,7 +124,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="3dp"
-        android:text="5/10"
+        android:text="0/10"
         app:layout_constraintBottom_toTopOf="@id/calmness"
         app:layout_constraintEnd_toEndOf="@id/calmness" />
 
