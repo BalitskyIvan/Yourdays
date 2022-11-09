@@ -13,12 +13,7 @@ class AddDayUseCase(
     private val repository = Repository.getInstance(AppDatabase.getInstance(context = context).monthDao())
 
     suspend operator fun invoke() {
-        repository.addMonth(Month(
-            id = UUID.randomUUID(),
-            monthNumber = 1,
-            year = 2022,
-            weeks = listOf()
-        ))
+
     }
 
 }

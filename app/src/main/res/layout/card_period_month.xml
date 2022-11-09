@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="350dp"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="30dp"
     android:background="@drawable/rounded_corners">
 
     <TextView
@@ -29,8 +30,8 @@
 
     <LinearLayout
         android:id="@+id/card_period_month_first_week"
-        android:layout_width="291dp"
-        android:layout_height="33dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:layout_marginTop="8dp"
         android:orientation="horizontal"
@@ -40,43 +41,43 @@
 
         <FrameLayout
             android:id="@+id/first_week_mon"
-            android:layout_width="33dp"
-            android:layout_height="33dp" />
+            android:layout_width="@dimen/month_emotion_width"
+            android:layout_height="@dimen/month_emotion_height" />
 
         <FrameLayout
             android:id="@+id/first_week_tue"
-            android:layout_width="33dp"
-            android:layout_height="33dp"
+            android:layout_width="@dimen/month_emotion_width"
+            android:layout_height="@dimen/month_emotion_height"
             android:layout_marginStart="10dp" />
 
         <FrameLayout
             android:id="@+id/first_week_wed"
-            android:layout_width="33dp"
-            android:layout_height="33dp"
+            android:layout_width="@dimen/month_emotion_width"
+            android:layout_height="@dimen/month_emotion_height"
             android:layout_marginStart="10dp" />
 
         <FrameLayout
             android:id="@+id/first_week_thu"
-            android:layout_width="33dp"
-            android:layout_height="33dp"
+            android:layout_width="@dimen/month_emotion_width"
+            android:layout_height="@dimen/month_emotion_height"
             android:layout_marginStart="10dp" />
 
         <FrameLayout
             android:id="@+id/first_week_fri"
-            android:layout_width="33dp"
-            android:layout_height="33dp"
+            android:layout_width="@dimen/month_emotion_width"
+            android:layout_height="@dimen/month_emotion_height"
             android:layout_marginStart="10dp" />
 
         <FrameLayout
             android:id="@+id/first_week_sat"
-            android:layout_width="33dp"
-            android:layout_height="33dp"
+            android:layout_width="@dimen/month_emotion_width"
+            android:layout_height="@dimen/month_emotion_height"
             android:layout_marginStart="10dp" />
 
         <FrameLayout
             android:id="@+id/first_week_sun"
-            android:layout_width="33dp"
-            android:layout_height="33dp"
+            android:layout_width="@dimen/month_emotion_width"
+            android:layout_height="@dimen/month_emotion_height"
             android:layout_marginStart="10dp" />
     </LinearLayout>
 
@@ -93,8 +94,8 @@
 
     <LinearLayout
         android:id="@+id/card_period_month_second_week"
-        android:layout_width="291dp"
-        android:layout_height="33dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:layout_marginTop="6dp"
         android:orientation="horizontal"
@@ -104,43 +105,43 @@
 
         <FrameLayout
             android:id="@+id/second_week_mon"
-            android:layout_width="33dp"
-            android:layout_height="33dp" />
+            android:layout_width="@dimen/month_emotion_width"
+            android:layout_height="@dimen/month_emotion_height" />
 
         <FrameLayout
             android:id="@+id/second_week_tue"
-            android:layout_width="33dp"
-            android:layout_height="33dp"
+            android:layout_width="@dimen/month_emotion_width"
+            android:layout_height="@dimen/month_emotion_height"
             android:layout_marginStart="10dp" />
 
         <FrameLayout
             android:id="@+id/second_week_wed"
-            android:layout_width="33dp"
-            android:layout_height="33dp"
+            android:layout_width="@dimen/month_emotion_width"
+            android:layout_height="@dimen/month_emotion_height"
             android:layout_marginStart="10dp" />
 
         <FrameLayout
             android:id="@+id/second_week_thu"
-            android:layout_width="33dp"
-            android:layout_height="33dp"
+            android:layout_width="@dimen/month_emotion_width"
+            android:layout_height="@dimen/month_emotion_height"
             android:layout_marginStart="10dp" />
 
         <FrameLayout
             android:id="@+id/second_week_fri"
-            android:layout_width="33dp"
-            android:layout_height="33dp"
+            android:layout_width="@dimen/month_emotion_width"
+            android:layout_height="@dimen/month_emotion_height"
             android:layout_marginStart="10dp" />
 
         <FrameLayout
             android:id="@+id/second_week_sat"
-            android:layout_width="33dp"
-            android:layout_height="33dp"
+            android:layout_width="@dimen/month_emotion_width"
+            android:layout_height="@dimen/month_emotion_height"
             android:layout_marginStart="10dp" />
 
         <FrameLayout
             android:id="@+id/second_week_sun"
-            android:layout_width="33dp"
-            android:layout_height="33dp"
+            android:layout_width="@dimen/month_emotion_width"
+            android:layout_height="@dimen/month_emotion_height"
             android:layout_marginStart="10dp" />
     </LinearLayout>
 
@@ -157,8 +158,8 @@
 
     <LinearLayout
         android:id="@+id/card_period_month_third_week"
-        android:layout_width="291dp"
-        android:layout_height="33dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:layout_marginTop="6dp"
         android:orientation="horizontal"
@@ -168,43 +169,43 @@
 
         <FrameLayout
             android:id="@+id/third_week_mon"
-            android:layout_width="33dp"
-            android:layout_height="33dp" />
+            android:layout_width="@dimen/month_emotion_width"
+            android:layout_height="@dimen/month_emotion_height" />
 
         <FrameLayout
             android:id="@+id/third_week_tue"
-            android:layout_width="33dp"
-            android:layout_height="33dp"
+            android:layout_width="@dimen/month_emotion_width"
+            android:layout_height="@dimen/month_emotion_height"
             android:layout_marginStart="10dp" />
 
         <FrameLayout
             android:id="@+id/third_week_wed"
-            android:layout_width="33dp"
-            android:layout_height="33dp"
+            android:layout_width="@dimen/month_emotion_width"
+            android:layout_height="@dimen/month_emotion_height"
             android:layout_marginStart="10dp" />
 
         <FrameLayout
             android:id="@+id/third_week_thu"
-            android:layout_width="33dp"
-            android:layout_height="33dp"
+            android:layout_width="@dimen/month_emotion_width"
+            android:layout_height="@dimen/month_emotion_height"
             android:layout_marginStart="10dp" />
 
         <FrameLayout
             android:id="@+id/third_week_fri"
-            android:layout_width="33dp"
-            android:layout_height="33dp"
+            android:layout_width="@dimen/month_emotion_width"
+            android:layout_height="@dimen/month_emotion_height"
             android:layout_marginStart="10dp" />
 
         <FrameLayout
             android:id="@+id/third_week_sat"
-            android:layout_width="33dp"
-            android:layout_height="33dp"
+            android:layout_width="@dimen/month_emotion_width"
+            android:layout_height="@dimen/month_emotion_height"
             android:layout_marginStart="10dp" />
 
         <FrameLayout
             android:id="@+id/third_week_sun"
-            android:layout_width="33dp"
-            android:layout_height="33dp"
+            android:layout_width="@dimen/month_emotion_width"
+            android:layout_height="@dimen/month_emotion_height"
             android:layout_marginStart="10dp" />
     </LinearLayout>
 
@@ -221,8 +222,8 @@
 
     <LinearLayout
         android:id="@+id/card_period_month_fourth_week"
-        android:layout_width="291dp"
-        android:layout_height="33dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:layout_marginTop="6dp"
         android:orientation="horizontal"
@@ -232,43 +233,43 @@
 
         <FrameLayout
             android:id="@+id/fourth_week_mon"
-            android:layout_width="33dp"
-            android:layout_height="33dp" />
+            android:layout_width="@dimen/month_emotion_width"
+            android:layout_height="@dimen/month_emotion_height" />
 
         <FrameLayout
             android:id="@+id/fourth_week_tue"
-            android:layout_width="33dp"
-            android:layout_height="33dp"
+            android:layout_width="@dimen/month_emotion_width"
+            android:layout_height="@dimen/month_emotion_height"
             android:layout_marginStart="10dp" />
 
         <FrameLayout
             android:id="@+id/fourth_week_wed"
-            android:layout_width="33dp"
-            android:layout_height="33dp"
+            android:layout_width="@dimen/month_emotion_width"
+            android:layout_height="@dimen/month_emotion_height"
             android:layout_marginStart="10dp" />
 
         <FrameLayout
             android:id="@+id/fourth_week_thu"
-            android:layout_width="33dp"
-            android:layout_height="33dp"
+            android:layout_width="@dimen/month_emotion_width"
+            android:layout_height="@dimen/month_emotion_height"
             android:layout_marginStart="10dp" />
 
         <FrameLayout
             android:id="@+id/fourth_week_fri"
-            android:layout_width="33dp"
-            android:layout_height="33dp"
+            android:layout_width="@dimen/month_emotion_width"
+            android:layout_height="@dimen/month_emotion_height"
             android:layout_marginStart="10dp" />
 
         <FrameLayout
             android:id="@+id/fourth_week_sat"
-            android:layout_width="33dp"
-            android:layout_height="33dp"
+            android:layout_width="@dimen/month_emotion_width"
+            android:layout_height="@dimen/month_emotion_height"
             android:layout_marginStart="10dp" />
 
         <FrameLayout
             android:id="@+id/fourth_week_sun"
-            android:layout_width="33dp"
-            android:layout_height="33dp"
+            android:layout_width="@dimen/month_emotion_width"
+            android:layout_height="@dimen/month_emotion_height"
             android:layout_marginStart="10dp" />
     </LinearLayout>
 
@@ -285,8 +286,8 @@
 
     <LinearLayout
         android:id="@+id/card_period_month_fifth_week"
-        android:layout_width="291dp"
-        android:layout_height="33dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:layout_marginTop="6dp"
         android:orientation="horizontal"
@@ -296,49 +297,49 @@
 
         <FrameLayout
             android:id="@+id/fifth_week_mon"
-            android:layout_width="33dp"
-            android:layout_height="33dp" />
+            android:layout_width="@dimen/month_emotion_width"
+            android:layout_height="@dimen/month_emotion_height" />
 
         <FrameLayout
             android:id="@+id/fifth_week_tue"
-            android:layout_width="33dp"
-            android:layout_height="33dp"
+            android:layout_width="@dimen/month_emotion_width"
+            android:layout_height="@dimen/month_emotion_height"
             android:layout_marginStart="10dp" />
 
         <FrameLayout
             android:id="@+id/fifth_week_wed"
-            android:layout_width="33dp"
-            android:layout_height="33dp"
+            android:layout_width="@dimen/month_emotion_width"
+            android:layout_height="@dimen/month_emotion_height"
             android:layout_marginStart="10dp" />
 
         <FrameLayout
             android:id="@+id/fifth_week_thu"
-            android:layout_width="33dp"
-            android:layout_height="33dp"
+            android:layout_width="@dimen/month_emotion_width"
+            android:layout_height="@dimen/month_emotion_height"
             android:layout_marginStart="10dp" />
 
         <FrameLayout
             android:id="@+id/fifth_week_fri"
-            android:layout_width="33dp"
-            android:layout_height="33dp"
+            android:layout_width="@dimen/month_emotion_width"
+            android:layout_height="@dimen/month_emotion_height"
             android:layout_marginStart="10dp" />
 
         <FrameLayout
             android:id="@+id/fifth_week_sat"
-            android:layout_width="33dp"
-            android:layout_height="33dp"
+            android:layout_width="@dimen/month_emotion_width"
+            android:layout_height="@dimen/month_emotion_height"
             android:layout_marginStart="10dp" />
 
         <FrameLayout
             android:id="@+id/fifth_week_sun"
-            android:layout_width="33dp"
-            android:layout_height="33dp"
+            android:layout_width="@dimen/month_emotion_width"
+            android:layout_height="@dimen/month_emotion_height"
             android:layout_marginStart="10dp" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/card_period_days_markup"
-        android:layout_width="291dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:layout_marginTop="6dp"
@@ -351,14 +352,14 @@
         <TextView
             android:id="@+id/markup_day_mon"
             style="@style/Text10sp.Center"
-            android:layout_width="33dp"
+            android:layout_width="@dimen/month_emotion_width"
             android:layout_height="wrap_content"
             android:text="@string/mon" />
 
         <TextView
             android:id="@+id/markup_day_tue"
             style="@style/Text10sp.Center"
-            android:layout_width="33dp"
+            android:layout_width="@dimen/month_emotion_width"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:text="@string/tue" />
@@ -366,7 +367,7 @@
         <TextView
             android:id="@+id/markup_day_wed"
             style="@style/Text10sp.Center"
-            android:layout_width="33dp"
+            android:layout_width="@dimen/month_emotion_width"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:text="@string/wed" />
@@ -374,7 +375,7 @@
         <TextView
             android:id="@+id/markup_day_thu"
             style="@style/Text10sp.Center"
-            android:layout_width="33dp"
+            android:layout_width="@dimen/month_emotion_width"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:text="@string/thu" />
@@ -382,7 +383,7 @@
         <TextView
             android:id="@+id/markup_day_fri"
             style="@style/Text10sp.Center"
-            android:layout_width="33dp"
+            android:layout_width="@dimen/month_emotion_width"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:text="@string/fri" />
@@ -390,7 +391,7 @@
         <TextView
             android:id="@+id/markup_day_sat"
             style="@style/Text10sp.Center"
-            android:layout_width="33dp"
+            android:layout_width="@dimen/month_emotion_width"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:text="@string/sat" />
@@ -398,7 +399,7 @@
         <TextView
             android:id="@+id/markup_day_sun"
             style="@style/Text10sp.Center"
-            android:layout_width="33dp"
+            android:layout_width="@dimen/month_emotion_width"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:text="@string/sun" />

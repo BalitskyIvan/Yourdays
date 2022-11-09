@@ -7,24 +7,31 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.get
 import gamefield.yourdays.databinding.FragmentMainScreenEmotionBinding
+import gamefield.yourdays.domain.models.EmotionType
 import gamefield.yourdays.ui.customviews.emotions.EmotionView
 import gamefield.yourdays.ui.customviews.emotions.MinusEmotionView
 import gamefield.yourdays.ui.customviews.emotions.PlusEmotionView
 import gamefield.yourdays.ui.customviews.emotions.ZeroEmotionView
+import gamefield.yourdays.viewmodels.MainScreenFragmentEmotionViewModel
 import gamefield.yourdays.viewmodels.MainScreenFragmentViewModel
 
 class MainScreenEmotionFragment : Fragment() {
 
     private lateinit var binding: FragmentMainScreenEmotionBinding
-    private lateinit var viewModel: MainScreenFragmentViewModel
+    private lateinit var mainScreenViewModel: MainScreenFragmentViewModel
+    private lateinit var viewModel: MainScreenFragmentEmotionViewModel
+
     private var currentEmotion: EmotionView? = null
     private var emotionContainer: FrameLayout? = null
+    private var titleTextSize: Int = 0
     private var emotionContainerWidth: Int = 0
     private var emotionContainerHeight: Int = 0
     private lateinit var minusEmotionView: MinusEmotionView
     private lateinit var plusEmotionView: PlusEmotionView
     private lateinit var zeroEmotionView: ZeroEmotionView
+    private var isAlreadyScrolled = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,16 +45,21 @@ class MainScreenEmotionFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(requireActivity())
+        mainScreenViewModel = ViewModelProvider(requireActivity())
             .get(MainScreenFragmentViewModel::class.java)
+        viewModel = ViewModelProvider(requireActivity())
+            .get(MainScreenFragmentEmotionViewModel::class.java)
+
         observeEmotionChanges()
         observeEmotionsPeriodScrolled()
+        observeAnimation()
+        observeDateAndTitle()
     }
 
     private fun initEmotions() {
-        minusEmotionView = MinusEmotionView(requireContext())
-        plusEmotionView = PlusEmotionView(requireContext())
-        zeroEmotionView = ZeroEmotionView(requireContext())
+        minusEmotionView = MinusEmotionView(requireContext()).apply { isDrawStroke = true }
+        plusEmotionView = PlusEmotionView(requireContext()).apply { isDrawStroke = true }
+        zeroEmotionView = ZeroEmotionView(requireContext()).apply { isDrawStroke = true }
     }
 
     private fun initEmotionContainer() {
@@ -57,37 +69,76 @@ class MainScreenEmotionFragment : Fragment() {
         with(emotionContainer!!) {
             addView(currentEmotion)
             layoutParams
+            titleTextSize = binding.tite.layoutParams.height
             emotionContainerWidth = layoutParams.height
             emotionContainerHeight = layoutParams.width
 
             setOnClickListener {
-                viewModel.onFillEmotionClicked()
+             //   mainScreenViewModel.onFillEmotionClicked()
+                viewModel.onEmotionClicked()
+                binding.clickToFillText.visibility = View.GONE
             }
         }
     }
 
     private fun observeEmotionChanges() {
-        viewModel.anxietyEmotionChangedEvent.observe(viewLifecycleOwner) { anxiety ->
+        mainScreenViewModel.anxietyEmotionChangedEvent.observe(viewLifecycleOwner) { anxiety ->
             currentEmotion?.anxiety = anxiety
         }
-        viewModel.joyEmotionChangedEvent.observe(viewLifecycleOwner) { joy ->
+        mainScreenViewModel.joyEmotionChangedEvent.observe(viewLifecycleOwner) { joy ->
             currentEmotion?.joy = joy
         }
-        viewModel.sadnessEmotionChangedEvent.observe(viewLifecycleOwner) { sadness ->
+        mainScreenViewModel.sadnessEmotionChangedEvent.observe(viewLifecycleOwner) { sadness ->
             currentEmotion?.sadness = sadness
         }
-        viewModel.calmnessEmotionChangedEvent.observe(viewLifecycleOwner) { calmness ->
+        mainScreenViewModel.calmnessEmotionChangedEvent.observe(viewLifecycleOwner) { calmness ->
             currentEmotion?.calmness = calmness
         }
     }
 
     private fun observeEmotionsPeriodScrolled() {
-        viewModel.emotionsPeriodScrolled.observe(viewLifecycleOwner) { y ->
+        mainScreenViewModel.emotionsPeriodScrolled.observe(viewLifecycleOwner) { y ->
             if (y < 600) {
+                isAlreadyScrolled = false
                 emotionContainer?.layoutParams?.height = emotionContainerWidth - (y / 2)
                 emotionContainer?.layoutParams?.width = emotionContainerHeight - (y / 2)
-
+                binding.tite.layoutParams.height = titleTextSize - (y / 10)
+                binding.tite.requestLayout()
                 emotionContainer?.requestLayout()
+
+            } else if (!isAlreadyScrolled) {
+                isAlreadyScrolled = true
+                emotionContainer?.layoutParams?.height = emotionContainerWidth - (600 / 2)
+                emotionContainer?.layoutParams?.width = emotionContainerHeight - (600 / 2)
+                binding.tite.layoutParams.height = titleTextSize - (y / 10)
+                binding.tite.requestLayout()
+                emotionContainer?.requestLayout()
+            }
+        }
+    }
+
+    private fun observeAnimation() {
+        viewModel.currentEmotionType.observe(viewLifecycleOwner) {
+            emotionContainer?.removeView(currentEmotion)
+            currentEmotion = when (it) {
+                EmotionType.PLUS -> plusEmotionView
+                EmotionType.ZERO -> zeroEmotionView
+                EmotionType.MINUS -> minusEmotionView
+                else -> plusEmotionView
+            }
+            emotionContainer?.addView(currentEmotion)
+        }
+        viewModel.emotionContainerAlpha.observe(viewLifecycleOwner) {
+            emotionContainer?.alpha = it
+        }
+    }
+
+    private fun observeDateAndTitle() {
+        viewModel.changeDateWithTitle.observe(viewLifecycleOwner) {
+            with(binding) {
+                val text = titeDate.text
+                titeDate.text = tite.text
+                tite.text = text
             }
         }
     }

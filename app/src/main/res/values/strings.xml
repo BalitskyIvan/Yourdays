@@ -13,7 +13,7 @@
     <string name="september">SEPTEMBER</string>
     <string name="october">OCTOBER</string>
     <string name="november">NOVEMBER</string>
-    <string name="december">DECMBER</string>
+    <string name="december">DECEMBER</string>
 
     <!-- Days -->
     <string name="mon">MON</string>
@@ -37,4 +37,5 @@
     <string name="sadness">SADNESS</string>
     <string name="calmness">CALMNESS</string>
 
+    <string name="click_to_fill">click to fill</string>
 </resources>

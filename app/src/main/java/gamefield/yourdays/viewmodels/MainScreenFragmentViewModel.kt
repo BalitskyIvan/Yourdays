@@ -4,11 +4,12 @@ import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import gamefield.yourdays.data.entity.Month
 import gamefield.yourdays.domain.usecase.AddDayUseCase
 import gamefield.yourdays.domain.usecase.GetAllMonthsListUseCase
+import gamefield.yourdays.domain.usecase.SeedUseCase
 import gamefield.yourdays.extensions.toImmutable
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 
 class MainScreenFragmentViewModel : ViewModel() {
@@ -31,15 +32,22 @@ class MainScreenFragmentViewModel : ViewModel() {
     private val _emotionsPeriodScrolled = MutableLiveData<Int>()
     val emotionsPeriodScrolled = _emotionsPeriodScrolled.toImmutable()
 
+    private val _mothListChangedEvent = MutableLiveData<List<Month>>()
+    val mothListChangedEvent = _mothListChangedEvent.toImmutable()
+
     private lateinit var addDayUseCase: AddDayUseCase
     private lateinit var getAllMonthsListUseCase: GetAllMonthsListUseCase
+    private lateinit var seedUseCase: SeedUseCase
 
     fun initDatabaseWithContext(context: Context) {
         addDayUseCase = AddDayUseCase(context)
         getAllMonthsListUseCase = GetAllMonthsListUseCase(context)
+        seedUseCase = SeedUseCase(context)
 
         viewModelScope.launch(Dispatchers.IO) {
+            seedUseCase.invoke()
             addDayUseCase.invoke()
+            getAllMonthsListUseCase.invoke().collect { _mothListChangedEvent.postValue(it) }
         }
     }
 

@@ -30,7 +30,7 @@ abstract class EmotionView @JvmOverloads constructor(
         xfermode = PorterDuffXfermode(PorterDuff.Mode.SRC_OVER);
     }
 
-    var isDrawStroke = true
+    var isDrawStroke = false
 
     var anxiety = 0
         set(value) {

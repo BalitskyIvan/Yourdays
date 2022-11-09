@@ -8,14 +8,18 @@ class Repository(
     private val monthDao: MonthDao
 ) {
 
-    suspend fun getMonths(): Flow<List<Month>> = monthDao.getAll()
+    fun getMonths(): Flow<List<Month>> = monthDao.getAll()
 
-    suspend fun updateMonth(month: Month) {
+    fun updateMonth(month: Month) {
         monthDao.updateMonth(month = month)
     }
 
-    suspend fun addMonth(month: Month) {
+    fun addMonth(month: Month) {
         monthDao.insertMonth(month = month)
+    }
+
+    fun clear() {
+        monthDao.clearDatabase()
     }
 
     companion object {

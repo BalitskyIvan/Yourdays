@@ -1,6 +1,7 @@
 package gamefield.yourdays.data.dao
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -19,5 +20,8 @@ interface MonthDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertMonth(month: Month)
+
+    @Query("DELETE FROM months")
+    fun clearDatabase()
 
 }
