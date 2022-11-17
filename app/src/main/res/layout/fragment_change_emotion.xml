@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="3dp"
-        android:text="0/10"
+        android:text="@string/emotion_proress_default_text"
         app:layout_constraintBottom_toTopOf="@id/anxiety"
         app:layout_constraintEnd_toEndOf="@id/anxiety" />
 
@@ -58,7 +58,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="3dp"
-        android:text="0/10"
+        android:text="@string/emotion_proress_default_text"
         app:layout_constraintBottom_toTopOf="@id/joy"
         app:layout_constraintEnd_toEndOf="@id/joy" />
 
@@ -91,7 +91,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="3dp"
-        android:text="0/10"
+        android:text="@string/emotion_proress_default_text"
         app:layout_constraintBottom_toTopOf="@id/sadness"
         app:layout_constraintEnd_toEndOf="@id/sadness" />
 
@@ -124,7 +124,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="3dp"
-        android:text="0/10"
+        android:text="@string/emotion_proress_default_text"
         app:layout_constraintBottom_toTopOf="@id/calmness"
         app:layout_constraintEnd_toEndOf="@id/calmness" />
 
@@ -142,7 +142,7 @@
     <gamefield.yourdays.ui.customviews.buttons.OkButton
         android:id="@+id/change_emotion_fragment_ok_button"
         android:layout_width="91dp"
-        android:layout_height="55dp"
+        android:layout_height="45dp"
         android:layout_marginTop="25dp"
         android:layout_marginEnd="15dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -150,7 +150,7 @@
 
     <gamefield.yourdays.ui.customviews.buttons.UploadDayToInstagramButton
         android:layout_width="160dp"
-        android:layout_height="55dp"
+        android:layout_height="45dp"
         android:layout_marginTop="25dp"
         android:layout_marginStart="15dp"
         app:layout_constraintStart_toStartOf="parent"

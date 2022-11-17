@@ -38,4 +38,6 @@
     <string name="calmness">CALMNESS</string>
 
     <string name="click_to_fill">click to fill</string>
+
+    <string name="emotion_proress_default_text">0/10</string>
 </resources>

@@ -4,10 +4,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import gamefield.yourdays.domain.models.EmotionType
+import gamefield.yourdays.utils.animation.ChangingEmotionAnimation
+import gamefield.yourdays.extensions.getNextEmotion
 import gamefield.yourdays.extensions.toImmutable
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.newSingleThreadContext
 
 class MainScreenFragmentEmotionViewModel : ViewModel() {
 
@@ -20,66 +19,56 @@ class MainScreenFragmentEmotionViewModel : ViewModel() {
     private val _changeDateWithTitle = MutableLiveData<Boolean>()
     val changeDateWithTitle = _changeDateWithTitle.toImmutable()
 
-    @Volatile
-    private var alphaState = AlphaState.INCREASE
+    private val _changeClickToFillTextVisibility = MutableLiveData<Boolean>()
+    val changeClickToFillTextVisibility = _changeClickToFillTextVisibility.toImmutable()
 
-    @Volatile
-    private var isAnimationActive: Boolean = true
+    private val _changeFirstTitleVisibility = MutableLiveData<Boolean>()
+    val changeFirstTitleVisibility = _changeFirstTitleVisibility.toImmutable()
+
+    private val changeEmotionAnimation = ChangingEmotionAnimation(
+        viewModelScope = viewModelScope,
+        emotionContainerAlpha = _emotionContainerAlpha,
+        currentEmotionType = _currentEmotionType,
+    )
+
+    private var changeEmotionOnClick: Boolean = false
+
 
     init {
         _currentEmotionType.value = EmotionType.PLUS
         _emotionContainerAlpha.value = 0f
-        startContainerAnimation()
+        changeEmotionAnimation.start()
     }
 
     fun onEmotionClicked() {
-        if (isAnimationActive) {
-            isAnimationActive = false
-            _emotionContainerAlpha.postValue(1f)
-            _changeDateWithTitle.postValue(true)
-        } else {
+        if (changeEmotionOnClick) {
             _currentEmotionType.postValue(_currentEmotionType.value?.getNextEmotion())
+        }
+        if (changeEmotionAnimation.isAnimationActive) {
+            changeEmotionAnimation.isAnimationActive = false
+            _emotionContainerAlpha.postValue(1f)
         }
     }
 
-    private fun startContainerAnimation() {
-        viewModelScope.launch(newSingleThreadContext("EmotionContainerAnimation")) {
-            while (isAnimationActive) {
-                if (alphaState == AlphaState.INCREASE) {
-                    val alpha = _emotionContainerAlpha.value
-                    if (alpha != null && alpha + ALPHA_SPEED > 1) {
-                        alphaState = AlphaState.DECREASE
-                        _emotionContainerAlpha.postValue(1f)
-                    } else if (alpha != null){
-                        _emotionContainerAlpha.postValue(alpha + ALPHA_SPEED)
-                    }
-                } else {
-                    val alpha = _emotionContainerAlpha.value
-                    if (alpha != null && alpha - ALPHA_SPEED < 0.1f) {
-                        alphaState = AlphaState.INCREASE
-                        _currentEmotionType.postValue(_currentEmotionType.value?.getNextEmotion())
-                        _emotionContainerAlpha.postValue(0.1f)
-                    } else if (alpha != null){
-                        _emotionContainerAlpha.postValue(alpha - ALPHA_SPEED)
-                    }
-                }
-                delay(40)
+    fun onOpenCloseChangingEmotionContained(data: CloseChangeEmotionContainerData) {
+        if (data.isOpening) {
+            changeEmotionOnClick = true
+            _changeClickToFillTextVisibility.postValue(false)
+            if (data.isEmotionNotFilled) {
+                _changeFirstTitleVisibility.postValue(true)
+                _changeDateWithTitle.postValue(true)
+            }
+        } else {
+            changeEmotionOnClick = false
+            if (data.isEmotionNotFilled) {
+                _changeDateWithTitle.postValue(true)
+                _changeClickToFillTextVisibility.postValue(true)
+                _changeFirstTitleVisibility.postValue(true)
+                changeEmotionAnimation.start()
+            } else {
+                _changeFirstTitleVisibility.postValue(false)
             }
         }
     }
 
-    private fun EmotionType.getNextEmotion(): EmotionType = when (this) {
-        EmotionType.PLUS -> EmotionType.ZERO
-        EmotionType.ZERO -> EmotionType.MINUS
-        EmotionType.MINUS -> EmotionType.PLUS
-    }
-
-    private companion object {
-        const val ALPHA_SPEED: Float = 0.03f
-    }
-
-    private enum class AlphaState {
-        INCREASE,
-        DECREASE
-    }
 }

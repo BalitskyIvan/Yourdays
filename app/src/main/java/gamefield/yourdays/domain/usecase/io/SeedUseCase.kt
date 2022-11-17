@@ -1,4 +1,4 @@
-package gamefield.yourdays.domain.usecase
+package gamefield.yourdays.domain.usecase.io
 
 import android.content.Context
 import gamefield.yourdays.data.AppDatabase
@@ -22,22 +22,26 @@ class SeedUseCase(
 
     operator fun invoke() {
         repository.clear()
+        putYear()
+
+    }
+
+    private fun putYear() {
         for (i in 1..12)
-        repository.addMonth(
-            Month(
-                id = UUID.randomUUID(),
-                monthNumber = i,
-                year = 2022,
-                weeks = listOf(
-                    Week(getWeek()),
-                    Week(getWeek()),
-                    Week(getWeek()),
-                    Week(getWeek()),
-                    Week(getWeek())
+            repository.addMonth(
+                Month(
+                    id = UUID.randomUUID(),
+                    monthNumber = i,
+                    year = 2022,
+                    weeks = listOf(
+                        Week(getWeek()),
+                        Week(getWeek()),
+                        Week(getWeek()),
+                        Week(getWeek()),
+                        Week(getWeek())
+                    )
                 )
             )
-        )
-
     }
 
     private fun getWeek(): List<Day> {

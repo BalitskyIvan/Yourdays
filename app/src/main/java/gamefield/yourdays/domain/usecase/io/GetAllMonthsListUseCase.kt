@@ -1,4 +1,4 @@
-package gamefield.yourdays.domain.usecase
+package gamefield.yourdays.domain.usecase.io
 
 import android.content.Context
 import gamefield.yourdays.data.AppDatabase
@@ -12,6 +12,6 @@ class GetAllMonthsListUseCase(
 
     private val repository = Repository.getInstance(AppDatabase.getInstance(context = context).monthDao())
 
-    suspend operator fun invoke(): Flow<List<Month>> = repository.getMonths()
+    operator fun invoke(): Flow<List<Month>> = repository.getMonths()
 
 }

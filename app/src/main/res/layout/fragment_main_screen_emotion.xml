@@ -50,5 +50,4 @@
         app:layout_constraintStart_toEndOf="@id/emotionContainer"
         android:text="@string/click_to_fill"/>
 
-
 </androidx.constraintlayout.widget.ConstraintLayout>

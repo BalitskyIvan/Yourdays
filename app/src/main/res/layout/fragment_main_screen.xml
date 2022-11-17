@@ -48,12 +48,12 @@
         android:layout_height="wrap_content"
         android:clipChildren="true"
         android:translationY="-35dp"
+        android:paddingBottom="170dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/main_screen_emotion_container"
-        tools:context=".MainActivity"
-        tools:showIn="@layout/activity_main">
+        tools:context=".MainActivity">
 
         <LinearLayout
             android:layout_width="match_parent"

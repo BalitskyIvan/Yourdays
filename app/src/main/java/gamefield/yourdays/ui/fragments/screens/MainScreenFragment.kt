@@ -55,7 +55,10 @@ class MainScreenFragment : Fragment() {
     }
 
     private fun observeEmotionActions() {
-        viewModel.clickEmotionFillEvent.observe(viewLifecycleOwner) {
+        viewModel.scrollPeriodToTop.observe(viewLifecycleOwner) {
+            binding.mainScreeScrollView.scrollTo(0, 0)
+        }
+        viewModel.smoothScrollPeriodToTop.observe(viewLifecycleOwner) {
             binding.mainScreeScrollView.smoothScrollTo(0, 0)
         }
     }

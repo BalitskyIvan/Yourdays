@@ -53,6 +53,13 @@ abstract class EmotionView @JvmOverloads constructor(
             calculateVerticalGradient()
         }
 
+    fun copyEmotions(prevEmotion: EmotionView) {
+        this.anxiety = prevEmotion.anxiety
+        this.joy = prevEmotion.joy
+        this.sadness = prevEmotion.sadness
+        this.calmness = prevEmotion.calmness
+    }
+
     private fun calculateHorizontalGradient() {
         horizontalPaint.shader = LinearGradient(
             0f,

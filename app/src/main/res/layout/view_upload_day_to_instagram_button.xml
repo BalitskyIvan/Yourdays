@@ -8,8 +8,8 @@
 
     <ImageView
         android:id="@+id/button_upload_to_stories_icon"
-        android:layout_width="33dp"
-        android:layout_height="33dp"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
         android:layout_marginStart="13dp"
         android:src="@drawable/inst"
         app:layout_constraintStart_toStartOf="parent"

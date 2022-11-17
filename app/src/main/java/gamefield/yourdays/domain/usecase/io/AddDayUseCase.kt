@@ -1,10 +1,9 @@
-package gamefield.yourdays.domain.usecase
+package gamefield.yourdays.domain.usecase.io
 
 import android.content.Context
 import gamefield.yourdays.data.AppDatabase
 import gamefield.yourdays.data.Repository
-import gamefield.yourdays.data.entity.Month
-import java.util.UUID
+
 
 class AddDayUseCase(
     context: Context
@@ -12,7 +11,7 @@ class AddDayUseCase(
 
     private val repository = Repository.getInstance(AppDatabase.getInstance(context = context).monthDao())
 
-    suspend operator fun invoke() {
+    operator fun invoke() {
 
     }
 

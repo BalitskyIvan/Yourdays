@@ -6,14 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.get
 import gamefield.yourdays.databinding.FragmentMainScreenEmotionBinding
 import gamefield.yourdays.domain.models.EmotionType
-import gamefield.yourdays.ui.customviews.emotions.EmotionView
-import gamefield.yourdays.ui.customviews.emotions.MinusEmotionView
-import gamefield.yourdays.ui.customviews.emotions.PlusEmotionView
-import gamefield.yourdays.ui.customviews.emotions.ZeroEmotionView
+import gamefield.yourdays.ui.customviews.emotions.*
+import gamefield.yourdays.utils.animation.DateTitleAnimation
 import gamefield.yourdays.viewmodels.MainScreenFragmentEmotionViewModel
 import gamefield.yourdays.viewmodels.MainScreenFragmentViewModel
 
@@ -22,6 +20,8 @@ class MainScreenEmotionFragment : Fragment() {
     private lateinit var binding: FragmentMainScreenEmotionBinding
     private lateinit var mainScreenViewModel: MainScreenFragmentViewModel
     private lateinit var viewModel: MainScreenFragmentEmotionViewModel
+
+    private lateinit var dateTitleAnimation: DateTitleAnimation
 
     private var currentEmotion: EmotionView? = null
     private var emotionContainer: FrameLayout? = null
@@ -38,6 +38,10 @@ class MainScreenEmotionFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentMainScreenEmotionBinding.inflate(inflater, container, false)
+        dateTitleAnimation = DateTitleAnimation(
+            titleFirstView = binding.titeDate,
+            titleSecondView = binding.tite
+        )
         initEmotions()
         initEmotionContainer()
         return binding.root
@@ -49,11 +53,11 @@ class MainScreenEmotionFragment : Fragment() {
             .get(MainScreenFragmentViewModel::class.java)
         viewModel = ViewModelProvider(requireActivity())
             .get(MainScreenFragmentEmotionViewModel::class.java)
-
         observeEmotionChanges()
         observeEmotionsPeriodScrolled()
         observeAnimation()
         observeDateAndTitle()
+        observeViewsVisibility()
     }
 
     private fun initEmotions() {
@@ -65,7 +69,6 @@ class MainScreenEmotionFragment : Fragment() {
     private fun initEmotionContainer() {
         currentEmotion = plusEmotionView
         emotionContainer = binding.emotionContainer
-
         with(emotionContainer!!) {
             addView(currentEmotion)
             layoutParams
@@ -76,7 +79,6 @@ class MainScreenEmotionFragment : Fragment() {
             setOnClickListener {
                 mainScreenViewModel.onFillEmotionClicked()
                 viewModel.onEmotionClicked()
-                binding.clickToFillText.visibility = View.GONE
             }
         }
     }
@@ -118,14 +120,16 @@ class MainScreenEmotionFragment : Fragment() {
     }
 
     private fun observeAnimation() {
-        viewModel.currentEmotionType.observe(viewLifecycleOwner) {
+        viewModel.currentEmotionType.observe(viewLifecycleOwner) { newEmotionType ->
             emotionContainer?.removeView(currentEmotion)
-            currentEmotion = when (it) {
+            val nextEmotion = when (newEmotionType) {
                 EmotionType.PLUS -> plusEmotionView
                 EmotionType.ZERO -> zeroEmotionView
                 EmotionType.MINUS -> minusEmotionView
                 else -> plusEmotionView
             }
+            currentEmotion?.let { nextEmotion.copyEmotions(it) }
+            currentEmotion = nextEmotion
             emotionContainer?.addView(currentEmotion)
         }
         viewModel.emotionContainerAlpha.observe(viewLifecycleOwner) {
@@ -133,14 +137,20 @@ class MainScreenEmotionFragment : Fragment() {
         }
     }
 
-    private fun observeDateAndTitle() {
-        viewModel.changeDateWithTitle.observe(viewLifecycleOwner) {
-            with(binding) {
-                val text = titeDate.text
-                titeDate.text = tite.text
-                tite.text = text
-            }
+    private fun observeViewsVisibility() {
+        viewModel.changeClickToFillTextVisibility.observe(viewLifecycleOwner) { isVisible ->
+            binding.clickToFillText.isVisible = isVisible
         }
+        viewModel.changeFirstTitleVisibility.observe(viewLifecycleOwner) { isVisible ->
+            binding.titeDate.visibility = if(isVisible) View.VISIBLE else View.INVISIBLE
+        }
+    }
+
+    private fun observeDateAndTitle() {
+        mainScreenViewModel.changeEmotionFragmentOpeCloseAction.observe(viewLifecycleOwner) { openCloseActionData ->
+            viewModel.onOpenCloseChangingEmotionContained(data = openCloseActionData)
+        }
+        viewModel.changeDateWithTitle.observe(viewLifecycleOwner) { dateTitleAnimation.start() }
     }
 
     companion object {
