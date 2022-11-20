@@ -4,12 +4,16 @@ import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import gamefield.yourdays.data.entity.Emotion
 import gamefield.yourdays.data.entity.Month
+import gamefield.yourdays.domain.models.EmotionType
 import gamefield.yourdays.domain.usecase.io.AddDayUseCase
 import gamefield.yourdays.domain.usecase.io.GetAllMonthsListUseCase
 import gamefield.yourdays.domain.usecase.io.SeedUseCase
 import gamefield.yourdays.domain.usecase.time_logic.FillNewMonthUseCase
+import gamefield.yourdays.extensions.isEmotionNotFilled
 import gamefield.yourdays.extensions.toImmutable
+import gamefield.yourdays.utils.main_screen.DaySelectedContainer
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.Calendar
@@ -34,6 +38,9 @@ class MainScreenFragmentViewModel : ViewModel() {
     private val _scrollPeriodToTop = MutableLiveData<Boolean>()
     val scrollPeriodToTop = _scrollPeriodToTop.toImmutable()
 
+    private val _daySelectedEvent = MutableLiveData<DaySelectedContainer>()
+    val daySelectedEvent = _daySelectedEvent.toImmutable()
+
     private val _changeEmotionFragmentOpenCloseAction =
         MutableLiveData<CloseChangeEmotionContainerData>()
     val changeEmotionFragmentOpeCloseAction = _changeEmotionFragmentOpenCloseAction.toImmutable()
@@ -47,10 +54,18 @@ class MainScreenFragmentViewModel : ViewModel() {
     private val _mothListChangedEvent = MutableLiveData<List<Month>>()
     val mothListChangedEvent = _mothListChangedEvent.toImmutable()
 
+    private var emotionType: EmotionType = EmotionType.PLUS
+
     private lateinit var addDayUseCase: AddDayUseCase
     private lateinit var getAllMonthsListUseCase: GetAllMonthsListUseCase
     private lateinit var seedUseCase: SeedUseCase
     private lateinit var fillNewMonthUseCase: FillNewMonthUseCase
+
+    private var selectedDate: DaySelectedContainer = DaySelectedContainer(
+        month = Calendar.getInstance().get(Calendar.MONTH),
+        day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH),
+        emotion = null
+    )
 
     init {
         _anxietyEmotionChangedEvent.value = 0
@@ -76,7 +91,10 @@ class MainScreenFragmentViewModel : ViewModel() {
                 calendar.toInstant()
                 var isNeedToFillNewMonth = true
                 monthList.forEach { month ->
-                    if (month.monthNumber == calendar.get(Calendar.MONTH) && month.year == calendar.get(Calendar.YEAR))
+                    if (month.monthNumber == calendar.get(Calendar.MONTH) && month.year == calendar.get(
+                            Calendar.YEAR
+                        )
+                    )
                         isNeedToFillNewMonth = false
                 }
                 if (isNeedToFillNewMonth) {
@@ -108,12 +126,36 @@ class MainScreenFragmentViewModel : ViewModel() {
     fun emotionContainerOkButtonClicked() {
         isFillEmotionClicked = false
         _scrollPeriodToTop.postValue(true)
+        val isEmotionNotFilled = isEmotionNotFilled()
         _changeEmotionFragmentOpenCloseAction.postValue(
             CloseChangeEmotionContainerData(
                 isOpening = false,
-                isEmotionNotFilled = isEmotionNotFilled()
+                isEmotionNotFilled = isEmotionNotFilled
             )
         )
+        if (!isEmotionNotFilled) {
+            mothListChangedEvent.value?.let { monthList ->
+                viewModelScope.launch(Dispatchers.IO) {
+                    monthList.forEach { month ->
+                        if (month.monthNumber == selectedDate.month) {
+                            addDayUseCase.invoke(
+                                month,
+                                selectedDate.day,
+                                Emotion(
+                                    anxiety = anxietyEmotionChangedEvent.value!!,
+                                    joy = joyEmotionChangedEvent.value!!,
+                                    calmness = calmnessEmotionChangedEvent.value!!,
+                                    sadness = sadnessEmotionChangedEvent.value!!,
+                                    type = emotionType
+                                )
+                            )
+                            fetchMonths()
+                        }
+                    }
+
+                }
+            }
+        }
     }
 
     private fun isEmotionNotFilled(): Boolean =
@@ -133,12 +175,27 @@ class MainScreenFragmentViewModel : ViewModel() {
         }
     }
 
+    fun onDaySelected(month: Int, day: Int, emotion: Emotion) {
+        _anxietyEmotionChangedEvent.postValue(emotion.anxiety)
+        _joyEmotionChangedEvent.postValue(emotion.joy)
+        _sadnessEmotionChangedEvent.postValue(emotion.sadness)
+        _calmnessEmotionChangedEvent.postValue(emotion.calmness)
+
+        selectedDate = DaySelectedContainer(day = day, month = month, emotion = emotion)
+        _daySelectedEvent.postValue(selectedDate)
+    }
+
     fun onChangeEmotionContainerOpenCloseAnimationEnd(isOpened: Boolean) {
         isEmotionContainerOpened = isOpened
     }
 
+    fun emotionTypeChanged(emotionType: EmotionType) {
+        this.emotionType = emotionType
+    }
+
     fun onEmotionPeriodScrolled(y: Int) {
         if (isEmotionContainerOpened)
-        _emotionsPeriodScrolled.postValue(y)
+            _emotionsPeriodScrolled.postValue(y)
     }
+
 }

@@ -2,18 +2,18 @@
     <string name="app_name">Yourdays</string>
 
     <!-- Months -->
-    <string name="january">JANUARY</string>
-    <string name="february">FEBRUARY</string>
-    <string name="march">MARCH</string>
-    <string name="april">APRIL</string>
-    <string name="may">MAY</string>
-    <string name="june">JUNE</string>
-    <string name="july">JULY</string>
-    <string name="august">AUGUST</string>
-    <string name="september">SEPTEMBER</string>
-    <string name="october">OCTOBER</string>
-    <string name="november">NOVEMBER</string>
-    <string name="december">DECEMBER</string>
+    <string name="january">January</string>
+    <string name="february">February</string>
+    <string name="march">March</string>
+    <string name="april">April</string>
+    <string name="may">May</string>
+    <string name="june">June</string>
+    <string name="july">July</string>
+    <string name="august">August</string>
+    <string name="september">September</string>
+    <string name="october">October</string>
+    <string name="november">November</string>
+    <string name="december">December</string>
 
     <!-- Days -->
     <string name="mon">MON</string>

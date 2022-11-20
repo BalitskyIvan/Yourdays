@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import gamefield.yourdays.R
+import gamefield.yourdays.data.entity.Emotion
 import gamefield.yourdays.databinding.FragmentMainScreenBinding
 import gamefield.yourdays.ui.adapter.MonthAdapter
 import gamefield.yourdays.ui.fragments.emotion_fragment.ChangeEmotionFragment
@@ -18,7 +19,7 @@ class MainScreenFragment : Fragment() {
 
     private lateinit var binding: FragmentMainScreenBinding
     private lateinit var viewModel: MainScreenFragmentViewModel
-    private val monthAdapter = MonthAdapter()
+    private val monthAdapter = MonthAdapter(onDayClickedAction = this::onDaySelected)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -61,6 +62,10 @@ class MainScreenFragment : Fragment() {
         viewModel.smoothScrollPeriodToTop.observe(viewLifecycleOwner) {
             binding.mainScreeScrollView.smoothScrollTo(0, 0)
         }
+    }
+
+    private fun onDaySelected(month: Int, day: Int, emotion: Emotion) {
+        viewModel.onDaySelected(month, day, emotion)
     }
 
     private fun observeMoths() {

@@ -2,28 +2,41 @@ package gamefield.yourdays.utils.animation
 
 import android.animation.ValueAnimator
 import android.widget.TextView
+import androidx.core.animation.doOnEnd
 
 class DateTitleAnimation(
     private val titleFirstView: TextView,
     private val titleSecondView: TextView
 ) : Animation {
 
-    private val titleFirstViewFirstY: Float = titleFirstView.y
-    private val titleSecondViewFirstY: Float = titleSecondView.y
+    private var titleFirstViewFirstY: Float = titleFirstView.y
+    private var titleSecondViewFirstY: Float = titleSecondView.y
+
+    private var isAnimationInProgress = false
+
+    private var currentDateTitle: TextView = titleFirstView
 
     override fun start() {
-        val titleFirstY = titleFirstView.y
-        val titleSecondY = titleSecondView.y
+        if (isAnimationInProgress)
+            endPreviousAnimation()
+
+        titleFirstViewFirstY = titleFirstView.y
+        titleSecondViewFirstY = titleSecondView.y
+
+        isAnimationInProgress = true
         ValueAnimator
-            .ofFloat(titleFirstY, titleSecondY)
+            .ofFloat(titleFirstViewFirstY, titleSecondViewFirstY)
             .setDuration(600).apply {
                 addUpdateListener {
                     titleSecondView.y = it.animatedValue as Float
                 }
+                doOnEnd {
+                    isAnimationInProgress = false
+                }
             }
             .start()
         ValueAnimator
-            .ofFloat(titleSecondY, titleFirstY)
+            .ofFloat(titleSecondViewFirstY, titleFirstViewFirstY)
             .setDuration(500)
             .apply {
                 addUpdateListener {
@@ -31,9 +44,24 @@ class DateTitleAnimation(
                 }
             }
             .start()
+        swapText()
+    }
+
+    fun setDateTitle(newDate: String) {
+        currentDateTitle.text = newDate
+    }
+
+    private fun endPreviousAnimation() {
+        titleSecondView.y = titleSecondViewFirstY
+        titleFirstView.y = titleFirstViewFirstY
+        isAnimationInProgress = false
+    }
+
+    private fun swapText() {
         val text = titleFirstView.text
         titleFirstView.text = titleSecondView.text
         titleSecondView.text = text
+        currentDateTitle = if (currentDateTitle == titleFirstView) titleSecondView else titleFirstView
     }
 
 }

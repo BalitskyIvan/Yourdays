@@ -53,6 +53,8 @@ class MainScreenEmotionFragment : Fragment() {
             .get(MainScreenFragmentViewModel::class.java)
         viewModel = ViewModelProvider(requireActivity())
             .get(MainScreenFragmentEmotionViewModel::class.java)
+        viewModel.initializeAction(context = view.context)
+
         observeEmotionChanges()
         observeEmotionsPeriodScrolled()
         observeAnimation()
@@ -131,6 +133,7 @@ class MainScreenEmotionFragment : Fragment() {
             currentEmotion?.let { nextEmotion.copyEmotions(it) }
             currentEmotion = nextEmotion
             emotionContainer?.addView(currentEmotion)
+            mainScreenViewModel.emotionTypeChanged(newEmotionType)
         }
         viewModel.emotionContainerAlpha.observe(viewLifecycleOwner) {
             emotionContainer?.alpha = it
@@ -142,7 +145,7 @@ class MainScreenEmotionFragment : Fragment() {
             binding.clickToFillText.isVisible = isVisible
         }
         viewModel.changeFirstTitleVisibility.observe(viewLifecycleOwner) { isVisible ->
-            binding.titeDate.visibility = if(isVisible) View.VISIBLE else View.INVISIBLE
+            binding.titeDate.visibility = if (isVisible) View.VISIBLE else View.INVISIBLE
         }
     }
 
@@ -151,6 +154,13 @@ class MainScreenEmotionFragment : Fragment() {
             viewModel.onOpenCloseChangingEmotionContained(data = openCloseActionData)
         }
         viewModel.changeDateWithTitle.observe(viewLifecycleOwner) { dateTitleAnimation.start() }
+        viewModel.dateTitleChanged.observe(viewLifecycleOwner) { dateTitleAnimation.setDateTitle(newDate = it) }
+        mainScreenViewModel.daySelectedEvent.observe(viewLifecycleOwner) {
+            viewModel.onDayChanged(
+                daySelectedContainer = it,
+                context = requireContext()
+            )
+        }
     }
 
     companion object {

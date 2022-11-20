@@ -20,16 +20,18 @@ class FillNewMonthUseCase(context: Context) {
         var dayInMonth = 1
         val currentYear = calendar.get(Calendar.YEAR)
         val currentMonth = calendar.get(Calendar.MONTH)
+        val currentDay = calendar.get(Calendar.DAY_OF_MONTH)
         val weeksList = mutableListOf<Week>()
+        calendar.firstDayOfWeek = Calendar.SUNDAY
         calendar.set(currentYear, currentMonth, dayInMonth)
 
         val daysInMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH)
-        while (dayInMonth < daysInMonth) {
-            calendar.set(currentYear, currentMonth , dayInMonth)
+        while (dayInMonth < daysInMonth && dayInMonth < currentDay) {
+            calendar.set(currentYear, currentMonth, dayInMonth)
 
             val days = getEmptyWeek()
             var dayInWeekNumber = calendar.get(Calendar.DAY_OF_WEEK)
-            while (dayInWeekNumber <= 7 && dayInMonth < daysInMonth) {
+            while (dayInWeekNumber <= 7 && dayInMonth < daysInMonth && dayInMonth < currentDay) {
                 days.setDay(dayInWeekNumber - 1)
                 dayInWeekNumber++
                 dayInMonth++
