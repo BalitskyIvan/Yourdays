@@ -11,7 +11,7 @@ class ZeroEmotionView @JvmOverloads constructor(
 ) : EmotionView(context, attrs, defStyleAttr, ALPHA_DIVIDER) {
 
     private companion object {
-        const val ALPHA_DIVIDER = 200f
+        const val ALPHA_DIVIDER = 100f
     }
 
     private var circleX = 0f

@@ -37,7 +37,12 @@
     <string name="sadness">SADNESS</string>
     <string name="calmness">CALMNESS</string>
 
+    <!-- Toast -->
+    <string name="cant_change_error_toast">Sorry, you can\'t change the past</string>
+
+    <!-- Messages -->
     <string name="click_to_fill">click to fill</string>
+    <string name="click_to_change_emotion">click to change emotion</string>
 
     <string name="emotion_proress_default_text">0/10</string>
 </resources>

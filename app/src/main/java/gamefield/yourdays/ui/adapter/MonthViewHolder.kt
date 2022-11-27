@@ -75,13 +75,12 @@ class MonthViewHolder(
     private val fifth_week_sixth_day: FrameLayout = view.findViewById(R.id.fifth_week_sat)
     private val fifth_week_seventh_day: FrameLayout = view.findViewById(R.id.fifth_week_sun)
 
-    private var selectedDay: FrameLayout? = null
     private val selectedDayDrawable = view.context.getDrawable(R.drawable.day_selector)
     private var dayIterator = 0
 
     fun bind(month: Month) {
         with(month) {
-            monthTitle.text = monthNumber.getMonthName(context = view.context)
+            monthTitle.text = monthNumber.getMonthName(context = view.context, year = month.year)
             dayIterator = 0
 
             if (weeks.isEmpty())
@@ -176,20 +175,28 @@ class MonthViewHolder(
         removeAllViews()
         addView(dayContainer.view)
         val day = dayIterator
-        setOnClickListener { _ ->
-            selectedDay?.let { it.background = null }
+        if (dayContainer.isSelected) {
             this.background = selectedDayDrawable
-            selectedDay = this
+        } else {
+            this.background = null
+        }
+        setOnClickListener {
             onDayClickedAction.invoke(month, day, dayContainer.emotion)
         }
     }
 
     private fun Day.getEmotionViewFromDay(context: Context): DayContainer? = when(emotion?.type) {
-        EmotionType.ZERO -> DayContainer(view = ZeroEmotionView(context = context).apply { dayIterator++; parseEmotionInEmotionView(emotion!!) }, emotion = emotion!!)
-        EmotionType.PLUS -> DayContainer(view = PlusEmotionView(context = context).apply { dayIterator++; parseEmotionInEmotionView(emotion!!) }, emotion = emotion!!)
-        EmotionType.MINUS -> DayContainer(view = MinusEmotionView(context = context).apply { dayIterator++; parseEmotionInEmotionView(emotion!!) }, emotion = emotion!!)
-        EmotionType.NONE -> DayContainer(view = EmptyEmotionView(context = context).also { dayIterator++ }, emotion = emotion!!)
+        EmotionType.ZERO -> DayContainer(view = ZeroEmotionView(context = context).initDay(day = this), emotion = emotion!!, isSelected = isSelected)
+        EmotionType.PLUS -> DayContainer(view = PlusEmotionView(context = context).initDay(day = this), emotion = emotion!!, isSelected = isSelected)
+        EmotionType.MINUS -> DayContainer(view = MinusEmotionView(context = context).initDay(day = this), emotion = emotion!!, isSelected = isSelected)
+        EmotionType.NONE -> DayContainer(view = EmptyEmotionView(context = context).also { dayIterator++ }, emotion = emotion!!, isSelected = isSelected)
         else -> null
+    }
+
+    private fun EmotionView.initDay(day: Day): EmotionView {
+        dayIterator++
+        parseEmotionInEmotionView(day.emotion!!)
+        return this
     }
 
     private fun EmotionView.parseEmotionInEmotionView(emotion: Emotion) {
@@ -201,7 +208,8 @@ class MonthViewHolder(
 
     private data class DayContainer(
         val view: View,
-        val emotion: Emotion
+        val emotion: Emotion,
+        val isSelected: Boolean
     )
 
 }

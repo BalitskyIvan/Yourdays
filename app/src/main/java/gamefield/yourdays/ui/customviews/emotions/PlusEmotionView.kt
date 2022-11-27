@@ -8,7 +8,7 @@ class PlusEmotionView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
-) : EmotionView(context, attrs, defStyleAttr, 200f) {
+) : EmotionView(context, attrs, defStyleAttr, 100f) {
 
 
     private var drawLeftHorizontal = 0f

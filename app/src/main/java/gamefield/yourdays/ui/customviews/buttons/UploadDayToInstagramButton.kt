@@ -27,10 +27,10 @@ class UploadDayToInstagramButton@JvmOverloads constructor(
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         when(event?.action) {
             MotionEvent.ACTION_DOWN -> {
-                binding.buttonUploadToStoriesText.setTextColor(context.getColor(R.color.white))
+                binding.buttonUploadToStoriesText.setTextColor(context.getColor(R.color.invisible_color))
             }
             MotionEvent.ACTION_UP -> {
-                binding.buttonUploadToStoriesText.setTextColor(context.getColor(R.color.black))
+                binding.buttonUploadToStoriesText.setTextColor(context.getColor(R.color.common_text_color))
             }
         }
         return super.onTouchEvent(event)

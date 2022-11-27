@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="month_emotion_width">40dp</dimen>
-    <dimen name="month_emotion_height">40dp</dimen>
+    <!-- Month card -->
+    <dimen name="month_emotion_width">45dp</dimen>
+    <dimen name="month_emotion_height">45dp</dimen>
+    <dimen name="month_card_margin_top">1dp</dimen>
+    <dimen name="month_card_margin_start">15dp</dimen>
+    <dimen name="month_card_margin_between_days">5dp</dimen>
+    <dimen name="month_card_day_padding">5dp</dimen>
 
     <dimen name="change_emotion_container_height">370dp</dimen>
 

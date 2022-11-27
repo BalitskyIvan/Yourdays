@@ -14,5 +14,5 @@ data class Month(
     val year: Int,
 
     @TypeConverters(Converters::class)
-    val weeks: List<Week>
+    var weeks: List<Week>
 )

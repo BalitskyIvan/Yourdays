@@ -47,8 +47,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clipChildren="true"
-        android:translationY="-35dp"
         android:paddingBottom="170dp"
+        android:translationY="-35dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -65,7 +65,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="35dp"
-                android:clipToPadding="false" />
+                android:clipToPadding="false"
+                android:scrollbarThumbHorizontal="@color/anxiety"
+                android:scrollbarThumbVertical="@color/anxiety" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 

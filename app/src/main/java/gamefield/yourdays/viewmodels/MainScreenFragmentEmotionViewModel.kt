@@ -42,6 +42,8 @@ class MainScreenFragmentEmotionViewModel : ViewModel() {
     private var changeEmotionOnClick: Boolean = false
     private lateinit var calendarNow: Calendar
 
+    private var isDayMutable = true
+
     init {
         _currentEmotionType.value = EmotionType.PLUS
         _emotionContainerAlpha.value = 0f
@@ -60,7 +62,8 @@ class MainScreenFragmentEmotionViewModel : ViewModel() {
 
     fun onEmotionClicked() {
         if (changeEmotionOnClick) {
-            _currentEmotionType.postValue(_currentEmotionType.value?.getNextEmotion())
+            if (isDayMutable)
+                _currentEmotionType.postValue(_currentEmotionType.value?.getNextEmotion())
         }
         if (changeEmotionAnimation.isAnimationActive) {
             changeEmotionAnimation.isAnimationActive = false
@@ -118,6 +121,10 @@ class MainScreenFragmentEmotionViewModel : ViewModel() {
                 _changeFirstTitleVisibility.postValue(false)
             }
         }
+    }
+
+    fun dayMutableChanged(isMutable: Boolean) {
+        this.isDayMutable = isMutable
     }
 
     private companion object {

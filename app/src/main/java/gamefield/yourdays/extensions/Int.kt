@@ -2,8 +2,9 @@ package gamefield.yourdays.extensions
 
 import android.content.Context
 import gamefield.yourdays.R
+import java.util.Calendar
 
-fun Int.getMonthName(isUppercase: Boolean = true, context: Context): String {
+fun Int.getMonthName(isUppercase: Boolean = true, context: Context, year: Int = 0): String {
     var name = when (this) {
         0 -> context.getString(R.string.january)
         1 -> context.getString(R.string.february)
@@ -19,7 +20,11 @@ fun Int.getMonthName(isUppercase: Boolean = true, context: Context): String {
         11 -> context.getString(R.string.december)
         else -> ""
     }
-    if (isUppercase)
+    if (isUppercase) {
+        val currentYear = Calendar.getInstance().get(Calendar.YEAR)
         name = name.uppercase()
+        if (currentYear != year)
+            name = "$name $year"
+    }
     return name
 }

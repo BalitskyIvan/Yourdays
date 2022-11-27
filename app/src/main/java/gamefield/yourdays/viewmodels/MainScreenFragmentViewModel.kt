@@ -1,6 +1,10 @@
 package gamefield.yourdays.viewmodels
 
 import android.content.Context
+import android.graphics.Color
+import androidx.core.graphics.blue
+import androidx.core.graphics.green
+import androidx.core.graphics.red
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -10,8 +14,11 @@ import gamefield.yourdays.domain.models.EmotionType
 import gamefield.yourdays.domain.usecase.io.AddDayUseCase
 import gamefield.yourdays.domain.usecase.io.GetAllMonthsListUseCase
 import gamefield.yourdays.domain.usecase.io.SeedUseCase
+import gamefield.yourdays.domain.usecase.time_logic.FillDaysBeforeNow
 import gamefield.yourdays.domain.usecase.time_logic.FillNewMonthUseCase
-import gamefield.yourdays.extensions.isEmotionNotFilled
+import gamefield.yourdays.domain.usecase.time_logic.IsNeedToAddDaysInMonth
+import gamefield.yourdays.extensions.getDayFromNumberInMonth
+import gamefield.yourdays.extensions.selectCurrentDay
 import gamefield.yourdays.extensions.toImmutable
 import gamefield.yourdays.utils.main_screen.DaySelectedContainer
 import kotlinx.coroutines.Dispatchers
@@ -41,6 +48,12 @@ class MainScreenFragmentViewModel : ViewModel() {
     private val _daySelectedEvent = MutableLiveData<DaySelectedContainer>()
     val daySelectedEvent = _daySelectedEvent.toImmutable()
 
+    private val _isDayMutableChangedEvent = MutableLiveData<Boolean>()
+    val isDayMutableChangedEvent = _isDayMutableChangedEvent.toImmutable()
+
+    private val _showCantChangeEmotionToastEvent = MutableLiveData<Boolean>()
+    val showCantChangeEmotionToastEvent = _showCantChangeEmotionToastEvent.toImmutable()
+
     private val _changeEmotionFragmentOpenCloseAction =
         MutableLiveData<CloseChangeEmotionContainerData>()
     val changeEmotionFragmentOpeCloseAction = _changeEmotionFragmentOpenCloseAction.toImmutable()
@@ -56,10 +69,14 @@ class MainScreenFragmentViewModel : ViewModel() {
 
     private var emotionType: EmotionType = EmotionType.PLUS
 
+    private val calendar = Calendar.getInstance()
+
     private lateinit var addDayUseCase: AddDayUseCase
     private lateinit var getAllMonthsListUseCase: GetAllMonthsListUseCase
     private lateinit var seedUseCase: SeedUseCase
     private lateinit var fillNewMonthUseCase: FillNewMonthUseCase
+    private lateinit var fillDaysBeforeNow: FillDaysBeforeNow
+    private val isNeedToAddDaysInMonth = IsNeedToAddDaysInMonth()
 
     private var selectedDate: DaySelectedContainer = DaySelectedContainer(
         month = Calendar.getInstance().get(Calendar.MONTH),
@@ -67,11 +84,15 @@ class MainScreenFragmentViewModel : ViewModel() {
         emotion = null
     )
 
+    private var isFirstTimeMonthFetched = true
+
     init {
         _anxietyEmotionChangedEvent.value = 0
         _joyEmotionChangedEvent.value = 0
         _calmnessEmotionChangedEvent.value = 0
         _sadnessEmotionChangedEvent.value = 0
+        _showCantChangeEmotionToastEvent.value = false
+        _isDayMutableChangedEvent.value = true
     }
 
     fun initDatabaseWithContext(context: Context) {
@@ -79,29 +100,43 @@ class MainScreenFragmentViewModel : ViewModel() {
         getAllMonthsListUseCase = GetAllMonthsListUseCase(context)
         seedUseCase = SeedUseCase(context)
         fillNewMonthUseCase = FillNewMonthUseCase(context)
+        fillDaysBeforeNow = FillDaysBeforeNow(context)
 
         fetchMonths()
     }
 
     private fun fetchMonths() {
         viewModelScope.launch(Dispatchers.IO) {
-
             getAllMonthsListUseCase.invoke().collect { monthList ->
-                val calendar = Calendar.getInstance()
                 calendar.toInstant()
+
+                val sortedByMonth = monthList.sortedByDescending { it.monthNumber }
+                val sortedMonthList = sortedByMonth.sortedByDescending { it.year }
+
+
                 var isNeedToFillNewMonth = true
-                monthList.forEach { month ->
-                    if (month.monthNumber == calendar.get(Calendar.MONTH) && month.year == calendar.get(
-                            Calendar.YEAR
-                        )
-                    )
+                var currentMonthIndex = 0
+                sortedMonthList.forEachIndexed { index, month ->
+                    if (month.monthNumber == calendar.get(Calendar.MONTH) &&
+                        month.year == calendar.get(Calendar.YEAR)
+                    ) {
                         isNeedToFillNewMonth = false
+                        currentMonthIndex = index
+                    }
                 }
+
                 if (isNeedToFillNewMonth) {
                     fillNewMonthUseCase.invoke()
                     fetchMonths()
                 } else {
-                    _mothListChangedEvent.postValue(monthList)
+                    if (isNeedToAddDaysInMonth.invoke(sortedMonthList[currentMonthIndex])) {
+                        fillDaysBeforeNow.invoke(month = sortedMonthList[currentMonthIndex])
+                        fetchMonths()
+                    } else {
+                        sortedMonthList.selectCurrentDay(daySelectedContainer = daySelectedEvent.value, isSelectCurrentDay = isFirstTimeMonthFetched)
+                        isFirstTimeMonthFetched = false
+                        _mothListChangedEvent.postValue(sortedMonthList)
+                    }
                 }
             }
         }
@@ -175,14 +210,31 @@ class MainScreenFragmentViewModel : ViewModel() {
         }
     }
 
-    fun onDaySelected(month: Int, day: Int, emotion: Emotion) {
-        _anxietyEmotionChangedEvent.postValue(emotion.anxiety)
-        _joyEmotionChangedEvent.postValue(emotion.joy)
-        _sadnessEmotionChangedEvent.postValue(emotion.sadness)
-        _calmnessEmotionChangedEvent.postValue(emotion.calmness)
+    fun onDaySelected(monthNumber: Int, day: Int, emotion: Emotion) {
+        if (_changeEmotionFragmentOpenCloseAction.value?.isOpening != true) {
+            clearSelectedDayAndSelectClicked(monthNumber, day)
+            _anxietyEmotionChangedEvent.value = emotion.anxiety
+            _joyEmotionChangedEvent.value = emotion.joy
+            _sadnessEmotionChangedEvent.value = emotion.sadness
+            _calmnessEmotionChangedEvent.value = emotion.calmness
 
-        selectedDate = DaySelectedContainer(day = day, month = month, emotion = emotion)
-        _daySelectedEvent.postValue(selectedDate)
+            selectedDate = DaySelectedContainer(day = day, month = monthNumber, emotion = emotion)
+            _daySelectedEvent.postValue(selectedDate)
+            val isMutable = day == calendar.get(Calendar.DAY_OF_MONTH) || isEmotionNotFilled()
+            _isDayMutableChangedEvent.postValue(isMutable)
+        }
+    }
+
+    private fun clearSelectedDayAndSelectClicked(monthNumber: Int, day: Int) {
+        _mothListChangedEvent.value?.forEach { month ->
+            if (month.monthNumber == monthNumber) {
+                month.getDayFromNumberInMonth(dayNumber = day)?.isSelected = true
+            }
+            if (selectedDate.month == month.monthNumber) {
+                month.getDayFromNumberInMonth(dayNumber = selectedDate.day)?.isSelected = false
+            }
+        }
+        _mothListChangedEvent.postValue(_mothListChangedEvent.value)
     }
 
     fun onChangeEmotionContainerOpenCloseAnimationEnd(isOpened: Boolean) {
@@ -191,6 +243,11 @@ class MainScreenFragmentViewModel : ViewModel() {
 
     fun emotionTypeChanged(emotionType: EmotionType) {
         this.emotionType = emotionType
+    }
+
+    fun onChangeContainerClicked() {
+        if (_isDayMutableChangedEvent.value == false)
+        _showCantChangeEmotionToastEvent.postValue(true)
     }
 
     fun onEmotionPeriodScrolled(y: Int) {

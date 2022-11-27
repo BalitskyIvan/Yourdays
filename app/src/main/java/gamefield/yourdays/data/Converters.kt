@@ -14,6 +14,13 @@ class Converters {
     }
 
     @TypeConverter
-    fun fromWeekListToString(listOfWeek: List<Week>): String = Gson().toJson(listOfWeek)
+    fun fromWeekListToString(listOfWeek: List<Week>): String {
+        listOfWeek.forEach { week ->
+            for (day in week.days) {
+                day.isSelected = false
+            }
+        }
+        return Gson().toJson(listOfWeek)
+    }
 
 }

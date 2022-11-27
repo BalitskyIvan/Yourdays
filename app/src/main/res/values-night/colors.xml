@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="common_text_color">#FFFFFF</color>
+    <color name="common_stroke_color">#80FFFFFF</color>
+    <color name="invisible_color">#000000</color>
+    <color name="day_selector_color">#66FFFFFF</color>
+    <color name="ok_button_color">#B3FFFFFF</color>
+
+    <color name="background">#000000</color>
+</resources>

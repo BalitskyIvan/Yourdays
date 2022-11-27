@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import gamefield.yourdays.R
@@ -19,7 +20,7 @@ class MainScreenFragment : Fragment() {
 
     private lateinit var binding: FragmentMainScreenBinding
     private lateinit var viewModel: MainScreenFragmentViewModel
-    private val monthAdapter = MonthAdapter(onDayClickedAction = this::onDaySelected)
+    private lateinit var monthAdapter: MonthAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,12 +48,14 @@ class MainScreenFragment : Fragment() {
         binding.mainScreeScrollView.setOnScrollChangeListener { p0, p1, p2, p3, p4 ->
             viewModel.onEmotionPeriodScrolled(y = p2)
         }
+        monthAdapter = MonthAdapter(onDayClickedAction = viewModel::onDaySelected)
         with(binding.monthRecycler) {
             layoutManager = LinearLayoutManager(view.context)
             adapter = monthAdapter
         }
         observeEmotionActions()
         observeMoths()
+        observeShowToast()
     }
 
     private fun observeEmotionActions() {
@@ -64,8 +67,11 @@ class MainScreenFragment : Fragment() {
         }
     }
 
-    private fun onDaySelected(month: Int, day: Int, emotion: Emotion) {
-        viewModel.onDaySelected(month, day, emotion)
+    private fun observeShowToast() {
+        viewModel.showCantChangeEmotionToastEvent.observe(viewLifecycleOwner) { show ->
+            if (show)
+                Toast.makeText(requireContext(), getString(R.string.cant_change_error_toast), Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun observeMoths() {

@@ -60,6 +60,7 @@ class MainScreenEmotionFragment : Fragment() {
         observeAnimation()
         observeDateAndTitle()
         observeViewsVisibility()
+        observeEmotionMutableChanged()
     }
 
     private fun initEmotions() {
@@ -79,6 +80,7 @@ class MainScreenEmotionFragment : Fragment() {
             emotionContainerHeight = layoutParams.width
 
             setOnClickListener {
+                binding.clickToChangeEmotionText.isVisible = false
                 mainScreenViewModel.onFillEmotionClicked()
                 viewModel.onEmotionClicked()
             }
@@ -152,14 +154,27 @@ class MainScreenEmotionFragment : Fragment() {
     private fun observeDateAndTitle() {
         mainScreenViewModel.changeEmotionFragmentOpeCloseAction.observe(viewLifecycleOwner) { openCloseActionData ->
             viewModel.onOpenCloseChangingEmotionContained(data = openCloseActionData)
+            if (openCloseActionData.isOpening && openCloseActionData.isEmotionNotFilled)
+                binding.clickToChangeEmotionText.isVisible = true
+            if (!openCloseActionData.isOpening)
+                binding.clickToChangeEmotionText.isVisible = false
+            binding.uploadMonthToInstagramButton.isVisible = !openCloseActionData.isOpening && !openCloseActionData.isEmotionNotFilled
         }
         viewModel.changeDateWithTitle.observe(viewLifecycleOwner) { dateTitleAnimation.start() }
         viewModel.dateTitleChanged.observe(viewLifecycleOwner) { dateTitleAnimation.setDateTitle(newDate = it) }
         mainScreenViewModel.daySelectedEvent.observe(viewLifecycleOwner) {
+            binding.uploadMonthToInstagramButton.isVisible = it.emotion != null && it.emotion.type != EmotionType.NONE
             viewModel.onDayChanged(
                 daySelectedContainer = it,
                 context = requireContext()
             )
+        }
+    }
+
+    private fun observeEmotionMutableChanged() {
+        mainScreenViewModel.isDayMutableChangedEvent.observe(viewLifecycleOwner) { isMutable ->
+            currentEmotion?.isDrawStroke = isMutable
+            viewModel.dayMutableChanged(isMutable = isMutable)
         }
     }
 

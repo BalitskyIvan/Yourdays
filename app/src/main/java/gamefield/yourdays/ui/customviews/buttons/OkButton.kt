@@ -27,11 +27,11 @@ class OkButton @JvmOverloads constructor(
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         when(event?.action) {
             MotionEvent.ACTION_DOWN -> {
-                binding.buttonOkText.postDelayed({ binding.buttonOkText.setTextColor(context.getColor(R.color.white)) }, 50)
+                binding.buttonOkText.postDelayed({ binding.buttonOkText.setTextColor(context.getColor(R.color.invisible_color)) }, 50)
 
             }
             MotionEvent.ACTION_UP -> {
-                binding.buttonOkText.postDelayed({ binding.buttonOkText.setTextColor(context.getColor(R.color.black)) }, 150)
+                binding.buttonOkText.postDelayed({ binding.buttonOkText.setTextColor(context.getColor(R.color.common_text_color)) }, 150)
             }
         }
         return super.onTouchEvent(event)
