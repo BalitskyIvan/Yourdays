@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import gamefield.yourdays.Navigation
 import gamefield.yourdays.databinding.FragmentExportToInstagramScreenBinding
+import gamefield.yourdays.extensions.setOnRippleClickListener
 import gamefield.yourdays.viewmodels.ExportToInstagramViewModel
 
 class ExportToInstagramScreenFragment : Fragment() {
@@ -35,7 +36,7 @@ class ExportToInstagramScreenFragment : Fragment() {
         viewModel = ViewModelProvider(requireActivity()).get(ExportToInstagramViewModel::class.java)
 
         navigation = requireActivity() as Navigation
-        binding.closeButton.setOnClickListener {
+        binding.closeButton.setOnRippleClickListener {
             navigation.goBack()
         }
         binding.monthButton.setOnClickListener {
