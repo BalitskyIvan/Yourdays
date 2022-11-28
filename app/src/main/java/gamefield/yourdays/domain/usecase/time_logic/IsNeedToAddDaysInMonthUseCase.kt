@@ -3,7 +3,7 @@ package gamefield.yourdays.domain.usecase.time_logic
 import gamefield.yourdays.data.entity.Month
 import java.util.Calendar
 
-class IsNeedToAddDaysInMonth {
+class IsNeedToAddDaysInMonthUseCase {
 
     private val calendar = Calendar.getInstance()
 
@@ -22,7 +22,7 @@ class IsNeedToAddDaysInMonth {
             dayInMonth++
         }
 
-        if (month.weeks[week].days[dayInWeek].emotion == null)
+        if (month.weeks[week].days[dayInWeek - 1].emotion == null)
             return true
 
         return false

@@ -12,34 +12,36 @@ class ChangingEmotionAnimation(
 ) : Animation {
 
     @Volatile
-    var isAnimationActive: Boolean = true
+    var isAnimationActive: Boolean = false
 
     @Volatile
     private var alphaState = AlphaState.INCREASE
 
     override fun start() {
-        isAnimationActive = true
-        viewModelScope.launch(Dispatchers.Default) {
-            while (isAnimationActive) {
-                if (alphaState == AlphaState.INCREASE) {
-                    val alpha = emotionContainerAlpha.value
-                    if (alpha != null && alpha + ALPHA_SPEED > 1) {
-                        alphaState = AlphaState.DECREASE
-                        emotionContainerAlpha.postValue(1f)
-                    } else if (alpha != null) {
-                        emotionContainerAlpha.postValue(alpha + ALPHA_SPEED)
+        if (!isAnimationActive) {
+            isAnimationActive = true
+            viewModelScope.launch(Dispatchers.Default) {
+                while (isAnimationActive) {
+                    if (alphaState == AlphaState.INCREASE) {
+                        val alpha = emotionContainerAlpha.value
+                        if (alpha != null && alpha + ALPHA_SPEED > 1) {
+                            alphaState = AlphaState.DECREASE
+                            emotionContainerAlpha.postValue(1f)
+                        } else if (alpha != null) {
+                            emotionContainerAlpha.postValue(alpha + ALPHA_SPEED)
+                        }
+                    } else {
+                        val alpha = emotionContainerAlpha.value
+                        if (alpha != null && alpha - ALPHA_SPEED < 0.1f) {
+                            alphaState = AlphaState.INCREASE
+                            currentEmotionType.postValue(currentEmotionType.value?.getNextEmotion())
+                            emotionContainerAlpha.postValue(0.1f)
+                        } else if (alpha != null) {
+                            emotionContainerAlpha.postValue(alpha - ALPHA_SPEED)
+                        }
                     }
-                } else {
-                    val alpha = emotionContainerAlpha.value
-                    if (alpha != null && alpha - ALPHA_SPEED < 0.1f) {
-                        alphaState = AlphaState.INCREASE
-                        currentEmotionType.postValue(currentEmotionType.value?.getNextEmotion())
-                        emotionContainerAlpha.postValue(0.1f)
-                    } else if (alpha != null) {
-                        emotionContainerAlpha.postValue(alpha - ALPHA_SPEED)
-                    }
+                    delay(40)
                 }
-                delay(40)
             }
         }
     }

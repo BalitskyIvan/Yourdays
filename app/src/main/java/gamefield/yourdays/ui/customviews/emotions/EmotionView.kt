@@ -4,7 +4,6 @@ import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
 import android.view.View
-import androidx.core.graphics.alpha
 import androidx.core.graphics.blue
 import androidx.core.graphics.green
 import androidx.core.graphics.red
@@ -17,7 +16,7 @@ abstract class EmotionView @JvmOverloads constructor(
     private val alphaDivider: Float = 100f
 ) : View(context, attrs, defStyleAttr) {
 
-    val strokePaintWidth = 3F
+    val strokePaintWidth = context.resources.getDimension(R.dimen.common_stroke_width)
 
     val horizontalPaint = Paint(Paint.FILTER_BITMAP_FLAG)
 

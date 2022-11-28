@@ -10,4 +10,6 @@
 
     <dimen name="change_emotion_container_height">370dp</dimen>
 
+    <dimen name="common_stroke_width">1dp</dimen>
+
 </resources>

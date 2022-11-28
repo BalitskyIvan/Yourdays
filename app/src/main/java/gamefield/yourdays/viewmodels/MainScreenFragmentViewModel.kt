@@ -1,10 +1,6 @@
 package gamefield.yourdays.viewmodels
 
 import android.content.Context
-import android.graphics.Color
-import androidx.core.graphics.blue
-import androidx.core.graphics.green
-import androidx.core.graphics.red
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -14,11 +10,7 @@ import gamefield.yourdays.domain.models.EmotionType
 import gamefield.yourdays.domain.usecase.io.AddDayUseCase
 import gamefield.yourdays.domain.usecase.io.GetAllMonthsListUseCase
 import gamefield.yourdays.domain.usecase.io.SeedUseCase
-import gamefield.yourdays.domain.usecase.time_logic.FillDaysBeforeNow
-import gamefield.yourdays.domain.usecase.time_logic.FillNewMonthUseCase
-import gamefield.yourdays.domain.usecase.time_logic.IsNeedToAddDaysInMonth
 import gamefield.yourdays.extensions.getDayFromNumberInMonth
-import gamefield.yourdays.extensions.selectCurrentDay
 import gamefield.yourdays.extensions.toImmutable
 import gamefield.yourdays.utils.main_screen.DaySelectedContainer
 import kotlinx.coroutines.Dispatchers
@@ -74,17 +66,12 @@ class MainScreenFragmentViewModel : ViewModel() {
     private lateinit var addDayUseCase: AddDayUseCase
     private lateinit var getAllMonthsListUseCase: GetAllMonthsListUseCase
     private lateinit var seedUseCase: SeedUseCase
-    private lateinit var fillNewMonthUseCase: FillNewMonthUseCase
-    private lateinit var fillDaysBeforeNow: FillDaysBeforeNow
-    private val isNeedToAddDaysInMonth = IsNeedToAddDaysInMonth()
 
     private var selectedDate: DaySelectedContainer = DaySelectedContainer(
         month = Calendar.getInstance().get(Calendar.MONTH),
         day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH),
         emotion = null
     )
-
-    private var isFirstTimeMonthFetched = true
 
     init {
         _anxietyEmotionChangedEvent.value = 0
@@ -97,49 +84,19 @@ class MainScreenFragmentViewModel : ViewModel() {
 
     fun initDatabaseWithContext(context: Context) {
         addDayUseCase = AddDayUseCase(context)
-        getAllMonthsListUseCase = GetAllMonthsListUseCase(context)
+        getAllMonthsListUseCase = GetAllMonthsListUseCase(
+            context = context,
+            mothListChangedEvent = _mothListChangedEvent,
+            viewModelScope = viewModelScope,
+            daySelectedEvent = _daySelectedEvent
+        )
         seedUseCase = SeedUseCase(context)
-        fillNewMonthUseCase = FillNewMonthUseCase(context)
-        fillDaysBeforeNow = FillDaysBeforeNow(context)
 
         fetchMonths()
     }
 
     private fun fetchMonths() {
-        viewModelScope.launch(Dispatchers.IO) {
-            getAllMonthsListUseCase.invoke().collect { monthList ->
-                calendar.toInstant()
-
-                val sortedByMonth = monthList.sortedByDescending { it.monthNumber }
-                val sortedMonthList = sortedByMonth.sortedByDescending { it.year }
-
-
-                var isNeedToFillNewMonth = true
-                var currentMonthIndex = 0
-                sortedMonthList.forEachIndexed { index, month ->
-                    if (month.monthNumber == calendar.get(Calendar.MONTH) &&
-                        month.year == calendar.get(Calendar.YEAR)
-                    ) {
-                        isNeedToFillNewMonth = false
-                        currentMonthIndex = index
-                    }
-                }
-
-                if (isNeedToFillNewMonth) {
-                    fillNewMonthUseCase.invoke()
-                    fetchMonths()
-                } else {
-                    if (isNeedToAddDaysInMonth.invoke(sortedMonthList[currentMonthIndex])) {
-                        fillDaysBeforeNow.invoke(month = sortedMonthList[currentMonthIndex])
-                        fetchMonths()
-                    } else {
-                        sortedMonthList.selectCurrentDay(daySelectedContainer = daySelectedEvent.value, isSelectCurrentDay = isFirstTimeMonthFetched)
-                        isFirstTimeMonthFetched = false
-                        _mothListChangedEvent.postValue(sortedMonthList)
-                    }
-                }
-            }
-        }
+        getAllMonthsListUseCase.invoke()
     }
 
     fun anxietyChanged(progress: Int) {
@@ -247,7 +204,7 @@ class MainScreenFragmentViewModel : ViewModel() {
 
     fun onChangeContainerClicked() {
         if (_isDayMutableChangedEvent.value == false)
-        _showCantChangeEmotionToastEvent.postValue(true)
+            _showCantChangeEmotionToastEvent.postValue(true)
     }
 
     fun onEmotionPeriodScrolled(y: Int) {
