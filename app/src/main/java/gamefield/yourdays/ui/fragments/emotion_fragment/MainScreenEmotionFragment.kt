@@ -1,13 +1,14 @@
 package gamefield.yourdays.ui.fragments.emotion_fragment
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
-import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
+import gamefield.yourdays.Navigation
 import gamefield.yourdays.databinding.FragmentMainScreenEmotionBinding
 import gamefield.yourdays.domain.models.EmotionType
 import gamefield.yourdays.ui.customviews.emotions.*
@@ -32,6 +33,7 @@ class MainScreenEmotionFragment : Fragment() {
     private lateinit var plusEmotionView: PlusEmotionView
     private lateinit var zeroEmotionView: ZeroEmotionView
     private var isAlreadyScrolled = false
+    private lateinit var navigation: Navigation
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,7 +56,11 @@ class MainScreenEmotionFragment : Fragment() {
         viewModel = ViewModelProvider(requireActivity())
             .get(MainScreenFragmentEmotionViewModel::class.java)
         viewModel.initializeAction(context = view.context)
+        navigation = requireActivity() as Navigation
 
+        binding.uploadMonthToInstagramButton.setOnClickListener {
+            navigation.goToExportToInstagramScreen()
+        }
         observeEmotionChanges()
         observeEmotionsPeriodScrolled()
         observeAnimation()

@@ -43,6 +43,13 @@
     <!-- Messages -->
     <string name="click_to_fill">click to fill</string>
     <string name="click_to_change_emotion">click to change emotion</string>
+    <string name="enter_month">ENTER MONTH</string>
+    <string name="enter_date">ENTER DATE</string>
+
+    <string name="upload_to_stories">UPLOAD TO STORIES</string>
+    <string name="upload">UPLOAD</string>
+    <string name="month">MONTH</string>
+    <string name="day">DAY</string>
 
     <string name="emotion_proress_default_text">0/10</string>
 </resources>
