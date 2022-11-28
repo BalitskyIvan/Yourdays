@@ -34,7 +34,9 @@ class ChangingEmotionAnimation(
                         val alpha = emotionContainerAlpha.value
                         if (alpha != null && alpha - ALPHA_SPEED < 0.1f) {
                             alphaState = AlphaState.INCREASE
-                            currentEmotionType.postValue(currentEmotionType.value?.getNextEmotion())
+                            currentEmotionType.postValue(
+                                currentEmotionType.value?.getNextEmotion() ?: EmotionType.PLUS
+                            )
                             emotionContainerAlpha.postValue(0.1f)
                         } else if (alpha != null) {
                             emotionContainerAlpha.postValue(alpha - ALPHA_SPEED)
@@ -42,6 +44,8 @@ class ChangingEmotionAnimation(
                     }
                     delay(40)
                 }
+                emotionContainerAlpha.postValue(1f)
+                alphaState = AlphaState.INCREASE
             }
         }
     }

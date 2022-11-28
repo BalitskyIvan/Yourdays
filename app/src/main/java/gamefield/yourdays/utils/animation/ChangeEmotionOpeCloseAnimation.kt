@@ -28,7 +28,7 @@ class ChangeEmotionOpeCloseAnimation(
             endHeight = 0
             startAlpha = endAlpha
             endAlpha = 0f
-            alphaDuration = 300L
+            alphaDuration = 600L
         }
 
         ValueAnimator

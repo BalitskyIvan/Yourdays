@@ -80,7 +80,6 @@ class MainScreenEmotionFragment : Fragment() {
             emotionContainerHeight = layoutParams.width
 
             setOnClickListener {
-                binding.clickToChangeEmotionText.isVisible = false
                 mainScreenViewModel.onFillEmotionClicked()
                 viewModel.onEmotionClicked()
             }
@@ -143,8 +142,14 @@ class MainScreenEmotionFragment : Fragment() {
     }
 
     private fun observeViewsVisibility() {
-        viewModel.changeClickToFillTextVisibility.observe(viewLifecycleOwner) { isVisible ->
-            binding.clickToFillText.isVisible = isVisible
+        viewModel.clickToChangeEmotionTextAlphaChangedEvent.observe(viewLifecycleOwner) { alpha ->
+            binding.clickToChangeEmotionText.alpha = alpha
+        }
+        viewModel.clickToFillTextAlphaChangedEvent.observe(viewLifecycleOwner) { alpha ->
+            binding.clickToFillText.alpha = alpha
+        }
+        viewModel.exportInstagramAlphaChangedEvent.observe(viewLifecycleOwner) { alpha ->
+            binding.uploadMonthToInstagramButton.alpha = alpha
         }
         viewModel.changeFirstTitleVisibility.observe(viewLifecycleOwner) { isVisible ->
             binding.titeDate.visibility = if (isVisible) View.VISIBLE else View.INVISIBLE
@@ -154,16 +159,16 @@ class MainScreenEmotionFragment : Fragment() {
     private fun observeDateAndTitle() {
         mainScreenViewModel.changeEmotionFragmentOpeCloseAction.observe(viewLifecycleOwner) { openCloseActionData ->
             viewModel.onOpenCloseChangingEmotionContained(data = openCloseActionData)
-            if (openCloseActionData.isOpening && openCloseActionData.isEmotionNotFilled)
-                binding.clickToChangeEmotionText.isVisible = true
-            if (!openCloseActionData.isOpening)
-                binding.clickToChangeEmotionText.isVisible = false
-            binding.uploadMonthToInstagramButton.isVisible = !openCloseActionData.isOpening && !openCloseActionData.isEmotionNotFilled
+            if (openCloseActionData.isEmotionNotFilled)
+                setDrawStroke(true)
         }
         viewModel.changeDateWithTitle.observe(viewLifecycleOwner) { dateTitleAnimation.start() }
-        viewModel.dateTitleChanged.observe(viewLifecycleOwner) { dateTitleAnimation.setDateTitle(newDate = it) }
+        viewModel.dateTitleChanged.observe(viewLifecycleOwner) {
+            dateTitleAnimation.setDateTitle(
+                newDate = it
+            )
+        }
         mainScreenViewModel.daySelectedEvent.observe(viewLifecycleOwner) {
-            binding.uploadMonthToInstagramButton.isVisible = it.emotion != null && it.emotion.type != EmotionType.NONE
             viewModel.onDayChanged(
                 daySelectedContainer = it,
                 context = requireContext()
@@ -173,9 +178,15 @@ class MainScreenEmotionFragment : Fragment() {
 
     private fun observeEmotionMutableChanged() {
         mainScreenViewModel.isDayMutableChangedEvent.observe(viewLifecycleOwner) { isMutable ->
-            currentEmotion?.isDrawStroke = isMutable
+            setDrawStroke(isMutable)
             viewModel.dayMutableChanged(isMutable = isMutable)
         }
+    }
+
+    private fun setDrawStroke(isDraw: Boolean) {
+        plusEmotionView.isDrawStroke = isDraw
+        minusEmotionView.isDrawStroke = isDraw
+        zeroEmotionView.isDrawStroke = isDraw
     }
 
     companion object {

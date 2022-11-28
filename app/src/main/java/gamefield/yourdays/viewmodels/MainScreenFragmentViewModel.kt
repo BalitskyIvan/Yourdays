@@ -40,6 +40,8 @@ class MainScreenFragmentViewModel : ViewModel() {
     private val _daySelectedEvent = MutableLiveData<DaySelectedContainer>()
     val daySelectedEvent = _daySelectedEvent.toImmutable()
 
+    private val _currentDaySelected = MutableLiveData<DaySelectedContainer>()
+
     private val _isDayMutableChangedEvent = MutableLiveData<Boolean>()
     val isDayMutableChangedEvent = _isDayMutableChangedEvent.toImmutable()
 
@@ -80,6 +82,10 @@ class MainScreenFragmentViewModel : ViewModel() {
         _sadnessEmotionChangedEvent.value = 0
         _showCantChangeEmotionToastEvent.value = false
         _isDayMutableChangedEvent.value = true
+
+        _currentDaySelected.observeForever { selectedDay ->
+            selectedDay.emotion?.let { onDaySelected(selectedDay.month, selectedDay.day, selectedDay.emotion) }
+        }
     }
 
     fun initDatabaseWithContext(context: Context) {
@@ -88,7 +94,8 @@ class MainScreenFragmentViewModel : ViewModel() {
             context = context,
             mothListChangedEvent = _mothListChangedEvent,
             viewModelScope = viewModelScope,
-            daySelectedEvent = _daySelectedEvent
+            daySelectedEvent = _daySelectedEvent,
+            currentDaySelectedEvent = _currentDaySelected
         )
         seedUseCase = SeedUseCase(context)
 
@@ -183,6 +190,8 @@ class MainScreenFragmentViewModel : ViewModel() {
     }
 
     private fun clearSelectedDayAndSelectClicked(monthNumber: Int, day: Int) {
+        if (monthNumber == selectedDate.month && day == selectedDate.day)
+            return
         _mothListChangedEvent.value?.forEach { month ->
             if (month.monthNumber == monthNumber) {
                 month.getDayFromNumberInMonth(dayNumber = day)?.isSelected = true

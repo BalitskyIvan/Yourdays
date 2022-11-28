@@ -10,6 +10,7 @@ import gamefield.yourdays.utils.animation.ChangingEmotionAnimation
 import gamefield.yourdays.extensions.getNextEmotion
 import gamefield.yourdays.extensions.isEmotionNotFilled
 import gamefield.yourdays.extensions.toImmutable
+import gamefield.yourdays.utils.animation.SoftVisibilityAnimation
 import gamefield.yourdays.utils.main_screen.DaySelectedContainer
 import java.util.Calendar
 
@@ -27,17 +28,30 @@ class MainScreenFragmentEmotionViewModel : ViewModel() {
     private val _dateTitleChanged = MutableLiveData<String>()
     val dateTitleChanged = _dateTitleChanged.toImmutable()
 
-    private val _changeClickToFillTextVisibility = MutableLiveData<Boolean>()
-    val changeClickToFillTextVisibility = _changeClickToFillTextVisibility.toImmutable()
-
     private val _changeFirstTitleVisibility = MutableLiveData<Boolean>()
     val changeFirstTitleVisibility = _changeFirstTitleVisibility.toImmutable()
+
+    private val _clickToFillTextAlphaChangedEvent = MutableLiveData<Float>()
+    val clickToFillTextAlphaChangedEvent = _clickToFillTextAlphaChangedEvent.toImmutable()
+
+    private val _clickToChangeEmotionTextAlphaChangedEvent = MutableLiveData<Float>()
+    val clickToChangeEmotionTextAlphaChangedEvent =
+        _clickToChangeEmotionTextAlphaChangedEvent.toImmutable()
+
+    private val _exportInstagramAlphaChangedEvent = MutableLiveData<Float>()
+    val exportInstagramAlphaChangedEvent = _exportInstagramAlphaChangedEvent.toImmutable()
 
     private val changeEmotionAnimation = ChangingEmotionAnimation(
         viewModelScope = viewModelScope,
         emotionContainerAlpha = _emotionContainerAlpha,
         currentEmotionType = _currentEmotionType,
     )
+    private val clickToFillVisibilityAnimation =
+        SoftVisibilityAnimation(_clickToFillTextAlphaChangedEvent, SoftVisibilityAnimation.State.APPEAR)
+    private val clickToChangeEmotionVisibilityAnimation =
+        SoftVisibilityAnimation(_clickToChangeEmotionTextAlphaChangedEvent, SoftVisibilityAnimation.State.DISAPPEAR)
+    private val exportToInstagramVisibilityAnimation =
+        SoftVisibilityAnimation(_exportInstagramAlphaChangedEvent, SoftVisibilityAnimation.State.APPEAR)
 
     private var changeEmotionOnClick: Boolean = false
     private lateinit var calendarNow: Calendar
@@ -45,10 +59,7 @@ class MainScreenFragmentEmotionViewModel : ViewModel() {
     private var isDayMutable = true
 
     init {
-        _currentEmotionType.value = EmotionType.PLUS
-        _emotionContainerAlpha.value = 0f
-
-        changeEmotionAnimation.start()
+        _clickToChangeEmotionTextAlphaChangedEvent.postValue(0f)
     }
 
     fun initializeAction(context: Context) {
@@ -62,8 +73,10 @@ class MainScreenFragmentEmotionViewModel : ViewModel() {
 
     fun onEmotionClicked() {
         if (changeEmotionOnClick) {
-            if (isDayMutable)
-                _currentEmotionType.postValue(_currentEmotionType.value?.getNextEmotion())
+            if (isDayMutable) {
+                clickToChangeEmotionVisibilityAnimation.start(SoftVisibilityAnimation.State.DISAPPEAR)
+                _currentEmotionType.postValue(_currentEmotionType.value?.getNextEmotion() ?: EmotionType.PLUS)
+            }
         }
         if (changeEmotionAnimation.isAnimationActive) {
             changeEmotionAnimation.isAnimationActive = false
@@ -73,17 +86,21 @@ class MainScreenFragmentEmotionViewModel : ViewModel() {
 
     fun onDayChanged(daySelectedContainer: DaySelectedContainer, context: Context) {
         if (daySelectedContainer.emotion?.isEmotionNotFilled() == true) {
-            _changeClickToFillTextVisibility.postValue(true)
+            exportToInstagramVisibilityAnimation.start(SoftVisibilityAnimation.State.DISAPPEAR)
+            clickToFillVisibilityAnimation.start(SoftVisibilityAnimation.State.APPEAR)
             changeEmotionAnimation.start()
             if (_changeDateWithTitle.value == true) {
                 _changeFirstTitleVisibility.postValue(true)
                 _changeDateWithTitle.postValue(false)
             }
         } else {
-            _changeClickToFillTextVisibility.postValue(false)
+            exportToInstagramVisibilityAnimation.start(SoftVisibilityAnimation.State.APPEAR)
+
+            if (daySelectedContainer.emotion != null && daySelectedContainer.emotion.type != EmotionType.NONE)
+                clickToFillVisibilityAnimation.start(SoftVisibilityAnimation.State.DISAPPEAR)
             _currentEmotionType.value = daySelectedContainer.emotion?.type
-            _emotionContainerAlpha.postValue(1f)
             changeEmotionAnimation.isAnimationActive = false
+            _emotionContainerAlpha.postValue(1f)
 
             if (_changeDateWithTitle.value != true) {
                 _changeFirstTitleVisibility.postValue(false)
@@ -105,19 +122,23 @@ class MainScreenFragmentEmotionViewModel : ViewModel() {
     fun onOpenCloseChangingEmotionContained(data: CloseChangeEmotionContainerData) {
         if (data.isOpening) {
             changeEmotionOnClick = true
-            _changeClickToFillTextVisibility.postValue(false)
+            exportToInstagramVisibilityAnimation.start(SoftVisibilityAnimation.State.DISAPPEAR)
+            clickToFillVisibilityAnimation.start(SoftVisibilityAnimation.State.DISAPPEAR)
             if (data.isEmotionNotFilled) {
+                clickToChangeEmotionVisibilityAnimation.start(SoftVisibilityAnimation.State.APPEAR_FOR_TWO_SECONDS)
                 _changeFirstTitleVisibility.postValue(true)
                 _changeDateWithTitle.postValue(true)
             }
         } else {
             changeEmotionOnClick = false
+            clickToChangeEmotionVisibilityAnimation.start(SoftVisibilityAnimation.State.DISAPPEAR)
             if (data.isEmotionNotFilled) {
                 _changeDateWithTitle.postValue(false)
-                _changeClickToFillTextVisibility.postValue(true)
                 _changeFirstTitleVisibility.postValue(true)
+                clickToFillVisibilityAnimation.start(SoftVisibilityAnimation.State.APPEAR)
                 changeEmotionAnimation.start()
             } else {
+                exportToInstagramVisibilityAnimation.start(SoftVisibilityAnimation.State.APPEAR)
                 _changeFirstTitleVisibility.postValue(false)
             }
         }
