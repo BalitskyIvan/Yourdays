@@ -12,6 +12,7 @@ import gamefield.yourdays.domain.usecase.io.GetAllMonthsListUseCase
 import gamefield.yourdays.domain.usecase.io.SeedUseCase
 import gamefield.yourdays.extensions.getDayFromNumberInMonth
 import gamefield.yourdays.extensions.toImmutable
+import gamefield.yourdays.utils.main_screen.DateToExportData
 import gamefield.yourdays.utils.main_screen.DaySelectedContainer
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -48,6 +49,9 @@ class MainScreenFragmentViewModel : ViewModel() {
     private val _showCantChangeEmotionToastEvent = MutableLiveData<Boolean>()
     val showCantChangeEmotionToastEvent = _showCantChangeEmotionToastEvent.toImmutable()
 
+    private val _navigateToExportScreen = MutableLiveData<DateToExportData?>()
+    val navigateToExportScreen = _navigateToExportScreen.toImmutable()
+
     private val _changeEmotionFragmentOpenCloseAction =
         MutableLiveData<CloseChangeEmotionContainerData>()
     val changeEmotionFragmentOpeCloseAction = _changeEmotionFragmentOpenCloseAction.toImmutable()
@@ -72,6 +76,7 @@ class MainScreenFragmentViewModel : ViewModel() {
     private var selectedDate: DaySelectedContainer = DaySelectedContainer(
         month = Calendar.getInstance().get(Calendar.MONTH),
         day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH),
+        year = Calendar.getInstance().get(Calendar.YEAR),
         emotion = null
     )
 
@@ -84,12 +89,13 @@ class MainScreenFragmentViewModel : ViewModel() {
         _isDayMutableChangedEvent.value = true
 
         _currentDaySelected.observeForever { selectedDay ->
-            selectedDay.emotion?.let { onDaySelected(selectedDay.month, selectedDay.day, selectedDay.emotion) }
+            selectedDay.emotion?.let { onDaySelected(selectedDay.month, selectedDay.day, selectedDay.year, selectedDay.emotion) }
         }
     }
 
     fun initDatabaseWithContext(context: Context) {
         addDayUseCase = AddDayUseCase(context)
+        _navigateToExportScreen.postValue(null)
         getAllMonthsListUseCase = GetAllMonthsListUseCase(
             context = context,
             mothListChangedEvent = _mothListChangedEvent,
@@ -174,7 +180,7 @@ class MainScreenFragmentViewModel : ViewModel() {
         }
     }
 
-    fun onDaySelected(monthNumber: Int, day: Int, emotion: Emotion) {
+    fun onDaySelected(monthNumber: Int, day: Int, year: Int, emotion: Emotion) {
         if (_changeEmotionFragmentOpenCloseAction.value?.isOpening != true) {
             clearSelectedDayAndSelectClicked(monthNumber, day)
             _anxietyEmotionChangedEvent.value = emotion.anxiety
@@ -182,7 +188,7 @@ class MainScreenFragmentViewModel : ViewModel() {
             _sadnessEmotionChangedEvent.value = emotion.sadness
             _calmnessEmotionChangedEvent.value = emotion.calmness
 
-            selectedDate = DaySelectedContainer(day = day, month = monthNumber, emotion = emotion)
+            selectedDate = DaySelectedContainer(day = day, month = monthNumber, year = year, emotion = emotion)
             _daySelectedEvent.postValue(selectedDate)
             val isMutable = day == calendar.get(Calendar.DAY_OF_MONTH) || isEmotionNotFilled()
             _isDayMutableChangedEvent.postValue(isMutable)
@@ -219,6 +225,20 @@ class MainScreenFragmentViewModel : ViewModel() {
     fun onEmotionPeriodScrolled(y: Int) {
         if (isEmotionContainerOpened)
             _emotionsPeriodScrolled.postValue(y)
+    }
+
+    fun onExportToInstagramClicked() {
+        _navigateToExportScreen.postValue(
+            DateToExportData(
+                year = selectedDate.year,
+                month = selectedDate.month,
+                day = selectedDate.day
+            )
+        )
+    }
+
+    fun onNavigate() {
+        _navigateToExportScreen.value = null
     }
 
 }

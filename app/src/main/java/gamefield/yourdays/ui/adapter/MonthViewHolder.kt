@@ -16,7 +16,7 @@ import gamefield.yourdays.ui.customviews.emotions.*
 
 class MonthViewHolder(
     private val view: View,
-    private val onDayClickedAction: (moth: Int, day: Int, emotion: Emotion) -> Unit
+    private val onDayClickedAction: (moth: Int, day: Int, year: Int, emotion: Emotion) -> Unit
 ): RecyclerView.ViewHolder(view) {
 
     private val monthTitle: TextView = view.findViewById(R.id.card_period_month_name)
@@ -85,13 +85,13 @@ class MonthViewHolder(
 
             if (weeks.isEmpty())
                 return
-            weeks[0].days[0].getEmotionViewFromDay(view.context)?.let { first_week_first_day.setEmotion(it, monthNumber) }
-            weeks[0].days[1].getEmotionViewFromDay(view.context)?.let { first_week_second_day.setEmotion(it, monthNumber) }
-            weeks[0].days[2].getEmotionViewFromDay(view.context)?.let { first_week_third_day.setEmotion(it, monthNumber) }
-            weeks[0].days[3].getEmotionViewFromDay(view.context)?.let { first_week_fourth_day.setEmotion(it, monthNumber) }
-            weeks[0].days[4].getEmotionViewFromDay(view.context)?.let { first_week_fifth_day.setEmotion(it, monthNumber) }
-            weeks[0].days[5].getEmotionViewFromDay(view.context)?.let { first_week_sixth_day.setEmotion(it, monthNumber) }
-            weeks[0].days[6].getEmotionViewFromDay(view.context)?.let { first_week_seventh_day.setEmotion(it, monthNumber) }
+            weeks[0].days[0].getEmotionViewFromDay(view.context)?.let { first_week_first_day.setEmotion(it, monthNumber, year) }
+            weeks[0].days[1].getEmotionViewFromDay(view.context)?.let { first_week_second_day.setEmotion(it, monthNumber, year) }
+            weeks[0].days[2].getEmotionViewFromDay(view.context)?.let { first_week_third_day.setEmotion(it, monthNumber, year) }
+            weeks[0].days[3].getEmotionViewFromDay(view.context)?.let { first_week_fourth_day.setEmotion(it, monthNumber, year) }
+            weeks[0].days[4].getEmotionViewFromDay(view.context)?.let { first_week_fifth_day.setEmotion(it, monthNumber, year) }
+            weeks[0].days[5].getEmotionViewFromDay(view.context)?.let { first_week_sixth_day.setEmotion(it, monthNumber, year) }
+            weeks[0].days[6].getEmotionViewFromDay(view.context)?.let { first_week_seventh_day.setEmotion(it, monthNumber, year) }
 
             if (weeks.size < 2) {
                 second_week_layout.visibility = View.GONE
@@ -107,13 +107,13 @@ class MonthViewHolder(
                 second_week_markup.visibility = View.VISIBLE
                 second_week_layout.visibility = View.VISIBLE
             }
-            weeks[1].days[0].getEmotionViewFromDay(view.context)?.let { second_week_first_day.setEmotion(it, monthNumber) }
-            weeks[1].days[1].getEmotionViewFromDay(view.context)?.let { second_week_second_day.setEmotion(it, monthNumber) }
-            weeks[1].days[2].getEmotionViewFromDay(view.context)?.let { second_week_third_day.setEmotion(it, monthNumber) }
-            weeks[1].days[3].getEmotionViewFromDay(view.context)?.let { second_week_fourth_day.setEmotion(it, monthNumber) }
-            weeks[1].days[4].getEmotionViewFromDay(view.context)?.let { second_week_fifth_day.setEmotion(it, monthNumber) }
-            weeks[1].days[5].getEmotionViewFromDay(view.context)?.let { second_week_sixth_day.setEmotion(it, monthNumber) }
-            weeks[1].days[6].getEmotionViewFromDay(view.context)?.let { second_week_seventh_day.setEmotion(it, monthNumber) }
+            weeks[1].days[0].getEmotionViewFromDay(view.context)?.let { second_week_first_day.setEmotion(it, monthNumber, year) }
+            weeks[1].days[1].getEmotionViewFromDay(view.context)?.let { second_week_second_day.setEmotion(it, monthNumber, year) }
+            weeks[1].days[2].getEmotionViewFromDay(view.context)?.let { second_week_third_day.setEmotion(it, monthNumber, year) }
+            weeks[1].days[3].getEmotionViewFromDay(view.context)?.let { second_week_fourth_day.setEmotion(it, monthNumber, year) }
+            weeks[1].days[4].getEmotionViewFromDay(view.context)?.let { second_week_fifth_day.setEmotion(it, monthNumber, year) }
+            weeks[1].days[5].getEmotionViewFromDay(view.context)?.let { second_week_sixth_day.setEmotion(it, monthNumber, year) }
+            weeks[1].days[6].getEmotionViewFromDay(view.context)?.let { second_week_seventh_day.setEmotion(it, monthNumber, year) }
 
             if (weeks.size < 3) {
                 third_week_layout.visibility = View.GONE
@@ -127,13 +127,13 @@ class MonthViewHolder(
                 third_week_markup.visibility = View.VISIBLE
                 third_week_layout.visibility = View.VISIBLE
             }
-            weeks[2].days[0].getEmotionViewFromDay(view.context)?.let { third_week_first_day.setEmotion(it, monthNumber) }
-            weeks[2].days[1].getEmotionViewFromDay(view.context)?.let { third_week_second_day.setEmotion(it, monthNumber) }
-            weeks[2].days[2].getEmotionViewFromDay(view.context)?.let { third_week_third_day.setEmotion(it, monthNumber) }
-            weeks[2].days[3].getEmotionViewFromDay(view.context)?.let { third_week_fourth_day.setEmotion(it, monthNumber) }
-            weeks[2].days[4].getEmotionViewFromDay(view.context)?.let { third_week_fifth_day.setEmotion(it, monthNumber) }
-            weeks[2].days[5].getEmotionViewFromDay(view.context)?.let { third_week_sixth_day.setEmotion(it, monthNumber) }
-            weeks[2].days[6].getEmotionViewFromDay(view.context)?.let { third_week_seventh_day.setEmotion(it, monthNumber) }
+            weeks[2].days[0].getEmotionViewFromDay(view.context)?.let { third_week_first_day.setEmotion(it, monthNumber, year) }
+            weeks[2].days[1].getEmotionViewFromDay(view.context)?.let { third_week_second_day.setEmotion(it, monthNumber, year) }
+            weeks[2].days[2].getEmotionViewFromDay(view.context)?.let { third_week_third_day.setEmotion(it, monthNumber, year) }
+            weeks[2].days[3].getEmotionViewFromDay(view.context)?.let { third_week_fourth_day.setEmotion(it, monthNumber, year) }
+            weeks[2].days[4].getEmotionViewFromDay(view.context)?.let { third_week_fifth_day.setEmotion(it, monthNumber, year) }
+            weeks[2].days[5].getEmotionViewFromDay(view.context)?.let { third_week_sixth_day.setEmotion(it, monthNumber, year) }
+            weeks[2].days[6].getEmotionViewFromDay(view.context)?.let { third_week_seventh_day.setEmotion(it, monthNumber, year) }
 
             if (weeks.size < 4) {
                 fourth_week_layout.visibility = View.GONE
@@ -145,13 +145,13 @@ class MonthViewHolder(
                 fourth_week_markup.visibility = View.VISIBLE
                 fourth_week_layout.visibility = View.VISIBLE
             }
-            weeks[3].days[0].getEmotionViewFromDay(view.context)?.let { fourth_week_first_day.setEmotion(it, monthNumber) }
-            weeks[3].days[1].getEmotionViewFromDay(view.context)?.let { fourth_week_second_day.setEmotion(it, monthNumber) }
-            weeks[3].days[2].getEmotionViewFromDay(view.context)?.let { fourth_week_third_day.setEmotion(it, monthNumber) }
-            weeks[3].days[3].getEmotionViewFromDay(view.context)?.let { fourth_week_fourth_day.setEmotion(it, monthNumber) }
-            weeks[3].days[4].getEmotionViewFromDay(view.context)?.let { fourth_week_fifth_day.setEmotion(it, monthNumber) }
-            weeks[3].days[5].getEmotionViewFromDay(view.context)?.let { fourth_week_sixth_day.setEmotion(it, monthNumber) }
-            weeks[3].days[6].getEmotionViewFromDay(view.context)?.let { fourth_week_seventh_day.setEmotion(it, monthNumber) }
+            weeks[3].days[0].getEmotionViewFromDay(view.context)?.let { fourth_week_first_day.setEmotion(it, monthNumber, year) }
+            weeks[3].days[1].getEmotionViewFromDay(view.context)?.let { fourth_week_second_day.setEmotion(it, monthNumber, year) }
+            weeks[3].days[2].getEmotionViewFromDay(view.context)?.let { fourth_week_third_day.setEmotion(it, monthNumber, year) }
+            weeks[3].days[3].getEmotionViewFromDay(view.context)?.let { fourth_week_fourth_day.setEmotion(it, monthNumber, year) }
+            weeks[3].days[4].getEmotionViewFromDay(view.context)?.let { fourth_week_fifth_day.setEmotion(it, monthNumber, year) }
+            weeks[3].days[5].getEmotionViewFromDay(view.context)?.let { fourth_week_sixth_day.setEmotion(it, monthNumber, year) }
+            weeks[3].days[6].getEmotionViewFromDay(view.context)?.let { fourth_week_seventh_day.setEmotion(it, monthNumber, year) }
 
             if (weeks.size < 5) {
                 fifth_week_layout.visibility = View.GONE
@@ -161,17 +161,17 @@ class MonthViewHolder(
                 fifth_week_markup.visibility = View.VISIBLE
                 fifth_week_layout.visibility = View.VISIBLE
             }
-            weeks[4].days[0].getEmotionViewFromDay(view.context)?.let { fifth_week_first_day.setEmotion(it, monthNumber) }
-            weeks[4].days[1].getEmotionViewFromDay(view.context)?.let { fifth_week_second_day.setEmotion(it, monthNumber) }
-            weeks[4].days[2].getEmotionViewFromDay(view.context)?.let { fifth_week_third_day.setEmotion(it, monthNumber) }
-            weeks[4].days[3].getEmotionViewFromDay(view.context)?.let { fifth_week_fourth_day.setEmotion(it, monthNumber) }
-            weeks[4].days[4].getEmotionViewFromDay(view.context)?.let { fifth_week_fifth_day.setEmotion(it, monthNumber) }
-            weeks[4].days[5].getEmotionViewFromDay(view.context)?.let { fifth_week_sixth_day.setEmotion(it, monthNumber) }
-            weeks[4].days[6].getEmotionViewFromDay(view.context)?.let { fifth_week_seventh_day.setEmotion(it, monthNumber) }
+            weeks[4].days[0].getEmotionViewFromDay(view.context)?.let { fifth_week_first_day.setEmotion(it, monthNumber, year) }
+            weeks[4].days[1].getEmotionViewFromDay(view.context)?.let { fifth_week_second_day.setEmotion(it, monthNumber, year) }
+            weeks[4].days[2].getEmotionViewFromDay(view.context)?.let { fifth_week_third_day.setEmotion(it, monthNumber, year) }
+            weeks[4].days[3].getEmotionViewFromDay(view.context)?.let { fifth_week_fourth_day.setEmotion(it, monthNumber, year) }
+            weeks[4].days[4].getEmotionViewFromDay(view.context)?.let { fifth_week_fifth_day.setEmotion(it, monthNumber, year) }
+            weeks[4].days[5].getEmotionViewFromDay(view.context)?.let { fifth_week_sixth_day.setEmotion(it, monthNumber, year) }
+            weeks[4].days[6].getEmotionViewFromDay(view.context)?.let { fifth_week_seventh_day.setEmotion(it, monthNumber, year) }
         }
     }
 
-    private fun FrameLayout.setEmotion(dayContainer: DayContainer, month: Int) {
+    private fun FrameLayout.setEmotion(dayContainer: DayContainer, month: Int, year: Int) {
         removeAllViews()
         addView(dayContainer.view)
         val day = dayIterator
@@ -181,7 +181,7 @@ class MonthViewHolder(
             this.background = null
         }
         setOnClickListener {
-            onDayClickedAction.invoke(month, day, dayContainer.emotion)
+            onDayClickedAction.invoke(month, day, year, dayContainer.emotion)
         }
     }
 

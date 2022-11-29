@@ -24,15 +24,20 @@ fun Month.getDayFromNumberInMonth(dayNumber: Int): Day? {
 
 fun List<Month>.selectCurrentDay(daySelectedContainer: DaySelectedContainer?, isSelectCurrentDay: Boolean): DaySelectedContainer {
     val calendar = Calendar.getInstance()
+
     val currentMonthNumber: Int
     val currentDayOfMonth: Int
+    val currentYear: Int
+
     var selectedDayEmotion: Emotion? = null
     if (!isSelectCurrentDay && daySelectedContainer != null) {
         currentMonthNumber = daySelectedContainer.month
         currentDayOfMonth = daySelectedContainer.day
+        currentYear = daySelectedContainer.year
     } else {
         currentMonthNumber = calendar.get(Calendar.MONTH)
         currentDayOfMonth = calendar.get(Calendar.DAY_OF_MONTH)
+        currentYear = calendar.get(Calendar.YEAR)
     }
 
     forEach { month ->
@@ -41,5 +46,5 @@ fun List<Month>.selectCurrentDay(daySelectedContainer: DaySelectedContainer?, is
             selectedDayEmotion = searchedDay?.emotion
         }
     }
-    return DaySelectedContainer(currentDayOfMonth, currentMonthNumber, selectedDayEmotion)
+    return DaySelectedContainer(currentDayOfMonth, currentMonthNumber, currentYear, selectedDayEmotion)
 }

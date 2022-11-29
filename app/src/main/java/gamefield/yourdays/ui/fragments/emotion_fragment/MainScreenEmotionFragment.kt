@@ -1,6 +1,5 @@
 package gamefield.yourdays.ui.fragments.emotion_fragment
 
-import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -59,7 +58,7 @@ class MainScreenEmotionFragment : Fragment() {
         navigation = requireActivity() as Navigation
 
         binding.uploadMonthToInstagramButton.setOnClickListener {
-            navigation.goToExportToInstagramScreen()
+            mainScreenViewModel.onExportToInstagramClicked()
         }
         observeEmotionChanges()
         observeEmotionsPeriodScrolled()
@@ -67,6 +66,7 @@ class MainScreenEmotionFragment : Fragment() {
         observeDateAndTitle()
         observeViewsVisibility()
         observeEmotionMutableChanged()
+        observeNavigateToInstagramScreen()
     }
 
     private fun initEmotions() {
@@ -186,6 +186,15 @@ class MainScreenEmotionFragment : Fragment() {
         mainScreenViewModel.isDayMutableChangedEvent.observe(viewLifecycleOwner) { isMutable ->
             setDrawStroke(isMutable)
             viewModel.dayMutableChanged(isMutable = isMutable)
+        }
+    }
+
+    private fun observeNavigateToInstagramScreen() {
+        mainScreenViewModel.navigateToExportScreen.observe(viewLifecycleOwner) {
+            it?.let { dateToExportData ->
+                navigation.goToExportToInstagramScreen(dateToExportData)
+                mainScreenViewModel.onNavigate()
+            }
         }
     }
 

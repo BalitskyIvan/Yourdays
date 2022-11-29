@@ -19,8 +19,8 @@ class GetAllMonthsListUseCase(
     context: Context,
     private val mothListChangedEvent: MutableLiveData<List<Month>>,
     private val viewModelScope: CoroutineScope,
-    private val daySelectedEvent: MutableLiveData<DaySelectedContainer>,
-    private val currentDaySelectedEvent: MutableLiveData<DaySelectedContainer>
+    private val daySelectedEvent: MutableLiveData<DaySelectedContainer>? = null,
+    private val currentDaySelectedEvent: MutableLiveData<DaySelectedContainer>? = null
 ) {
 
     private val repository =
@@ -62,13 +62,15 @@ class GetAllMonthsListUseCase(
     private fun List<Month>.putMonthList() {
         val sortedMonthList = sortMonths()
 
-        val selectedDay = sortedMonthList.selectCurrentDay(
-            daySelectedContainer = daySelectedEvent.value,
-            isSelectCurrentDay = isFirstTimeMonthFetched
-        )
         isFirstTimeMonthFetched = false
         mothListChangedEvent.postValue(sortedMonthList)
-        currentDaySelectedEvent.postValue(selectedDay)
+        if (daySelectedEvent != null) {
+            val selectedDay = sortedMonthList.selectCurrentDay(
+                daySelectedContainer = daySelectedEvent.value,
+                isSelectCurrentDay = isFirstTimeMonthFetched
+            )
+            currentDaySelectedEvent?.postValue(selectedDay)
+        }
     }
 
     private fun List<Month>.getNeedToFillAndMonthIndex(): Pair<Boolean, Int> {

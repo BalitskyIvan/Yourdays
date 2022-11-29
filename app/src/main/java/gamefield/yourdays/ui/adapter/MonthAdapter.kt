@@ -8,7 +8,7 @@ import gamefield.yourdays.data.entity.Emotion
 import gamefield.yourdays.data.entity.Month
 
 class MonthAdapter(
-    private val onDayClickedAction: (moth: Int, day: Int, emotion: Emotion) -> Unit
+    private val onDayClickedAction: (moth: Int, day: Int, year: Int, emotion: Emotion) -> Unit
 ): RecyclerView.Adapter<MonthViewHolder>() {
 
     val months = ArrayList<Month>()

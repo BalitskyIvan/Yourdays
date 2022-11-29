@@ -15,6 +15,21 @@
     <string name="november">November</string>
     <string name="december">December</string>
 
+    <string-array name="moths_array">
+        <item>January</item>
+        <item>February</item>
+        <item>March</item>
+        <item>April</item>
+        <item>May</item>
+        <item>June</item>
+        <item>July</item>
+        <item>August</item>
+        <item>September</item>
+        <item>October</item>
+        <item>November</item>
+        <item>December</item>
+    </string-array>
+
     <!-- Days -->
     <string name="mon">MON</string>
     <string name="tue">TUE</string>
@@ -52,4 +67,6 @@
     <string name="day">DAY</string>
 
     <string name="emotion_proress_default_text">0/10</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
