@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="3dp"
-        android:text="@string/emotion_proress_default_text"
+        android:text="@string/emotion_progress_default_text"
         app:layout_constraintBottom_toTopOf="@id/anxiety"
         app:layout_constraintEnd_toEndOf="@id/anxiety" />
 
@@ -59,7 +59,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="3dp"
-        android:text="@string/emotion_proress_default_text"
+        android:text="@string/emotion_progress_default_text"
         app:layout_constraintBottom_toTopOf="@id/joy"
         app:layout_constraintEnd_toEndOf="@id/joy" />
 
@@ -92,7 +92,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="3dp"
-        android:text="@string/emotion_proress_default_text"
+        android:text="@string/emotion_progress_default_text"
         app:layout_constraintBottom_toTopOf="@id/sadness"
         app:layout_constraintEnd_toEndOf="@id/sadness" />
 
@@ -125,7 +125,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="3dp"
-        android:text="@string/emotion_proress_default_text"
+        android:text="@string/emotion_progress_default_text"
         app:layout_constraintBottom_toTopOf="@id/calmness"
         app:layout_constraintEnd_toEndOf="@id/calmness" />
 

@@ -18,9 +18,9 @@ abstract class EmotionView @JvmOverloads constructor(
 
     val strokePaintWidth = context.resources.getDimension(R.dimen.common_stroke_width)
 
-    val horizontalPaint = Paint(Paint.FILTER_BITMAP_FLAG)
+    val horizontalPaint = Paint(Paint.ANTI_ALIAS_FLAG)
 
-    val verticalPaint = Paint(Paint.FILTER_BITMAP_FLAG)
+    val verticalPaint = Paint(Paint.ANTI_ALIAS_FLAG)
 
     val strokePaint = Paint(Paint.FILTER_BITMAP_FLAG).apply {
         color = context.getColor(R.color.common_stroke_color)

@@ -1,6 +1,12 @@
 package gamefield.yourdays.viewmodels
 
+import android.content.ContentValues
 import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.net.Uri
+import android.os.Environment
+import android.provider.MediaStore
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -11,7 +17,12 @@ import gamefield.yourdays.domain.usecase.period_logic.GetYearsInMonthsListUseCas
 import gamefield.yourdays.extensions.getMonthName
 import gamefield.yourdays.extensions.toImmutable
 import gamefield.yourdays.utils.emum.DatePickerType
-import java.util.Calendar
+import java.io.File
+import java.io.FileFilter
+import java.io.FileOutputStream
+import java.io.IOException
+import java.text.SimpleDateFormat
+import java.util.*
 
 class ExportToInstagramViewModel : ViewModel() {
 
@@ -29,6 +40,12 @@ class ExportToInstagramViewModel : ViewModel() {
 
     private val _monthListInPickerChanged = MutableLiveData<Set<String>>()
     val monthListInPickerChanged = _monthListInPickerChanged.toImmutable()
+
+    private val _openInstagramEvent = MutableLiveData<Uri>()
+    val openInstagramEvent = _openInstagramEvent.toImmutable()
+
+    private val _currentMonthChanged = MutableLiveData<Month>()
+    val currentMonthChanged = _currentMonthChanged.toImmutable()
 
     private val _yearsListInPickerChanged = MutableLiveData<Set<String>>()
     val yearsListInPickerChanged = _yearsListInPickerChanged.toImmutable()
@@ -83,12 +100,59 @@ class ExportToInstagramViewModel : ViewModel() {
         _periodPickerChanged.postValue(DatePickerType.MONTH)
     }
 
-    fun onUploadButtonClicked() {
+    fun onUploadButtonClicked(bitmap: Bitmap, context: Context) {
+        val uri = saveBitmap(context = context, bitmap = bitmap, format = Bitmap.CompressFormat.PNG, mimeType = "", displayName =  Stored_path)
+        _openInstagramEvent.postValue(uri)
+    }
 
+    private fun saveBitmap(
+        context: Context, bitmap: Bitmap, format: Bitmap.CompressFormat,
+        mimeType: String, displayName: String
+    ): Uri {
+
+        val values = ContentValues().apply {
+            put(MediaStore.MediaColumns.DISPLAY_NAME, displayName)
+            put(MediaStore.MediaColumns.MIME_TYPE, mimeType)
+            put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DCIM)
+        }
+
+        var uri: Uri? = null
+
+        return runCatching {
+            with(context.contentResolver) {
+                insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)?.also {
+                    uri = it // Keep uri reference so it can be removed on failure
+
+                    openOutputStream(it)?.use { stream ->
+                        if (!bitmap.compress(format, 100, stream))
+                            throw IOException("Failed to save bitmap.")
+                    } ?: throw IOException("Failed to open output stream.")
+
+                } ?: throw IOException("Failed to create new MediaStore record.")
+            }
+        }.getOrElse {
+            uri?.let { orphanUri ->
+                // Don't leave an orphan entry in the MediaStore
+                context.contentResolver.delete(orphanUri, null, null)
+            }
+
+            throw it
+        }
+    }
+
+    fun onMonthPickerChanged(monthName: String, yearName: String, context: Context) {
+        val pickedMonth = _mothListChangedEvent.value?.find { month ->
+            yearName.toInt() == month.year && month.monthNumber.getMonthName(isUppercase = false, context = context) == monthName
+        }
+        pickedMonth?.let { _currentMonthChanged.postValue(it) }
     }
 
     private companion object {
         const val SELECTED_ALPHA = 1f
         const val UNSELECTED_ALPHA = 0.5f
+
+        val DIRECTORY = Environment.getDownloadCacheDirectory().path + "/YourDays/"
+        val FILENAME = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
+        val Stored_path = "$DIRECTORY$FILENAME.png"
     }
 }

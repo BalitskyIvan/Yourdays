@@ -1,5 +1,10 @@
 package gamefield.yourdays.ui.fragments.screens
 
+import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.LinearGradient
+import android.graphics.Shader
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -12,6 +17,7 @@ import gamefield.yourdays.databinding.FragmentExportToInstagramScreenBinding
 import gamefield.yourdays.extensions.setOnRippleClickListener
 import gamefield.yourdays.ui.fragments.date_picker_fragment.DayPickerFragment
 import gamefield.yourdays.ui.fragments.date_picker_fragment.MonthPickerFragment
+import gamefield.yourdays.ui.fragments.date_picker_fragment.MonthPreviewFragment
 import gamefield.yourdays.utils.emum.DatePickerType
 import gamefield.yourdays.viewmodels.ExportToInstagramViewModel
 import java.util.Calendar
@@ -27,6 +33,8 @@ class ExportToInstagramScreenFragment : Fragment() {
     private var selectedDay: Int = calendar.get(Calendar.DAY_OF_MONTH)
     private var selectedMonth: Int = calendar.get(Calendar.MONTH)
     private var selectedYear: Int = calendar.get(Calendar.YEAR)
+
+    private val monthPreviewFragment = MonthPreviewFragment.newInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,6 +60,14 @@ class ExportToInstagramScreenFragment : Fragment() {
         viewModel.initWithContext(context = requireContext())
 
         navigation = requireActivity() as Navigation
+
+        initButtons()
+        observeButtonSelected()
+        observeOpenDialog()
+        observeOpenInstagram()
+    }
+
+    private fun initButtons() {
         binding.closeButton.setOnRippleClickListener {
             navigation.goBack()
         }
@@ -61,8 +77,25 @@ class ExportToInstagramScreenFragment : Fragment() {
         binding.dayButton.setOnClickListener {
             viewModel.onDayButtonClicked()
         }
-        observeButtonSelected()
-        observeOpenDialog()
+        with(binding.uploadButton) {
+            paint.shader = LinearGradient(
+                0f,
+                0f,
+                layoutParams.width.toFloat(),
+                0f,
+                requireContext().getColor(R.color.instagram_gradient_start_color),
+                requireContext().getColor(R.color.instagram_gradient_end_color),
+                Shader.TileMode.MIRROR
+            )
+            setOnRippleClickListener {
+                with(monthPreviewFragment.requireView()) {
+                    val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+                    val canvas = Canvas(bitmap)
+                    monthPreviewFragment.view?.draw(canvas)
+                    viewModel.onUploadButtonClicked(bitmap, requireContext())
+                }
+            }
+        }
     }
 
     private fun observeButtonSelected() {
@@ -74,17 +107,43 @@ class ExportToInstagramScreenFragment : Fragment() {
         }
     }
 
+    private fun observeOpenInstagram() {
+        viewModel.openInstagramEvent.observe(viewLifecycleOwner) { uri ->
+            Intent("com.instagram.share.ADD_TO_STORY").apply {
+                putExtra("source_application", "124143913125566")
+                type = "image/*"
+                putExtra("interactive_asset_uri", uri)
+                flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
+
+                activity?.startActivityForResult(this, 0);
+            }
+        }
+    }
+
     private fun observeOpenDialog() {
         viewModel.periodPickerChanged.observe(viewLifecycleOwner) { type ->
             childFragmentManager
                 .beginTransaction()
-                .replace(R.id.period_picker_container, when (type!!) {
-                    DatePickerType.DAY -> DayPickerFragment.newInstance()
-                    DatePickerType.MONTH -> MonthPickerFragment.newInstance()
-                })
+                .replace(
+                    R.id.period_picker_container, when (type!!) {
+                        DatePickerType.DAY -> DayPickerFragment.newInstance()
+                        DatePickerType.MONTH -> MonthPickerFragment.newInstance()
+                    }
+                )
+                .commitNow()
+            childFragmentManager
+                .beginTransaction()
+                .replace(
+                    R.id.preview_container,// when (type) {
+                      //  DatePickerType.DAY -> DayPickerFragment.newInstance()
+                       // DatePickerType.MONTH ->
+                    monthPreviewFragment
+             //       }
+                )
                 .commitNow()
         }
     }
+
     companion object {
         private const val DAY_KEY = "DAY_KEY"
         private const val MONTH_KEY = "MONTH_KEY"

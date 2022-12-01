@@ -26,6 +26,7 @@ class MonthPickerFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(requireActivity()).get(ExportToInstagramViewModel::class.java)
         observePickersDataChanged()
+        setPickerListeners()
     }
 
     private fun observePickersDataChanged() {
@@ -39,6 +40,23 @@ class MonthPickerFragment : Fragment() {
             binding.yearPicker.minValue = 0
             binding.yearPicker.maxValue = years.size - 1
         }
+    }
+
+    private fun setPickerListeners() {
+        binding.monthPicker.setOnValueChangedListener { _, _, _ ->
+           onPickerChanged()
+        }
+        binding.yearPicker.setOnValueChangedListener { _, _, _ ->
+            onPickerChanged()
+        }
+    }
+
+    private fun onPickerChanged() {
+        viewModel.onMonthPickerChanged(
+            monthName = binding.monthPicker.displayedValues.get(binding.monthPicker.value),
+            yearName = binding.yearPicker.displayedValues.get(binding.yearPicker.value),
+            context = requireContext()
+        )
     }
 
     companion object {
