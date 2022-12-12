@@ -47,10 +47,15 @@
     <string name="five">5</string>
 
     <!-- Emotions -->
-    <string name="anxiety">ANXIETY</string>
-    <string name="joy">JOY</string>
-    <string name="sadness">SADNESS</string>
-    <string name="calmness">CALMNESS</string>
+    <string name="worry">Worry</string>
+    <string name="happiness">Happiness</string>
+    <string name="sadness">Sadness</string>
+    <string name="productivity">Productivity</string>
+
+    <string name="worry_emoji">😖</string>
+    <string name="happiness_emoji">🤩</string>
+    <string name="sadness_emoji">🙁</string>
+    <string name="productivity_emoji">😎</string>
 
     <!-- Toast -->
     <string name="cant_change_error_toast">Sorry, you can\'t change the past</string>
@@ -67,4 +72,6 @@
     <string name="day">DAY</string>
 
     <string name="emotion_progress_default_text">0/10</string>
+
+    <string name="app_watermark">yourdays app</string>
 </resources>

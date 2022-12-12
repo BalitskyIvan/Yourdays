@@ -11,22 +11,22 @@ fun Day.getEmotionViewFromDay(context: Context): DayContainer? = when(emotion?.t
     EmotionType.ZERO -> DayContainer(
         view = ZeroEmotionView(context = context).initDay(
             day = this
-        ), emotion = emotion!!, isSelected = isSelected
+        ), emotion = emotion!!, isSelected = isSelected, dayNumber = dayInMonth
     )
     EmotionType.PLUS -> DayContainer(
         view = PlusEmotionView(context = context).initDay(
             day = this
-        ), emotion = emotion!!, isSelected = isSelected
+        ), emotion = emotion!!, isSelected = isSelected, dayNumber = dayInMonth
     )
     EmotionType.MINUS -> DayContainer(
         view = MinusEmotionView(context = context).initDay(
             day = this
-        ), emotion = emotion!!, isSelected = isSelected
+        ), emotion = emotion!!, isSelected = isSelected, dayNumber = dayInMonth
     )
     EmotionType.NONE -> DayContainer(
         view = EmptyEmotionView(context = context),
         emotion = emotion!!,
-        isSelected = isSelected
+        isSelected = isSelected, dayNumber = dayInMonth
     )
     else -> null
 }

@@ -51,39 +51,39 @@ class ChangeEmotionFragment : Fragment() {
         }
 
         viewModel.anxietyEmotionChangedEvent.observe(viewLifecycleOwner) { anxiety ->
-            binding.anxietyScore.text = EMOTION_PROGRESS.format(anxiety / 10)
-            binding.anxiety.progress = anxiety
+            binding.worryScore.text = EMOTION_PROGRESS.format(anxiety / 10)
+            binding.worry.progress = anxiety
         }
         viewModel.joyEmotionChangedEvent.observe(viewLifecycleOwner) { joy ->
-            binding.joyScore.text = EMOTION_PROGRESS.format(joy / 10)
-            binding.joy.progress = joy
+            binding.happinessScore.text = EMOTION_PROGRESS.format(joy / 10)
+            binding.happiness.progress = joy
         }
         viewModel.sadnessEmotionChangedEvent.observe(viewLifecycleOwner) { sadness ->
             binding.sadnessScore.text = EMOTION_PROGRESS.format(sadness / 10)
             binding.sadness.progress = sadness
         }
         viewModel.calmnessEmotionChangedEvent.observe(viewLifecycleOwner) { calmness ->
-            binding.calmnessScore.text = EMOTION_PROGRESS.format(calmness / 10)
-            binding.calmness.progress = calmness
+            binding.productivityScore.text = EMOTION_PROGRESS.format(calmness / 10)
+            binding.productivity.progress = calmness
         }
     }
 
     private fun setSeekBarListeners() {
         with(binding) {
-            anxiety.setOnSeekBarChangeListener(EmotionSeekBarListener(viewModel::anxietyChanged))
-            joy.setOnSeekBarChangeListener(EmotionSeekBarListener(viewModel::joyChanged))
+            worry.setOnSeekBarChangeListener(EmotionSeekBarListener(viewModel::anxietyChanged))
+            happiness.setOnSeekBarChangeListener(EmotionSeekBarListener(viewModel::joyChanged))
             sadness.setOnSeekBarChangeListener(EmotionSeekBarListener(viewModel::sadnessChanged))
-            calmness.setOnSeekBarChangeListener(EmotionSeekBarListener(viewModel::calmnessChanged))
+            productivity.setOnSeekBarChangeListener(EmotionSeekBarListener(viewModel::calmnessChanged))
         }
     }
 
     private fun observeEmotionMutableChanged() {
         viewModel.isDayMutableChangedEvent.observe(viewLifecycleOwner) { isMutable ->
             with(binding) {
-                anxiety.isEnabled = isMutable
-                joy.isEnabled = isMutable
+                worry.isEnabled = isMutable
+                happiness.isEnabled = isMutable
                 sadness.isEnabled = isMutable
-                calmness.isEnabled = isMutable
+                productivity.isEnabled = isMutable
             }
         }
     }

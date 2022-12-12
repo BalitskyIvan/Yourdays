@@ -7,9 +7,9 @@
                 <corners android:radius="6dp" />
                 <size android:height="25dp" />
                 <gradient
-                    android:centerColor="@color/anxiety"
+                    android:centerColor="@color/worry"
                     android:endColor="@android:color/transparent"
-                    android:startColor="@color/anxiety" />
+                    android:startColor="@color/worry" />
             </shape>
         </scale>
     </item>

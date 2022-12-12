@@ -8,21 +8,10 @@ class IsNeedToAddDaysInMonthUseCase {
     private val calendar = Calendar.getInstance()
 
     operator fun invoke(month: Month): Boolean {
-        var week = 0
-        var dayInMonth = 0
-        var dayInWeek = 0
-        val currentDayInMonth = calendar.get(Calendar.DAY_OF_MONTH)
+        val week = calendar.get(Calendar.WEEK_OF_MONTH)
+        val currentDayInWeek = calendar.get(Calendar.DAY_OF_WEEK)
 
-        while (month.weeks.size > week && dayInMonth < currentDayInMonth) {
-            if (dayInWeek > 6) {
-                week++
-                dayInWeek = 0
-            }
-            dayInWeek++
-            dayInMonth++
-        }
-
-        if (month.weeks[week].days[dayInWeek - 1].emotion == null)
+        if (month.weeks.size < week || month.weeks[week - 1].days[currentDayInWeek - 1].emotion == null)
             return true
 
         return false

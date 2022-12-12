@@ -33,7 +33,7 @@ class SeedUseCase(
                     id = UUID.randomUUID(),
                     monthNumber = i,
                     year = 2022,
-                    weeks = listOf(
+                    weeks = mutableListOf(
                         Week(getWeek()),
                         Week(getWeek()),
                         Week(getWeek()),
@@ -44,7 +44,7 @@ class SeedUseCase(
             )
     }
 
-    private fun getWeek(): List<Day> {
+    private fun getWeek(): MutableList<Day> {
         val arr = ArrayList<Day>()
         for (i in 1..7)
             arr.add(getRandomDay(i))
@@ -52,7 +52,7 @@ class SeedUseCase(
     }
 
     private fun getRandomDay(number: Int) = Day(
-        number, Emotion(
+        number, 0, Emotion(
             random.nextInt(100),
             random.nextInt(100),
             random.nextInt(100),

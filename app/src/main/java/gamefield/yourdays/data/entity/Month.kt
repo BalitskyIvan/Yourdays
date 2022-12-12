@@ -14,5 +14,5 @@ data class Month(
     val year: Int,
 
     @TypeConverters(Converters::class)
-    var weeks: List<Week>
+    var weeks: MutableList<Week>
 )

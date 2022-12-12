@@ -57,10 +57,10 @@ abstract class EmotionView @JvmOverloads constructor(
             calculateVerticalGradient()
         }
 
-    private val anxietyColor = context.getColor(R.color.anxiety)
-    private val joyColor = context.getColor(R.color.joy)
+    private val anxietyColor = context.getColor(R.color.worry)
+    private val joyColor = context.getColor(R.color.happiness)
     private val sadnessColor = context.getColor(R.color.sadness)
-    private val calmnessColor = context.getColor(R.color.calmness)
+    private val calmnessColor = context.getColor(R.color.productivity)
 
     fun copyEmotions(prevEmotion: EmotionView) {
         this.anxiety = prevEmotion.anxiety

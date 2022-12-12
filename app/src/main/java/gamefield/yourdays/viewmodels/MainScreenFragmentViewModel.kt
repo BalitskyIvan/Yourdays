@@ -1,6 +1,7 @@
 package gamefield.yourdays.viewmodels
 
 import android.content.Context
+import android.content.res.Resources
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -65,13 +66,15 @@ class MainScreenFragmentViewModel : ViewModel() {
     private val _mothListChangedEvent = MutableLiveData<List<Month>>()
     val mothListChangedEvent = _mothListChangedEvent.toImmutable()
 
+    private val _firstDayOfWeekChangedEvent = MutableLiveData<Int>()
+    val firstDayOfWeekChangedEvent = _firstDayOfWeekChangedEvent.toImmutable()
+
     private var emotionType: EmotionType = EmotionType.PLUS
 
     private val calendar = Calendar.getInstance()
 
     private lateinit var addDayUseCase: AddDayUseCase
     private lateinit var getAllMonthsListUseCase: GetAllMonthsListUseCase
-    private lateinit var seedUseCase: SeedUseCase
 
     private var selectedDate: DaySelectedContainer = DaySelectedContainer(
         month = Calendar.getInstance().get(Calendar.MONTH),
@@ -98,12 +101,12 @@ class MainScreenFragmentViewModel : ViewModel() {
         _navigateToExportScreen.postValue(null)
         getAllMonthsListUseCase = GetAllMonthsListUseCase(
             context = context,
+            firstDayOfWeekChanged = _firstDayOfWeekChangedEvent,
             mothListChangedEvent = _mothListChangedEvent,
             viewModelScope = viewModelScope,
             daySelectedEvent = _daySelectedEvent,
             currentDaySelectedEvent = _currentDaySelected
         )
-        seedUseCase = SeedUseCase(context)
 
         fetchMonths()
     }

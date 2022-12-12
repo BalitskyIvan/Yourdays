@@ -3,7 +3,6 @@ package gamefield.yourdays.viewmodels
 import android.content.ContentValues
 import android.content.Context
 import android.graphics.Bitmap
-import android.graphics.Canvas
 import android.net.Uri
 import android.os.Environment
 import android.provider.MediaStore
@@ -17,9 +16,6 @@ import gamefield.yourdays.domain.usecase.period_logic.GetYearsInMonthsListUseCas
 import gamefield.yourdays.extensions.getMonthName
 import gamefield.yourdays.extensions.toImmutable
 import gamefield.yourdays.utils.emum.DatePickerType
-import java.io.File
-import java.io.FileFilter
-import java.io.FileOutputStream
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -50,6 +46,9 @@ class ExportToInstagramViewModel : ViewModel() {
     private val _yearsListInPickerChanged = MutableLiveData<Set<String>>()
     val yearsListInPickerChanged = _yearsListInPickerChanged.toImmutable()
 
+    private val _firstDayOfWeekChangedEvent = MutableLiveData<Int>()
+    val firstDayOfWeekChangedEvent = _firstDayOfWeekChangedEvent.toImmutable()
+
     private var cardType = DatePickerType.MONTH
     private var calendar = Calendar.getInstance()
 
@@ -70,6 +69,7 @@ class ExportToInstagramViewModel : ViewModel() {
 
         val getAllMonthsListUseCase = GetAllMonthsListUseCase(
             context = context,
+            firstDayOfWeekChanged = _firstDayOfWeekChangedEvent,
             mothListChangedEvent = _mothListChangedEvent,
             viewModelScope = viewModelScope,
         )

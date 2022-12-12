@@ -6,9 +6,10 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import gamefield.yourdays.data.dao.MonthDao
+import gamefield.yourdays.data.entity.FirstDayOfWeek
 import gamefield.yourdays.data.entity.Month
 
-@Database(entities = [Month::class], version = 1, exportSchema = true)
+@Database(entities = [Month::class, FirstDayOfWeek::class], version = 1, exportSchema = true)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
 

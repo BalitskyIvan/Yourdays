@@ -1,11 +1,11 @@
 package gamefield.yourdays.data.dao
 
 import androidx.room.Dao
-import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
+import gamefield.yourdays.data.entity.FirstDayOfWeek
 import gamefield.yourdays.data.entity.Month
 import kotlinx.coroutines.flow.Flow
 
@@ -20,6 +20,12 @@ interface MonthDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertMonth(month: Month)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertCalendarFirstDayOfWeek(firstDay: FirstDayOfWeek)
+
+    @Query("SELECT * FROM firstDayOfMonth")
+    fun getCalendarFirstDayOfWeek(): FirstDayOfWeek
 
     @Query("DELETE FROM months")
     fun clearDatabase()

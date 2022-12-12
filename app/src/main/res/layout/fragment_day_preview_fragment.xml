@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="200dp"
+    android:layout_height="320dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/rounded_corners">
+
+    <TextView
+        android:id="@+id/day_preview_date_text"
+        style="@style/Text20sp.Thin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <FrameLayout
+        android:id="@+id/day_preview_emotion_container"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@id/day_preview_date_text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+    
+    <ImageView
+        android:id="@+id/day_preview_worry_emoji"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="16dp"
+        android:src="@drawable/worry_emoji"
+        app:layout_constraintTop_toBottomOf="@id/day_preview_emotion_container"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/day_preview_worry_title"
+        style="@style/Text8sp.WorryColor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/worry"
+        app:layout_constraintStart_toStartOf="@id/day_preview_worry_progress"
+        app:layout_constraintEnd_toEndOf="@id/day_preview_worry_progress"
+        app:layout_constraintBottom_toTopOf="@id/day_preview_worry_progress"/>
+
+    <ImageView
+        android:id="@+id/day_preview_worry_progress"
+        android:layout_width="100dp"
+        android:layout_height="14dp"
+        android:src="@drawable/worry_progress"
+        app:layout_constraintStart_toStartOf="@id/day_preview_emotion_container"
+        app:layout_constraintEnd_toEndOf="@id/day_preview_emotion_container"
+        app:layout_constraintTop_toTopOf="@id/day_preview_worry_emoji"
+        app:layout_constraintBottom_toBottomOf="@id/day_preview_worry_emoji" />
+
+    <TextView
+        android:id="@+id/day_preview_worry_score"
+        style="@style/Text10sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/day_preview_worry_progress"
+        app:layout_constraintBottom_toBottomOf="@id/day_preview_worry_progress" />
+
+
+    <ImageView
+        android:id="@+id/day_preview_happiness_emoji"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginStart="16dp"
+        android:src="@drawable/happiness_emoji"
+        app:layout_constraintTop_toBottomOf="@id/day_preview_worry_emoji"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/day_preview_happiness_title"
+        style="@style/Text8sp.Happiness"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/happiness"
+        app:layout_constraintStart_toStartOf="@id/day_preview_happiness_progress"
+        app:layout_constraintEnd_toEndOf="@id/day_preview_happiness_progress"
+        app:layout_constraintBottom_toTopOf="@id/day_preview_happiness_progress"/>
+
+    <ImageView
+        android:id="@+id/day_preview_happiness_progress"
+        android:layout_width="100dp"
+        android:layout_height="14dp"
+        android:src="@drawable/happiness_progress"
+        app:layout_constraintStart_toStartOf="@id/day_preview_emotion_container"
+        app:layout_constraintEnd_toEndOf="@id/day_preview_emotion_container"
+        app:layout_constraintTop_toTopOf="@id/day_preview_happiness_emoji"
+        app:layout_constraintBottom_toBottomOf="@id/day_preview_happiness_emoji" />
+
+    <TextView
+        android:id="@+id/day_preview_happiness_score"
+        style="@style/Text10sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/day_preview_happiness_progress"
+        app:layout_constraintBottom_toBottomOf="@id/day_preview_happiness_progress" />
+
+
+    <ImageView
+        android:id="@+id/day_preview_sadness_emoji"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginStart="16dp"
+        android:src="@drawable/sadness_emoji"
+        app:layout_constraintTop_toBottomOf="@id/day_preview_happiness_emoji"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/day_preview_sadness_title"
+        style="@style/Text8sp.SadnessColor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sadness"
+        app:layout_constraintStart_toStartOf="@id/day_preview_sadness_progress"
+        app:layout_constraintEnd_toEndOf="@id/day_preview_sadness_progress"
+        app:layout_constraintBottom_toTopOf="@id/day_preview_sadness_progress"/>
+
+    <ImageView
+        android:id="@+id/day_preview_sadness_progress"
+        android:layout_width="100dp"
+        android:layout_height="14dp"
+        android:src="@drawable/sadness_progress"
+        app:layout_constraintStart_toStartOf="@id/day_preview_emotion_container"
+        app:layout_constraintEnd_toEndOf="@id/day_preview_emotion_container"
+        app:layout_constraintTop_toTopOf="@id/day_preview_sadness_emoji"
+        app:layout_constraintBottom_toBottomOf="@id/day_preview_sadness_emoji" />
+
+    <TextView
+        android:id="@+id/day_preview_sadness_score"
+        style="@style/Text10sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/day_preview_sadness_progress"
+        app:layout_constraintBottom_toBottomOf="@id/day_preview_sadness_progress" />
+
+
+    <ImageView
+        android:id="@+id/day_preview_productivity_emoji"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginStart="16dp"
+        android:src="@drawable/productivity_emoji"
+        app:layout_constraintTop_toBottomOf="@id/day_preview_sadness_emoji"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/day_preview_productivity_title"
+        style="@style/Text8sp.ProductivityColor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/productivity"
+        app:layout_constraintStart_toStartOf="@id/day_preview_productivity_progress"
+        app:layout_constraintEnd_toEndOf="@id/day_preview_productivity_progress"
+        app:layout_constraintBottom_toTopOf="@id/day_preview_productivity_progress"/>
+
+    <ImageView
+        android:id="@+id/day_preview_productivity_progress"
+        android:layout_width="100dp"
+        android:layout_height="14dp"
+        android:src="@drawable/productivity_progress"
+        app:layout_constraintStart_toStartOf="@id/day_preview_emotion_container"
+        app:layout_constraintEnd_toEndOf="@id/day_preview_emotion_container"
+        app:layout_constraintTop_toTopOf="@id/day_preview_productivity_emoji"
+        app:layout_constraintBottom_toBottomOf="@id/day_preview_productivity_emoji" />
+
+    <TextView
+        android:id="@+id/day_preview_productivity_score"
+        style="@style/Text10sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/day_preview_productivity_progress"
+        app:layout_constraintBottom_toBottomOf="@id/day_preview_productivity_progress" />
+
+    <TextView
+        style="@style/Text10sp.Thin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_watermark"
+        android:layout_marginEnd="14dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

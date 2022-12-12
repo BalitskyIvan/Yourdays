@@ -17,6 +17,11 @@
         <item name="android:textColor">@color/common_text_color</item>
     </style>
 
+    <style name="Text8sp">
+        <item name="android:textSize">8sp</item>
+        <item name="android:fontFamily">@font/roboto_regular</item>
+        <item name="android:textColor">@color/common_text_color</item>
+    </style>
 
     <style name="Text10sp">
         <item name="android:textSize">10sp</item>
@@ -28,6 +33,11 @@
         <item name="android:gravity">center</item>
     </style>
 
+    <style name="Text16sp">
+        <item name="android:fontFamily">@font/roboto_regular</item>
+        <item name="android:textColor">@color/common_text_color</item>
+        <item name="android:textSize">16sp</item>
+    </style>
 
     <style name="Text20sp">
         <item name="android:fontFamily">@font/roboto_regular</item>
@@ -51,6 +61,10 @@
         <item name="android:textSize">40sp</item>
     </style>
 
+    <style name="Text10sp.Thin">
+        <item name="android:fontFamily">@font/roboto_thin</item>
+    </style>
+
     <style name="Text36sp.Light">
         <item name="android:textColor">@color/white_text_color</item>
     </style>
@@ -59,7 +73,27 @@
         <item name="android:fontFamily">@font/roboto_thin</item>
     </style>
 
+    <style name="Text8sp.WorryColor">
+        <item name="android:textColor">@color/worry</item>
+    </style>
+
+    <style name="Text8sp.Happiness">
+        <item name="android:textColor">@color/happiness</item>
+    </style>
+
+    <style name="Text8sp.SadnessColor">
+        <item name="android:textColor">@color/sadness</item>
+    </style>
+
+    <style name="Text8sp.ProductivityColor">
+        <item name="android:textColor">@color/productivity</item>
+    </style>
+
     <style name="Text12sp.Thin">
+        <item name="android:fontFamily">@font/roboto_thin</item>
+    </style>
+
+    <style name="Text16sp.Thin">
         <item name="android:fontFamily">@font/roboto_thin</item>
     </style>
 

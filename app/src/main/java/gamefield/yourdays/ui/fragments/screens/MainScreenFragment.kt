@@ -9,7 +9,6 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import gamefield.yourdays.R
-import gamefield.yourdays.data.entity.Emotion
 import gamefield.yourdays.databinding.FragmentMainScreenBinding
 import gamefield.yourdays.ui.adapter.MonthAdapter
 import gamefield.yourdays.ui.fragments.emotion_fragment.ChangeEmotionFragment
@@ -44,7 +43,7 @@ class MainScreenFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(requireActivity())
             .get(MainScreenFragmentViewModel::class.java)
-        viewModel.initDatabaseWithContext(requireActivity().applicationContext)
+        viewModel.initDatabaseWithContext(context = requireActivity().applicationContext)
         binding.mainScreeScrollView.setOnScrollChangeListener { p0, p1, p2, p3, p4 ->
             viewModel.onEmotionPeriodScrolled(y = p2)
         }
@@ -75,6 +74,10 @@ class MainScreenFragment : Fragment() {
     }
 
     private fun observeMoths() {
+        viewModel.firstDayOfWeekChangedEvent.observe(viewLifecycleOwner) { firstDayOfWeek ->
+            monthAdapter.firstDayOfWeek = firstDayOfWeek
+            monthAdapter.notifyDataSetChanged()
+        }
         viewModel.mothListChangedEvent.observe(viewLifecycleOwner) {
             monthAdapter.months.clear()
             monthAdapter.months.addAll(it)

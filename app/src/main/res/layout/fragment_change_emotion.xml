@@ -7,30 +7,40 @@
     android:fitsSystemWindows="true"
     android:background="@color/background">
 
+    <ImageView
+        android:id="@+id/worry_emoji"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="16dp"
+        android:src="@drawable/worry_emoji"
+        android:layout_marginBottom="1dp"
+        app:layout_constraintBottom_toTopOf="@id/worry"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <TextView
-        android:id="@+id/anxiety_text"
+        android:id="@+id/worry_text"
         style="@style/Text20sp.Thin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="3dp"
-        android:text="@string/anxiety"
-        app:layout_constraintBottom_toTopOf="@id/anxiety"
-        app:layout_constraintStart_toStartOf="@id/anxiety" />
+        android:layout_marginStart="3dp"
+        android:layout_marginBottom="2dp"
+        android:text="@string/worry"
+        app:layout_constraintBottom_toTopOf="@id/worry"
+        app:layout_constraintStart_toEndOf="@id/worry_emoji" />
 
     <TextView
-        android:id="@+id/anxiety_score"
-        style="@style/Text20sp.Thin"
+        android:id="@+id/worry_score"
+        style="@style/Text16sp.Thin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="3dp"
         android:text="@string/emotion_progress_default_text"
-        app:layout_constraintBottom_toTopOf="@id/anxiety"
-        app:layout_constraintEnd_toEndOf="@id/anxiety" />
+        app:layout_constraintBottom_toTopOf="@id/worry"
+        app:layout_constraintEnd_toEndOf="@id/worry" />
 
     <SeekBar
-        android:id="@+id/anxiety"
+        android:id="@+id/worry"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
@@ -40,31 +50,40 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:id="@+id/happiness_emoji"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="16dp"
+        android:src="@drawable/happiness_emoji"
+        android:layout_marginBottom="1dp"
+        app:layout_constraintBottom_toTopOf="@id/happiness"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/joy_text"
+        android:id="@+id/happiness_text"
         style="@style/Text20sp.Thin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="3dp"
-        android:text="@string/joy"
-        app:layout_constraintBottom_toTopOf="@id/joy"
-        app:layout_constraintStart_toStartOf="@id/joy" />
+        android:layout_marginStart="3dp"
+        android:layout_marginBottom="2dp"
+        android:text="@string/happiness"
+        app:layout_constraintBottom_toTopOf="@id/happiness"
+        app:layout_constraintStart_toEndOf="@id/happiness_emoji" />
 
     <TextView
-        android:id="@+id/joy_score"
-        style="@style/Text20sp.Thin"
+        android:id="@+id/happiness_score"
+        style="@style/Text16sp.Thin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="3dp"
         android:text="@string/emotion_progress_default_text"
-        app:layout_constraintBottom_toTopOf="@id/joy"
-        app:layout_constraintEnd_toEndOf="@id/joy" />
+        app:layout_constraintBottom_toTopOf="@id/happiness"
+        app:layout_constraintEnd_toEndOf="@id/happiness" />
 
     <SeekBar
-        android:id="@+id/joy"
+        android:id="@+id/happiness"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="45dp"
@@ -72,22 +91,32 @@
         android:thumb="@android:color/transparent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/anxiety" />
+        app:layout_constraintTop_toBottomOf="@id/worry" />
+
+    <ImageView
+        android:id="@+id/sadness_emoji"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="16dp"
+        android:src="@drawable/sadness_emoji"
+        android:layout_marginBottom="1dp"
+        app:layout_constraintBottom_toTopOf="@id/sadness"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/sadness_text"
         style="@style/Text20sp.Thin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="3dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginBottom="2dp"
         android:text="@string/sadness"
         app:layout_constraintBottom_toTopOf="@id/sadness"
-        app:layout_constraintStart_toStartOf="@id/sadness" />
+        app:layout_constraintStart_toEndOf="@id/sadness_emoji" />
 
     <TextView
         android:id="@+id/sadness_score"
-        style="@style/Text20sp.Thin"
+        style="@style/Text16sp.Thin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
@@ -105,32 +134,42 @@
         android:thumb="@android:color/transparent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/joy" />
+        app:layout_constraintTop_toBottomOf="@id/happiness" />
+
+    <ImageView
+        android:id="@+id/productivity_emoji"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="16dp"
+        android:src="@drawable/productivity_emoji"
+        android:layout_marginBottom="1dp"
+        app:layout_constraintBottom_toTopOf="@id/productivity"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/calmness_text"
+        android:id="@+id/productivity_text"
         style="@style/Text20sp.Thin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="3dp"
-        android:text="@string/calmness"
-        app:layout_constraintBottom_toTopOf="@id/calmness"
-        app:layout_constraintStart_toStartOf="@id/calmness" />
+        android:layout_marginStart="3dp"
+        android:layout_marginBottom="2dp"
+        android:text="@string/productivity"
+        app:layout_constraintBottom_toTopOf="@id/productivity"
+        app:layout_constraintStart_toEndOf="@id/productivity_emoji" />
 
     <TextView
-        android:id="@+id/calmness_score"
-        style="@style/Text20sp.Thin"
+        android:id="@+id/productivity_score"
+        style="@style/Text16sp.Thin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="3dp"
         android:text="@string/emotion_progress_default_text"
-        app:layout_constraintBottom_toTopOf="@id/calmness"
-        app:layout_constraintEnd_toEndOf="@id/calmness" />
+        app:layout_constraintBottom_toTopOf="@id/productivity"
+        app:layout_constraintEnd_toEndOf="@id/productivity" />
 
     <SeekBar
-        android:id="@+id/calmness"
+        android:id="@+id/productivity"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="45dp"
@@ -147,7 +186,7 @@
         android:layout_marginTop="25dp"
         android:layout_marginEnd="15dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/calmness" />
+        app:layout_constraintTop_toBottomOf="@id/productivity" />
 
     <gamefield.yourdays.ui.customviews.buttons.UploadDayToInstagramButton
         android:layout_width="160dp"
@@ -155,6 +194,6 @@
         android:layout_marginTop="25dp"
         android:layout_marginStart="15dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/calmness" />
+        app:layout_constraintTop_toBottomOf="@id/productivity" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

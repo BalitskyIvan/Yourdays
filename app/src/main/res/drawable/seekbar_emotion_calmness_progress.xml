@@ -7,9 +7,9 @@
                 <corners android:radius="6dp" />
                 <size android:height="25dp" />
                 <gradient
-                    android:centerColor="@color/calmness"
+                    android:centerColor="@color/productivity"
                     android:endColor="@android:color/transparent"
-                    android:startColor="@color/calmness" />
+                    android:startColor="@color/productivity" />
             </shape>
         </scale>
     </item>

@@ -13,10 +13,12 @@ import gamefield.yourdays.utils.main_screen.DaySelectedContainer
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import java.util.*
 
 class GetAllMonthsListUseCase(
     context: Context,
+    private val firstDayOfWeekChanged: MutableLiveData<Int>,
     private val mothListChangedEvent: MutableLiveData<List<Month>>,
     private val viewModelScope: CoroutineScope,
     private val daySelectedEvent: MutableLiveData<DaySelectedContainer>? = null,
@@ -29,15 +31,21 @@ class GetAllMonthsListUseCase(
     private val isNeedToAddDaysInMonthUseCase = IsNeedToAddDaysInMonthUseCase()
     private var isFirstTimeMonthFetched = true
     private val fillNewMonthUseCase: FillNewMonthUseCase = FillNewMonthUseCase(context)
+    private val getCalendarFirstDayOfWeekUseCase = GetCalendarFirstDayOfWeekUseCase(context)
     private val fillDaysBeforeNow: FillDaysBeforeNow = FillDaysBeforeNow(context)
 
     operator fun invoke() {
         viewModelScope.launch(Dispatchers.IO) {
-            fetch()
+            val firstDayOfWeek: Int
+            runBlocking {
+                firstDayOfWeek = getCalendarFirstDayOfWeekUseCase.invoke()
+                firstDayOfWeekChanged.postValue(firstDayOfWeek)
+            }
+            fetch(firstDayOfWeek)
         }
     }
 
-    private suspend fun fetch() {
+    private suspend fun fetch(firstDayOfWeek: Int) {
         repository.getMonths().collect { monthList ->
             calendar.toInstant()
 
@@ -47,11 +55,11 @@ class GetAllMonthsListUseCase(
 
             if (isNeedToFillNewMonth) {
                 fillNewMonthUseCase.invoke()
-                fetch()
+                fetch(firstDayOfWeek)
             } else {
-                if (isNeedToAddDaysInMonthUseCase.invoke(monthList[currentMonthIndex])) {
+                if (isNeedToAddDaysInMonthUseCase.invoke(month = monthList[currentMonthIndex])) {
                     fillDaysBeforeNow.invoke(month = monthList[currentMonthIndex])
-                    fetch()
+                    fetch(firstDayOfWeek)
                 } else {
                     monthList.putMonthList()
                 }

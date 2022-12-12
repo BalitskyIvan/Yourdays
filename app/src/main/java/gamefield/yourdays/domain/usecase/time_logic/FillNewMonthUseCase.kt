@@ -16,23 +16,22 @@ class FillNewMonthUseCase(context: Context) {
         Repository.getInstance(AppDatabase.getInstance(context = context).monthDao())
 
     operator fun invoke() {
-        var dayInMonth = 0
         val currentYear = calendar.get(Calendar.YEAR)
         val currentMonth = calendar.get(Calendar.MONTH)
         val currentDay = calendar.get(Calendar.DAY_OF_MONTH)
         val weeksList = mutableListOf<Week>()
-        calendar.set(currentYear, currentMonth, dayInMonth)
+        calendar.set(currentYear, currentMonth, 1)
 
-        val daysInMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH)
-        while (dayInMonth < daysInMonth && dayInMonth < currentDay) {
-            calendar.set(currentYear, currentMonth, dayInMonth)
+        while (isSameMonth(currentMonth = currentMonth, currentDay = currentDay)) {
 
+            val currentWeek = calendar.get(Calendar.WEEK_OF_MONTH)
             val days = getEmptyWeek()
             var dayInWeekNumber = calendar.get(Calendar.DAY_OF_WEEK)
-            while (dayInWeekNumber <= 7 && dayInMonth < daysInMonth && dayInMonth < currentDay) {
-                days.setEmptyDay(dayInWeekNumber - 1)
-                dayInWeekNumber++
-                dayInMonth++
+
+            while (isSameWeek(currentMonth = currentMonth, currentWeek = currentWeek, currentDay = currentDay)) {
+                days.setEmptyDay(dayInWeekNumber - 1, calendar.get(Calendar.DAY_OF_MONTH))
+                calendar.set(currentYear, currentMonth, calendar.get(Calendar.DAY_OF_MONTH) + 1)
+                dayInWeekNumber = calendar.get(Calendar.DAY_OF_WEEK)
             }
             weeksList.add(Week(days))
         }
@@ -46,10 +45,21 @@ class FillNewMonthUseCase(context: Context) {
         )
     }
 
+    private fun isSameMonth(currentMonth: Int, currentDay: Int): Boolean {
+        return currentMonth == calendar.get(Calendar.MONTH) &&
+                currentDay >= calendar.get(Calendar.DAY_OF_MONTH)
+    }
+
+    private fun isSameWeek(currentMonth: Int, currentWeek: Int, currentDay: Int): Boolean {
+        return currentMonth == calendar.get(Calendar.MONTH) &&
+                currentDay >= calendar.get(Calendar.DAY_OF_MONTH) &&
+                currentWeek == calendar.get(Calendar.WEEK_OF_MONTH)
+    }
+
     private fun getEmptyWeek(): MutableList<Day> {
         val days = mutableListOf<Day>()
         for (i in 0..6) {
-            days.add(Day(i))
+            days.add(Day(i, 0))
         }
         return days
     }
