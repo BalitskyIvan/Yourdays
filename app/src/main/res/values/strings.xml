@@ -68,6 +68,8 @@
 
     <string name="upload_to_stories">UPLOAD TO STORIES</string>
     <string name="upload">UPLOAD</string>
+    <string name="upload_background">upload background image</string>
+    <string name="or_choose_color_text">or choose background color:</string>
     <string name="month">MONTH</string>
     <string name="day">DAY</string>
 

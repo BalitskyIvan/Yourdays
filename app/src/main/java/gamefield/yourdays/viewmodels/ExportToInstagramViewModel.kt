@@ -16,6 +16,7 @@ import gamefield.yourdays.domain.usecase.period_logic.GetYearsInMonthsListUseCas
 import gamefield.yourdays.extensions.getMonthName
 import gamefield.yourdays.extensions.toImmutable
 import gamefield.yourdays.utils.emum.DatePickerType
+import gamefield.yourdays.utils.export_screen.InstagramStoriesBackgroundColor
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -32,7 +33,6 @@ class ExportToInstagramViewModel : ViewModel() {
     val periodPickerChanged = _periodPickerChanged.toImmutable()
 
     private val _mothListChangedEvent = MutableLiveData<List<Month>>()
-    val mothListChangedEvent = _mothListChangedEvent.toImmutable()
 
     private val _monthListInPickerChanged = MutableLiveData<Set<String>>()
     val monthListInPickerChanged = _monthListInPickerChanged.toImmutable()
@@ -40,14 +40,22 @@ class ExportToInstagramViewModel : ViewModel() {
     private val _openInstagramEvent = MutableLiveData<Uri>()
     val openInstagramEvent = _openInstagramEvent.toImmutable()
 
-    private val _currentMonthChanged = MutableLiveData<Month>()
+    private val _currentMonthChanged = MutableLiveData<Pair<Month, Int>>()
     val currentMonthChanged = _currentMonthChanged.toImmutable()
 
     private val _yearsListInPickerChanged = MutableLiveData<Set<String>>()
     val yearsListInPickerChanged = _yearsListInPickerChanged.toImmutable()
 
-    private val _firstDayOfWeekChangedEvent = MutableLiveData<Int>()
-    val firstDayOfWeekChangedEvent = _firstDayOfWeekChangedEvent.toImmutable()
+    private val _firstDayOfWeekChangedEvent = MutableLiveData(1)
+
+    private val _colorUnselectedEvent = MutableLiveData<InstagramStoriesBackgroundColor>()
+    val colorUnselectedEvent = _colorUnselectedEvent.toImmutable()
+
+    private val _colorSelectedEvent = MutableLiveData<InstagramStoriesBackgroundColor>()
+    val colorSelectedEvent = _colorSelectedEvent.toImmutable()
+
+    private val _backgroundImagePickedEvent = MutableLiveData<Uri>()
+    val backgroundImagePickedEvent = _backgroundImagePickedEvent.toImmutable()
 
     private var cardType = DatePickerType.MONTH
     private var calendar = Calendar.getInstance()
@@ -77,12 +85,13 @@ class ExportToInstagramViewModel : ViewModel() {
     }
 
     private fun observeMonthListChanged() {
-        mothListChangedEvent.observeForever { monthList ->
+        _mothListChangedEvent.observeForever { monthList ->
             val monthNames = getMonthsInMonthsListUseCase.invoke(monthList)
             val yearNames = getYearsInMonthsListUseCase.invoke(monthList)
 
             _monthListInPickerChanged.postValue(monthNames)
             _yearsListInPickerChanged.postValue(yearNames)
+            _currentMonthChanged.postValue(Pair(monthList.last(), _firstDayOfWeekChangedEvent.value!!))
         }
     }
 
@@ -140,11 +149,22 @@ class ExportToInstagramViewModel : ViewModel() {
         }
     }
 
+    fun colorSelected(color: InstagramStoriesBackgroundColor) {
+        _colorSelectedEvent.value?.let { currentColor -> _colorUnselectedEvent.postValue(currentColor) }
+        _colorSelectedEvent.postValue(color)
+    }
+
+    fun onBackgroundImagePicked(uri: Uri?) {
+        if (uri != null) {
+            _backgroundImagePickedEvent.postValue(uri)
+        }
+    }
+
     fun onMonthPickerChanged(monthName: String, yearName: String, context: Context) {
         val pickedMonth = _mothListChangedEvent.value?.find { month ->
             yearName.toInt() == month.year && month.monthNumber.getMonthName(isUppercase = false, context = context) == monthName
         }
-        pickedMonth?.let { _currentMonthChanged.postValue(it) }
+        pickedMonth?.let { _currentMonthChanged.postValue(Pair(it, _firstDayOfWeekChangedEvent.value!!)) }
     }
 
     private companion object {

@@ -1,6 +1,5 @@
 package gamefield.yourdays.ui.adapter
 
-import android.content.Context
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.LinearLayout
@@ -9,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import gamefield.yourdays.R
 import gamefield.yourdays.data.entity.Emotion
 import gamefield.yourdays.data.entity.Month
+import gamefield.yourdays.domain.usecase.ui.GetMonthMarkupByFirstDayOfWeekUseCase
 import gamefield.yourdays.extensions.getEmotionViewFromDay
 import gamefield.yourdays.extensions.getMonthName
 
@@ -19,14 +19,15 @@ class MonthViewHolder(
 
     private val monthTitle: TextView = view.findViewById(R.id.card_period_month_name)
 
-    //WEEK MARKUP
-    private val markupFirstDay: TextView = view.findViewById(R.id.markup_day_mon)
-    private val markupSecondDay: TextView = view.findViewById(R.id.markup_day_tue)
-    private val markupThirdDay: TextView = view.findViewById(R.id.markup_day_wed)
-    private val markupFourthDay: TextView = view.findViewById(R.id.markup_day_thu)
-    private val markupFifthDay: TextView = view.findViewById(R.id.markup_day_fri)
-    private val markupSixthDay: TextView = view.findViewById(R.id.markup_day_sat)
-    private val markupSeventhDay: TextView = view.findViewById(R.id.markup_day_sun)
+    private val getMonthMarkupByFirstDayOfWeekUseCase = GetMonthMarkupByFirstDayOfWeekUseCase(
+        view.findViewById(R.id.markup_day_mon),
+        view.findViewById(R.id.markup_day_tue),
+        view.findViewById(R.id.markup_day_wed),
+        view.findViewById(R.id.markup_day_thu),
+        view.findViewById(R.id.markup_day_fri),
+        view.findViewById(R.id.markup_day_sat),
+        view.findViewById(R.id.markup_day_sun)
+    )
 
     //FIRST WEEK
     private val first_week_first_day: FrameLayout = view.findViewById(R.id.first_week_mon)
@@ -85,7 +86,7 @@ class MonthViewHolder(
 
     fun bind(month: Month, firstDayOfWeek: Int) {
 
-        val daysInWeek = setMarkupByFirstDayOfWeek(view.context, firstDayOfWeek)
+        val daysInWeek = getMonthMarkupByFirstDayOfWeekUseCase.invoke(view.context, firstDayOfWeek)
 
         with(month) {
             monthTitle.text = monthNumber.getMonthName(context = view.context, year = month.year)
@@ -180,38 +181,6 @@ class MonthViewHolder(
         }
     }
 
-    private fun setMarkupByFirstDayOfWeek(context: Context, firstDayOfWeek: Int): DaysInWeek {
-        if (firstDayOfWeek == 1) {
-            markupFirstDay.text = context.getString(R.string.sun)
-            markupSecondDay.text = context.getString(R.string.mon)
-            markupThirdDay.text = context.getString(R.string.tue)
-            markupFourthDay.text = context.getString(R.string.wed)
-            markupFifthDay.text = context.getString(R.string.thu)
-            markupSixthDay.text = context.getString(R.string.fri)
-            markupSeventhDay.text = context.getString(R.string.sat)
-
-            return DaysInWeek()
-        } else {
-            markupFirstDay.text = context.getString(R.string.mon)
-            markupSecondDay.text = context.getString(R.string.tue)
-            markupThirdDay.text = context.getString(R.string.wed)
-            markupFourthDay.text = context.getString(R.string.thu)
-            markupFifthDay.text = context.getString(R.string.fri)
-            markupSixthDay.text = context.getString(R.string.sat)
-            markupSeventhDay.text = context.getString(R.string.sun)
-
-            return DaysInWeek(
-                first = 1,
-                second = 2,
-                third = 3,
-                fourth = 4,
-                fifth = 5,
-                sixth = 6,
-                seventh = 0
-            )
-        }
-    }
-
     private fun FrameLayout.setEmotion(dayContainer: DayContainer, month: Int, year: Int) {
         removeAllViews()
         addView(dayContainer.view)
@@ -227,13 +196,4 @@ class MonthViewHolder(
         }
     }
 
-    private data class DaysInWeek(
-        val first: Int = 0,
-        val second: Int = 1,
-        val third: Int = 2,
-        val fourth: Int = 3,
-        val fifth: Int = 4,
-        val sixth: Int = 5,
-        val seventh: Int = 6
-    )
 }

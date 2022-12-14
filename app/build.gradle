@@ -6,12 +6,12 @@ plugins {
 
 android {
     namespace 'gamefield.yourdays'
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "gamefield.yourdays"
         minSdk 26
-        targetSdk 32
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
@@ -49,6 +49,9 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1'
     implementation 'androidx.room:room-runtime:2.4.3'
     implementation 'androidx.room:room-ktx:2.4.3'
+    implementation "androidx.activity:activity:1.6.1"
+    implementation "androidx.fragment:fragment:1.5.5"
+    implementation 'com.github.bumptech.glide:glide:4.14.2'
     kapt "androidx.room:room-compiler:2.4.3"
     implementation 'com.google.code.gson:gson:2.10'
 }

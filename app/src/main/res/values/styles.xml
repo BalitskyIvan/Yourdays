@@ -113,4 +113,12 @@
         <item name="android:fontFamily">@font/roboto_thin</item>
     </style>
 
+    <style name="Text12sp.White">
+        <item name="android:textColor">@color/white_text_color</item>
+    </style>
+
+    <style name="Text12sp.White.Bold">
+        <item name="android:fontFamily">@font/roboto_bold</item>
+    </style>
+
 </resources>
