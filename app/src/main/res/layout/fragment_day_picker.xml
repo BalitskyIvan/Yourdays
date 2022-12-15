@@ -9,6 +9,7 @@
     tools:context=".ui.fragments.date_picker_fragment.DayPickerFragment">
 
     <TextView
+        android:id="@+id/day_picker_button"
         style="@style/Text20sp.Thin.Light"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

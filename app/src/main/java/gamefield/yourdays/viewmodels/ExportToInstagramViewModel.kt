@@ -9,14 +9,18 @@ import android.provider.MediaStore
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import gamefield.yourdays.data.entity.Emotion
 import gamefield.yourdays.data.entity.Month
 import gamefield.yourdays.domain.usecase.io.GetAllMonthsListUseCase
+import gamefield.yourdays.domain.usecase.period_logic.GetCurrentEmotionFromMonthListUseCase
+import gamefield.yourdays.domain.usecase.period_logic.GetDateStrFromDateUseCase
 import gamefield.yourdays.domain.usecase.period_logic.GetMonthsInMonthsListUseCase
 import gamefield.yourdays.domain.usecase.period_logic.GetYearsInMonthsListUseCase
 import gamefield.yourdays.extensions.getMonthName
 import gamefield.yourdays.extensions.toImmutable
 import gamefield.yourdays.utils.emum.DatePickerType
 import gamefield.yourdays.utils.export_screen.InstagramStoriesBackgroundColor
+import gamefield.yourdays.utils.export_screen.PickedDateData
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -34,17 +38,26 @@ class ExportToInstagramViewModel : ViewModel() {
 
     private val _mothListChangedEvent = MutableLiveData<List<Month>>()
 
+
+    //Pickers
     private val _monthListInPickerChanged = MutableLiveData<Set<String>>()
     val monthListInPickerChanged = _monthListInPickerChanged.toImmutable()
 
-    private val _openInstagramEvent = MutableLiveData<Uri>()
-    val openInstagramEvent = _openInstagramEvent.toImmutable()
-
-    private val _currentMonthChanged = MutableLiveData<Pair<Month, Int>>()
-    val currentMonthChanged = _currentMonthChanged.toImmutable()
-
     private val _yearsListInPickerChanged = MutableLiveData<Set<String>>()
     val yearsListInPickerChanged = _yearsListInPickerChanged.toImmutable()
+
+    private val _dayInPickerChanged = MutableLiveData<PickedDateData>()
+    val dayInPickerChanged = _dayInPickerChanged.toImmutable()
+
+    private val _currentMonthInPreviewChanged = MutableLiveData<Pair<Month, Int>>()
+    val currentMonthInPreviewChanged = _currentMonthInPreviewChanged.toImmutable()
+
+    private val _currentDayInPreviewChanged = MutableLiveData<Pair<String, Emotion?>>()
+    val currentDayInPreviewChanged = _currentDayInPreviewChanged.toImmutable()
+
+
+    private val _openInstagramEvent = MutableLiveData<Uri>()
+    val openInstagramEvent = _openInstagramEvent.toImmutable()
 
     private val _firstDayOfWeekChangedEvent = MutableLiveData(1)
 
@@ -60,8 +73,12 @@ class ExportToInstagramViewModel : ViewModel() {
     private var cardType = DatePickerType.MONTH
     private var calendar = Calendar.getInstance()
 
+    private var initDate: PickedDateData? = null
+
     private lateinit var getMonthsInMonthsListUseCase: GetMonthsInMonthsListUseCase
+    private lateinit var getDateStrFromDateUseCase: GetDateStrFromDateUseCase
     private val getYearsInMonthsListUseCase = GetYearsInMonthsListUseCase()
+    private val getCurrentEmotionFromMonthListUseCase = GetCurrentEmotionFromMonthListUseCase()
 
     init {
         _dayButtonAlphaChanged.postValue(UNSELECTED_ALPHA)
@@ -71,6 +88,7 @@ class ExportToInstagramViewModel : ViewModel() {
 
     fun initWithContext(context: Context) {
         getMonthsInMonthsListUseCase = GetMonthsInMonthsListUseCase(context = context)
+        getDateStrFromDateUseCase = GetDateStrFromDateUseCase(context = context)
 
         _monthListInPickerChanged.postValue(setOf(calendar.get(Calendar.MONTH).getMonthName(isUppercase = false, context = context)))
         _yearsListInPickerChanged.postValue(setOf(calendar.get(Calendar.YEAR).toString()))
@@ -91,8 +109,18 @@ class ExportToInstagramViewModel : ViewModel() {
 
             _monthListInPickerChanged.postValue(monthNames)
             _yearsListInPickerChanged.postValue(yearNames)
-            _currentMonthChanged.postValue(Pair(monthList.last(), _firstDayOfWeekChangedEvent.value!!))
+            initDate?.let { date ->
+                _dayInPickerChanged.postValue(date)
+                _currentDayInPreviewChanged.postValue(Pair(getDateStrFromDateUseCase.invoke(date), getCurrentEmotionFromMonthListUseCase(monthList, date)))
+            }
+
+        //    _currentMonthChanged.postValue(Pair(monthList.last(), _firstDayOfWeekChangedEvent.value!!))
+
         }
+    }
+
+    fun initSelectedData(dateData: PickedDateData) {
+        initDate = dateData
     }
 
     fun onDayButtonClicked() {
@@ -164,7 +192,7 @@ class ExportToInstagramViewModel : ViewModel() {
         val pickedMonth = _mothListChangedEvent.value?.find { month ->
             yearName.toInt() == month.year && month.monthNumber.getMonthName(isUppercase = false, context = context) == monthName
         }
-        pickedMonth?.let { _currentMonthChanged.postValue(Pair(it, _firstDayOfWeekChangedEvent.value!!)) }
+        pickedMonth?.let { _currentMonthInPreviewChanged.postValue(Pair(it, _firstDayOfWeekChangedEvent.value!!)) }
     }
 
     private companion object {

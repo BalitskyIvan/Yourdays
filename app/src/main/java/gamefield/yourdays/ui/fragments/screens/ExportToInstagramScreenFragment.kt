@@ -15,8 +15,6 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.ViewModelProvider
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import gamefield.yourdays.Navigation
 import gamefield.yourdays.R
 import gamefield.yourdays.databinding.FragmentExportToInstagramScreenBinding
@@ -27,8 +25,8 @@ import gamefield.yourdays.ui.fragments.date_picker_fragment.MonthPickerFragment
 import gamefield.yourdays.ui.fragments.date_picker_fragment.MonthPreviewFragment
 import gamefield.yourdays.utils.emum.DatePickerType
 import gamefield.yourdays.utils.export_screen.InstagramStoriesBackgroundColor
+import gamefield.yourdays.utils.export_screen.PickedDateData
 import gamefield.yourdays.viewmodels.ExportToInstagramViewModel
-import java.io.File
 import java.util.Calendar
 
 class ExportToInstagramScreenFragment : Fragment() {
@@ -40,9 +38,11 @@ class ExportToInstagramScreenFragment : Fragment() {
 
     private val calendar = Calendar.getInstance()
 
-    private var selectedDay: Int = calendar.get(Calendar.DAY_OF_MONTH)
-    private var selectedMonth: Int = calendar.get(Calendar.MONTH)
-    private var selectedYear: Int = calendar.get(Calendar.YEAR)
+    private var initDate = PickedDateData(
+        day = calendar.get(Calendar.DAY_OF_MONTH),
+        month = calendar.get(Calendar.MONTH),
+        year = calendar.get(Calendar.YEAR)
+    )
 
     private val monthPreviewFragment = MonthPreviewFragment.newInstance()
     private val dayPreviewFragment = DayPreviewFragment.newInstance()
@@ -55,9 +55,11 @@ class ExportToInstagramScreenFragment : Fragment() {
             viewModel.onBackgroundImagePicked(uri)
         }
         arguments?.let {
-            selectedDay = it.getInt(DAY_KEY)
-            selectedMonth = it.getInt(MONTH_KEY)
-            selectedYear = it.getInt(YEAR_KEY)
+            initDate = PickedDateData(
+                day = it.getInt(DAY_KEY),
+                month = it.getInt(MONTH_KEY),
+                year = it.getInt(YEAR_KEY)
+            )
         }
     }
 
@@ -73,6 +75,7 @@ class ExportToInstagramScreenFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(requireActivity()).get(ExportToInstagramViewModel::class.java)
         viewModel.initWithContext(context = requireContext())
+        viewModel.initSelectedData(dateData = initDate)
 
         colorSelector = requireContext().getDrawable(R.drawable.color_selctor)!!
         navigation = requireActivity() as Navigation

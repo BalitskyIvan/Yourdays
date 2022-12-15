@@ -9,9 +9,9 @@ fun MutableList<Day>.setEmptyDay(dayNumber: Int, dayInMonth: Int) = set(
         number = dayNumber,
         dayInMonth = dayInMonth,
         Emotion(
-            anxiety = 0,
-            joy = 0,
-            calmness = 0,
+            worry = 0,
+            happiness = 0,
+            productivity = 0,
             sadness = 0,
             type = EmotionType.NONE
         )

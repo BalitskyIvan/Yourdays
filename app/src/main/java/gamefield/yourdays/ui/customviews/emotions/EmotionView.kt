@@ -36,12 +36,12 @@ abstract class EmotionView @JvmOverloads constructor(
 
     var isDrawStroke = false
 
-    var anxiety = 0
+    var worry = 0
         set(value) {
             field = value
             calculateHorizontalGradient()
         }
-    var joy = 0
+    var happiness = 0
         set(value) {
             field = value
             calculateHorizontalGradient()
@@ -51,22 +51,22 @@ abstract class EmotionView @JvmOverloads constructor(
             field = value
             calculateVerticalGradient()
         }
-    var calmness = 0
+    var productivity = 0
         set(value) {
             field = value
             calculateVerticalGradient()
         }
 
-    private val anxietyColor = context.getColor(R.color.worry)
-    private val joyColor = context.getColor(R.color.happiness)
+    private val worryColor = context.getColor(R.color.worry)
+    private val happinessColor = context.getColor(R.color.happiness)
     private val sadnessColor = context.getColor(R.color.sadness)
-    private val calmnessColor = context.getColor(R.color.productivity)
+    private val productivityColor = context.getColor(R.color.productivity)
 
     fun copyEmotions(prevEmotion: EmotionView) {
-        this.anxiety = prevEmotion.anxiety
-        this.joy = prevEmotion.joy
+        this.worry = prevEmotion.worry
+        this.happiness = prevEmotion.happiness
         this.sadness = prevEmotion.sadness
-        this.calmness = prevEmotion.calmness
+        this.productivity = prevEmotion.productivity
     }
 
     private fun calculateHorizontalGradient() {
@@ -75,8 +75,8 @@ abstract class EmotionView @JvmOverloads constructor(
             height.toFloat(),
             0f,
             0f,
-            Color.argb((joy / alphaDivider * 255).toInt(), joyColor.red, joyColor.green, joyColor.blue),
-            Color.argb((anxiety / alphaDivider * 255).toInt(), anxietyColor.red, anxietyColor.green, anxietyColor.blue),
+            Color.argb((happiness / alphaDivider * 255).toInt(), happinessColor.red, happinessColor.green, happinessColor.blue),
+            Color.argb((worry / alphaDivider * 255).toInt(), worryColor.red, worryColor.green, worryColor.blue),
             Shader.TileMode.MIRROR
         )
         invalidate()
@@ -88,7 +88,7 @@ abstract class EmotionView @JvmOverloads constructor(
             0f,
             width / 2f - (width / 2f),
             0f,
-            Color.argb((calmness / alphaDivider * 255).toInt(), calmnessColor.red, calmnessColor.green, calmnessColor.blue),
+            Color.argb((productivity / alphaDivider * 255).toInt(), productivityColor.red, productivityColor.green, productivityColor.blue),
             Color.argb((sadness / alphaDivider * 255).toInt(), sadnessColor.red, sadnessColor.green, sadnessColor.blue),
             Shader.TileMode.MIRROR
         )

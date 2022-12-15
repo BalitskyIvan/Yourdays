@@ -53,7 +53,7 @@ class MonthPreviewFragment : Fragment() {
     }
 
     private fun observeMonthChanged() {
-        viewModel.currentMonthChanged.observe(viewLifecycleOwner) { data ->
+        viewModel.currentMonthInPreviewChanged.observe(viewLifecycleOwner) { data ->
             binding.cardPeriodMonthName.text =
                 data.first.monthNumber.getMonthName(context = requireContext(), year = data.first.year)
 

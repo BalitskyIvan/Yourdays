@@ -50,30 +50,30 @@ class ChangeEmotionFragment : Fragment() {
             changeEmotionOpeCloseAnimation.start()
         }
 
-        viewModel.anxietyEmotionChangedEvent.observe(viewLifecycleOwner) { anxiety ->
-            binding.worryScore.text = EMOTION_PROGRESS.format(anxiety / 10)
-            binding.worry.progress = anxiety
+        viewModel.worryEmotionChangedEvent.observe(viewLifecycleOwner) { worry ->
+            binding.worryScore.text = EMOTION_PROGRESS.format(worry / 10)
+            binding.worry.progress = worry
         }
-        viewModel.joyEmotionChangedEvent.observe(viewLifecycleOwner) { joy ->
-            binding.happinessScore.text = EMOTION_PROGRESS.format(joy / 10)
-            binding.happiness.progress = joy
+        viewModel.happinessEmotionChangedEvent.observe(viewLifecycleOwner) { happiness ->
+            binding.happinessScore.text = EMOTION_PROGRESS.format(happiness / 10)
+            binding.happiness.progress = happiness
         }
         viewModel.sadnessEmotionChangedEvent.observe(viewLifecycleOwner) { sadness ->
             binding.sadnessScore.text = EMOTION_PROGRESS.format(sadness / 10)
             binding.sadness.progress = sadness
         }
-        viewModel.calmnessEmotionChangedEvent.observe(viewLifecycleOwner) { calmness ->
-            binding.productivityScore.text = EMOTION_PROGRESS.format(calmness / 10)
-            binding.productivity.progress = calmness
+        viewModel.productivityEmotionChangedEvent.observe(viewLifecycleOwner) { productivity ->
+            binding.productivityScore.text = EMOTION_PROGRESS.format(productivity / 10)
+            binding.productivity.progress = productivity
         }
     }
 
     private fun setSeekBarListeners() {
         with(binding) {
-            worry.setOnSeekBarChangeListener(EmotionSeekBarListener(viewModel::anxietyChanged))
-            happiness.setOnSeekBarChangeListener(EmotionSeekBarListener(viewModel::joyChanged))
+            worry.setOnSeekBarChangeListener(EmotionSeekBarListener(viewModel::worryChanged))
+            happiness.setOnSeekBarChangeListener(EmotionSeekBarListener(viewModel::happinessChanged))
             sadness.setOnSeekBarChangeListener(EmotionSeekBarListener(viewModel::sadnessChanged))
-            productivity.setOnSeekBarChangeListener(EmotionSeekBarListener(viewModel::calmnessChanged))
+            productivity.setOnSeekBarChangeListener(EmotionSeekBarListener(viewModel::productivityChanged))
         }
     }
 

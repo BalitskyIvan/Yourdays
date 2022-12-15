@@ -93,17 +93,17 @@ class MainScreenEmotionFragment : Fragment() {
     }
 
     private fun observeEmotionChanges() {
-        mainScreenViewModel.anxietyEmotionChangedEvent.observe(viewLifecycleOwner) { anxiety ->
-            currentEmotion?.anxiety = anxiety
+        mainScreenViewModel.worryEmotionChangedEvent.observe(viewLifecycleOwner) { worry ->
+            currentEmotion?.worry = worry
         }
-        mainScreenViewModel.joyEmotionChangedEvent.observe(viewLifecycleOwner) { joy ->
-            currentEmotion?.joy = joy
+        mainScreenViewModel.happinessEmotionChangedEvent.observe(viewLifecycleOwner) { happiness ->
+            currentEmotion?.happiness = happiness
         }
         mainScreenViewModel.sadnessEmotionChangedEvent.observe(viewLifecycleOwner) { sadness ->
             currentEmotion?.sadness = sadness
         }
-        mainScreenViewModel.calmnessEmotionChangedEvent.observe(viewLifecycleOwner) { calmness ->
-            currentEmotion?.calmness = calmness
+        mainScreenViewModel.productivityEmotionChangedEvent.observe(viewLifecycleOwner) { productivity ->
+            currentEmotion?.productivity = productivity
         }
     }
 

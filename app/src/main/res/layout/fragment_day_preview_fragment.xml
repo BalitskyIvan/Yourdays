@@ -8,6 +8,7 @@
     <TextView
         android:id="@+id/day_preview_date_text"
         style="@style/Text20sp.Thin"
+        android:letterSpacing="0.2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
@@ -43,11 +44,14 @@
         app:layout_constraintEnd_toEndOf="@id/day_preview_worry_progress"
         app:layout_constraintBottom_toTopOf="@id/day_preview_worry_progress"/>
 
-    <ImageView
+    <SeekBar
         android:id="@+id/day_preview_worry_progress"
-        android:layout_width="100dp"
+        android:layout_width="140dp"
         android:layout_height="14dp"
-        android:src="@drawable/worry_progress"
+        android:focusable="false"
+        android:clickable="false"
+        android:progressDrawable="@drawable/worry_progress"
+        android:thumb="@android:color/transparent"
         app:layout_constraintStart_toStartOf="@id/day_preview_emotion_container"
         app:layout_constraintEnd_toEndOf="@id/day_preview_emotion_container"
         app:layout_constraintTop_toTopOf="@id/day_preview_worry_emoji"
@@ -84,11 +88,14 @@
         app:layout_constraintEnd_toEndOf="@id/day_preview_happiness_progress"
         app:layout_constraintBottom_toTopOf="@id/day_preview_happiness_progress"/>
 
-    <ImageView
+    <SeekBar
         android:id="@+id/day_preview_happiness_progress"
-        android:layout_width="100dp"
+        android:layout_width="140dp"
         android:layout_height="14dp"
-        android:src="@drawable/happiness_progress"
+        android:focusable="false"
+        android:clickable="false"
+        android:progressDrawable="@drawable/happiness_progress"
+        android:thumb="@android:color/transparent"
         app:layout_constraintStart_toStartOf="@id/day_preview_emotion_container"
         app:layout_constraintEnd_toEndOf="@id/day_preview_emotion_container"
         app:layout_constraintTop_toTopOf="@id/day_preview_happiness_emoji"
@@ -125,11 +132,14 @@
         app:layout_constraintEnd_toEndOf="@id/day_preview_sadness_progress"
         app:layout_constraintBottom_toTopOf="@id/day_preview_sadness_progress"/>
 
-    <ImageView
+    <SeekBar
         android:id="@+id/day_preview_sadness_progress"
-        android:layout_width="100dp"
+        android:layout_width="140dp"
         android:layout_height="14dp"
-        android:src="@drawable/sadness_progress"
+        android:focusable="false"
+        android:clickable="false"
+        android:progressDrawable="@drawable/sadness_progress"
+        android:thumb="@android:color/transparent"
         app:layout_constraintStart_toStartOf="@id/day_preview_emotion_container"
         app:layout_constraintEnd_toEndOf="@id/day_preview_emotion_container"
         app:layout_constraintTop_toTopOf="@id/day_preview_sadness_emoji"
@@ -166,11 +176,14 @@
         app:layout_constraintEnd_toEndOf="@id/day_preview_productivity_progress"
         app:layout_constraintBottom_toTopOf="@id/day_preview_productivity_progress"/>
 
-    <ImageView
+    <SeekBar
         android:id="@+id/day_preview_productivity_progress"
-        android:layout_width="100dp"
+        android:layout_width="140dp"
         android:layout_height="14dp"
-        android:src="@drawable/productivity_progress"
+        android:focusable="false"
+        android:clickable="false"
+        android:progressDrawable="@drawable/productivity_progress"
+        android:thumb="@android:color/transparent"
         app:layout_constraintStart_toStartOf="@id/day_preview_emotion_container"
         app:layout_constraintEnd_toEndOf="@id/day_preview_emotion_container"
         app:layout_constraintTop_toTopOf="@id/day_preview_productivity_emoji"

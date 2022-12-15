@@ -1,7 +1,6 @@
 package gamefield.yourdays.viewmodels
 
 import android.content.Context
-import android.content.res.Resources
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -10,7 +9,6 @@ import gamefield.yourdays.data.entity.Month
 import gamefield.yourdays.domain.models.EmotionType
 import gamefield.yourdays.domain.usecase.io.AddDayUseCase
 import gamefield.yourdays.domain.usecase.io.GetAllMonthsListUseCase
-import gamefield.yourdays.domain.usecase.io.SeedUseCase
 import gamefield.yourdays.extensions.getDayFromNumberInMonth
 import gamefield.yourdays.extensions.toImmutable
 import gamefield.yourdays.utils.main_screen.DateToExportData
@@ -21,17 +19,17 @@ import java.util.Calendar
 
 class MainScreenFragmentViewModel : ViewModel() {
 
-    private val _anxietyEmotionChangedEvent = MutableLiveData<Int>()
-    val anxietyEmotionChangedEvent = _anxietyEmotionChangedEvent.toImmutable()
+    private val _worryEmotionChangedEvent = MutableLiveData<Int>()
+    val worryEmotionChangedEvent = _worryEmotionChangedEvent.toImmutable()
 
-    private val _joyEmotionChangedEvent = MutableLiveData<Int>()
-    val joyEmotionChangedEvent = _joyEmotionChangedEvent.toImmutable()
+    private val _happinessEmotionChangedEvent = MutableLiveData<Int>()
+    val happinessEmotionChangedEvent = _happinessEmotionChangedEvent.toImmutable()
 
     private val _sadnessEmotionChangedEvent = MutableLiveData<Int>()
     val sadnessEmotionChangedEvent = _sadnessEmotionChangedEvent.toImmutable()
 
-    private val _calmnessEmotionChangedEvent = MutableLiveData<Int>()
-    val calmnessEmotionChangedEvent = _calmnessEmotionChangedEvent.toImmutable()
+    private val _productivityEmotionChangedEvent = MutableLiveData<Int>()
+    val productivityEmotionChangedEvent = _productivityEmotionChangedEvent.toImmutable()
 
     private val _smoothScrollPeriodToTop = MutableLiveData<Boolean>()
     val smoothScrollPeriodToTop = _smoothScrollPeriodToTop.toImmutable()
@@ -84,9 +82,9 @@ class MainScreenFragmentViewModel : ViewModel() {
     )
 
     init {
-        _anxietyEmotionChangedEvent.value = 0
-        _joyEmotionChangedEvent.value = 0
-        _calmnessEmotionChangedEvent.value = 0
+        _worryEmotionChangedEvent.value = 0
+        _happinessEmotionChangedEvent.value = 0
+        _productivityEmotionChangedEvent.value = 0
         _sadnessEmotionChangedEvent.value = 0
         _showCantChangeEmotionToastEvent.value = false
         _isDayMutableChangedEvent.value = true
@@ -115,16 +113,16 @@ class MainScreenFragmentViewModel : ViewModel() {
         getAllMonthsListUseCase.invoke()
     }
 
-    fun anxietyChanged(progress: Int) {
-        _anxietyEmotionChangedEvent.value = progress
+    fun worryChanged(progress: Int) {
+        _worryEmotionChangedEvent.value = progress
     }
 
-    fun joyChanged(progress: Int) {
-        _joyEmotionChangedEvent.value = progress
+    fun happinessChanged(progress: Int) {
+        _happinessEmotionChangedEvent.value = progress
     }
 
-    fun calmnessChanged(progress: Int) {
-        _calmnessEmotionChangedEvent.value = progress
+    fun productivityChanged(progress: Int) {
+        _productivityEmotionChangedEvent.value = progress
     }
 
     fun sadnessChanged(progress: Int) {
@@ -150,9 +148,9 @@ class MainScreenFragmentViewModel : ViewModel() {
                                 month,
                                 selectedDate.day,
                                 Emotion(
-                                    anxiety = anxietyEmotionChangedEvent.value!!,
-                                    joy = joyEmotionChangedEvent.value!!,
-                                    calmness = calmnessEmotionChangedEvent.value!!,
+                                    worry = worryEmotionChangedEvent.value!!,
+                                    happiness = happinessEmotionChangedEvent.value!!,
+                                    productivity = productivityEmotionChangedEvent.value!!,
                                     sadness = sadnessEmotionChangedEvent.value!!,
                                     type = emotionType
                                 )
@@ -167,8 +165,8 @@ class MainScreenFragmentViewModel : ViewModel() {
     }
 
     private fun isEmotionNotFilled(): Boolean =
-        anxietyEmotionChangedEvent.value == 0 && joyEmotionChangedEvent.value == 0 &&
-                calmnessEmotionChangedEvent.value == 0 && sadnessEmotionChangedEvent.value == 0
+        worryEmotionChangedEvent.value == 0 && happinessEmotionChangedEvent.value == 0 &&
+                productivityEmotionChangedEvent.value == 0 && sadnessEmotionChangedEvent.value == 0
 
     fun onFillEmotionClicked() {
         if (!isFillEmotionClicked) {
@@ -185,11 +183,11 @@ class MainScreenFragmentViewModel : ViewModel() {
 
     fun onDaySelected(monthNumber: Int, day: Int, year: Int, emotion: Emotion) {
         if (_changeEmotionFragmentOpenCloseAction.value?.isOpening != true) {
-            clearSelectedDayAndSelectClicked(monthNumber, day)
-            _anxietyEmotionChangedEvent.value = emotion.anxiety
-            _joyEmotionChangedEvent.value = emotion.joy
+            clearSelectedDayAndSelectClicked(monthNumber, day, year)
+            _worryEmotionChangedEvent.value = emotion.worry
+            _happinessEmotionChangedEvent.value = emotion.happiness
             _sadnessEmotionChangedEvent.value = emotion.sadness
-            _calmnessEmotionChangedEvent.value = emotion.calmness
+            _productivityEmotionChangedEvent.value = emotion.productivity
 
             selectedDate = DaySelectedContainer(day = day, month = monthNumber, year = year, emotion = emotion)
             _daySelectedEvent.postValue(selectedDate)
@@ -198,14 +196,14 @@ class MainScreenFragmentViewModel : ViewModel() {
         }
     }
 
-    private fun clearSelectedDayAndSelectClicked(monthNumber: Int, day: Int) {
-        if (monthNumber == selectedDate.month && day == selectedDate.day)
+    private fun clearSelectedDayAndSelectClicked(monthNumber: Int, day: Int, year: Int) {
+        if (monthNumber == selectedDate.month && day == selectedDate.day && year == selectedDate.year)
             return
         _mothListChangedEvent.value?.forEach { month ->
-            if (month.monthNumber == monthNumber) {
+            if (month.monthNumber == monthNumber && month.year == year) {
                 month.getDayFromNumberInMonth(dayNumber = day)?.isSelected = true
             }
-            if (selectedDate.month == month.monthNumber) {
+            if (selectedDate.month == month.monthNumber && selectedDate.year == month.year) {
                 month.getDayFromNumberInMonth(dayNumber = selectedDate.day)?.isSelected = false
             }
         }

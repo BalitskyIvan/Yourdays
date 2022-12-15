@@ -31,11 +31,11 @@ fun Day.getEmotionViewFromDay(context: Context): DayContainer? = when(emotion?.t
     else -> null
 }
 
-private fun EmotionView.parseEmotionInEmotionView(emotion: Emotion) {
-    anxiety = emotion.anxiety
-    joy = emotion.joy
+fun EmotionView.parseEmotionInEmotionView(emotion: Emotion) {
+    worry = emotion.worry
+    happiness = emotion.happiness
     sadness = emotion.sadness
-    calmness = emotion.calmness
+    productivity = emotion.productivity
 }
 
 fun EmotionView.initDay(day: Day): EmotionView {

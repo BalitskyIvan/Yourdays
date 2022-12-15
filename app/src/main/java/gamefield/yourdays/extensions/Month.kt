@@ -38,7 +38,7 @@ fun List<Month>.selectCurrentDay(
     }
 
     forEach { month ->
-        if (month.monthNumber == currentMonthNumber) {
+        if (month.monthNumber == currentMonthNumber && month.year == currentYear) {
             val searchedDay =
                 month.getDayFromNumberInMonth(currentDayOfMonth)?.apply { isSelected = true }
             selectedDayEmotion = searchedDay?.emotion
