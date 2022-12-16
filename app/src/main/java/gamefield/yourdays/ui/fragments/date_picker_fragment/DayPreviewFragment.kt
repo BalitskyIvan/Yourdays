@@ -36,10 +36,10 @@ class DayPreviewFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(requireActivity()).get(ExportToInstagramViewModel::class.java)
 
-        emptyEmotionView = EmptyEmotionView(context = requireContext())
-        plusEmotionView = PlusEmotionView(context = requireContext())
-        minusEmotionView = MinusEmotionView(context = requireContext())
-        zeroEmotionView = ZeroEmotionView(context = requireContext())
+        emptyEmotionView = EmptyEmotionView(context = requireContext(), forceLightenTheme = true)
+        plusEmotionView = PlusEmotionView(context = requireContext(), forceLightenTheme = true)
+        minusEmotionView = MinusEmotionView(context = requireContext(), forceLightenTheme = true)
+        zeroEmotionView = ZeroEmotionView(context = requireContext(), forceLightenTheme = true)
 
         binding.dayPreviewEmotionContainer.addView(emptyEmotionView)
         observeDayChangedEvent()
@@ -56,15 +56,6 @@ class DayPreviewFragment : Fragment() {
                 dayPreviewProductivityProgress.isEnabled = false
 
                 currentEmotion = if (data.second == null) {
-                    dayPreviewWorryScore.text = EMOTION_PROGRESS.format(0)
-                    dayPreviewHappinessScore.text = EMOTION_PROGRESS.format(0)
-                    dayPreviewSadnessScore.text = EMOTION_PROGRESS.format(0)
-                    dayPreviewProductivityScore.text = EMOTION_PROGRESS.format(0)
-
-                    dayPreviewWorryProgress.progress = 0
-                    dayPreviewHappinessProgress.progress = 0
-                    dayPreviewSadnessProgress.progress = 0
-                    dayPreviewProductivityProgress.progress = 0
                     null
                 } else {
 
@@ -94,10 +85,20 @@ class DayPreviewFragment : Fragment() {
                         dayPreviewSadnessProgress.progress = sadness
                         dayPreviewProductivityProgress.progress = productivity
                     }
+                } else {
+                    dayPreviewWorryScore.text = EMOTION_PROGRESS.format(0)
+                    dayPreviewHappinessScore.text = EMOTION_PROGRESS.format(0)
+                    dayPreviewSadnessScore.text = EMOTION_PROGRESS.format(0)
+                    dayPreviewProductivityScore.text = EMOTION_PROGRESS.format(0)
+
+                    dayPreviewWorryProgress.progress = 0
+                    dayPreviewHappinessProgress.progress = 0
+                    dayPreviewSadnessProgress.progress = 0
+                    dayPreviewProductivityProgress.progress = 0
                 }
 
                 dayPreviewEmotionContainer.removeAllViews()
-                dayPreviewEmotionContainer.addView(currentEmotion ?: zeroEmotionView)
+                dayPreviewEmotionContainer.addView(currentEmotion ?: emptyEmotionView)
             }
         }
     }

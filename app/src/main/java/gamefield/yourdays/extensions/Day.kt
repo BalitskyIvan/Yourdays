@@ -7,24 +7,24 @@ import gamefield.yourdays.domain.models.EmotionType
 import gamefield.yourdays.ui.adapter.DayContainer
 import gamefield.yourdays.ui.customviews.emotions.*
 
-fun Day.getEmotionViewFromDay(context: Context): DayContainer? = when(emotion?.type) {
+fun Day.getEmotionViewFromDay(context: Context, forceLightenTheme: Boolean = false): DayContainer? = when(emotion?.type) {
     EmotionType.ZERO -> DayContainer(
-        view = ZeroEmotionView(context = context).initDay(
+        view = ZeroEmotionView(context = context, forceLightenTheme = forceLightenTheme).initDay(
             day = this
         ), emotion = emotion!!, isSelected = isSelected, dayNumber = dayInMonth
     )
     EmotionType.PLUS -> DayContainer(
-        view = PlusEmotionView(context = context).initDay(
+        view = PlusEmotionView(context = context, forceLightenTheme = forceLightenTheme).initDay(
             day = this
         ), emotion = emotion!!, isSelected = isSelected, dayNumber = dayInMonth
     )
     EmotionType.MINUS -> DayContainer(
-        view = MinusEmotionView(context = context).initDay(
+        view = MinusEmotionView(context = context, forceLightenTheme = forceLightenTheme).initDay(
             day = this
         ), emotion = emotion!!, isSelected = isSelected, dayNumber = dayInMonth
     )
     EmotionType.NONE -> DayContainer(
-        view = EmptyEmotionView(context = context),
+        view = EmptyEmotionView(context = context, forceLightenTheme = forceLightenTheme),
         emotion = emotion!!,
         isSelected = isSelected, dayNumber = dayInMonth
     )

@@ -13,24 +13,35 @@ abstract class EmotionView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0,
-    private val alphaDivider: Float = 100f
+    private val alphaDivider: Float = 100f,
+    forceLightenTheme: Boolean
 ) : View(context, attrs, defStyleAttr) {
 
     val strokePaintWidth = context.resources.getDimension(R.dimen.common_stroke_width)
 
-    val horizontalPaint = Paint(Paint.ANTI_ALIAS_FLAG)
+    val horizontalPaint = Paint(Paint.FILTER_BITMAP_FLAG)
 
-    val verticalPaint = Paint(Paint.ANTI_ALIAS_FLAG)
+    val verticalPaint = Paint(Paint.FILTER_BITMAP_FLAG)
 
     val strokePaint = Paint(Paint.FILTER_BITMAP_FLAG).apply {
-        color = context.getColor(R.color.common_stroke_color)
+        color = context.getColor(
+            if (!forceLightenTheme)
+                R.color.common_stroke_color
+            else
+                R.color.dark_color
+        )
         style = Paint.Style.STROKE;
         strokeWidth = strokePaintWidth;
         isAntiAlias = true;
     }
 
     val invisiblePaint = Paint(Paint.FILTER_BITMAP_FLAG).apply {
-        color = context.getColor(R.color.invisible_color)
+        color = context.getColor(
+            if (!forceLightenTheme)
+                R.color.invisible_color
+            else
+                R.color.white_text_color
+        )
         xfermode = PorterDuffXfermode(PorterDuff.Mode.SRC_OVER);
     }
 
@@ -75,8 +86,18 @@ abstract class EmotionView @JvmOverloads constructor(
             height.toFloat(),
             0f,
             0f,
-            Color.argb((happiness / alphaDivider * 255).toInt(), happinessColor.red, happinessColor.green, happinessColor.blue),
-            Color.argb((worry / alphaDivider * 255).toInt(), worryColor.red, worryColor.green, worryColor.blue),
+            Color.argb(
+                (happiness / alphaDivider * 255).toInt(),
+                happinessColor.red,
+                happinessColor.green,
+                happinessColor.blue
+            ),
+            Color.argb(
+                (worry / alphaDivider * 255).toInt(),
+                worryColor.red,
+                worryColor.green,
+                worryColor.blue
+            ),
             Shader.TileMode.MIRROR
         )
         invalidate()
@@ -88,8 +109,18 @@ abstract class EmotionView @JvmOverloads constructor(
             0f,
             width / 2f - (width / 2f),
             0f,
-            Color.argb((productivity / alphaDivider * 255).toInt(), productivityColor.red, productivityColor.green, productivityColor.blue),
-            Color.argb((sadness / alphaDivider * 255).toInt(), sadnessColor.red, sadnessColor.green, sadnessColor.blue),
+            Color.argb(
+                (productivity / alphaDivider * 255).toInt(),
+                productivityColor.red,
+                productivityColor.green,
+                productivityColor.blue
+            ),
+            Color.argb(
+                (sadness / alphaDivider * 255).toInt(),
+                sadnessColor.red,
+                sadnessColor.green,
+                sadnessColor.blue
+            ),
             Shader.TileMode.MIRROR
         )
         invalidate()

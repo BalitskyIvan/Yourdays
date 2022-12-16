@@ -7,8 +7,9 @@ import android.util.AttributeSet
 class PlusEmotionView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0
-) : EmotionView(context, attrs, defStyleAttr, 100f) {
+    defStyleAttr: Int = 0,
+    forceLightenTheme: Boolean = false
+) : EmotionView(context, attrs, defStyleAttr, 100f, forceLightenTheme) {
 
 
     private var drawLeftHorizontal = 0f

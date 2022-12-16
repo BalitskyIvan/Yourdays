@@ -20,6 +20,8 @@ object MonthPreviewUtils {
                 weekFourthMarkup.visibility = View.GONE
                 cardPeriodMonthFifthWeek.visibility = View.GONE
                 weekFifthMarkup.visibility = View.GONE
+                cardPeriodMonthSixthWeek.visibility = View.GONE
+                weekSixthMarkup.visibility = View.GONE
                 return false
             } else {
                 cardPeriodMonthSecondWeek.visibility = View.VISIBLE
@@ -41,6 +43,8 @@ object MonthPreviewUtils {
                 weekFourthMarkup.visibility = View.GONE
                 cardPeriodMonthFifthWeek.visibility = View.GONE
                 weekFifthMarkup.visibility = View.GONE
+                cardPeriodMonthSixthWeek.visibility = View.GONE
+                weekSixthMarkup.visibility = View.GONE
                 return false
             } else {
                 cardPeriodMonthThirdWeek.visibility = View.VISIBLE
@@ -60,6 +64,8 @@ object MonthPreviewUtils {
                 weekFourthMarkup.visibility = View.GONE
                 cardPeriodMonthFifthWeek.visibility = View.GONE
                 weekFifthMarkup.visibility = View.GONE
+                cardPeriodMonthSixthWeek.visibility = View.GONE
+                weekSixthMarkup.visibility = View.GONE
                 return false
             } else {
                 cardPeriodMonthFourthWeek.visibility = View.VISIBLE
@@ -77,10 +83,29 @@ object MonthPreviewUtils {
             if (weeks.size < 5) {
                 cardPeriodMonthFifthWeek.visibility = View.GONE
                 weekFifthMarkup.visibility = View.GONE
+                cardPeriodMonthSixthWeek.visibility = View.GONE
+                weekSixthMarkup.visibility = View.GONE
                 return false
             } else {
                 cardPeriodMonthFifthWeek.visibility = View.VISIBLE
                 weekFifthMarkup.visibility = View.VISIBLE
+                return true
+            }
+        }
+    }
+
+    fun setAllAfterFifthWeekVisibility(
+        binding: FragmentMonthPreviewFragmetBinding,
+        weeks: List<Week>
+    ): Boolean {
+        with(binding) {
+            if (weeks.size < 6) {
+                cardPeriodMonthSixthWeek.visibility = View.GONE
+                weekSixthMarkup.visibility = View.GONE
+                return false
+            } else {
+                cardPeriodMonthSixthWeek.visibility = View.VISIBLE
+                weekSixthMarkup.visibility = View.VISIBLE
                 return true
             }
         }

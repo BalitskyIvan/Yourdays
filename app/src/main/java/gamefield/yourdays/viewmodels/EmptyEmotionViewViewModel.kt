@@ -17,8 +17,8 @@ class EmptyEmotionViewViewModel: ViewModel() {
 
     private val changeEmotionAnimation = ChangingEmotionAnimation(
         viewModelScope = viewModelScope,
-        emotionContainerAlpha = _emotionContainerAlpha,
-        currentEmotionType = _currentEmotionType,
+        emotionContainerAlphaChangedEvent = _emotionContainerAlpha,
+        currentEmotionTypeChangedEvent = _currentEmotionType,
     )
 
     init {

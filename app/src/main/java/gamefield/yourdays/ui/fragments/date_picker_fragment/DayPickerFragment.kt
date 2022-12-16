@@ -14,7 +14,6 @@ import gamefield.yourdays.viewmodels.ExportToInstagramViewModel
 
 class DayPickerFragment : Fragment() {
 
-
     private lateinit var binding: FragmentDayPickerBinding
     private lateinit var viewModel: ExportToInstagramViewModel
 
@@ -35,8 +34,14 @@ class DayPickerFragment : Fragment() {
         binding.root.setOnClickListener {
             DatePickerDialog(
                 requireContext(),
-                { view, year, month, dayOfMoth ->
-
+                { _, year, month, dayOfMoth ->
+                    viewModel.dateInDayPickerChanged(
+                        PickedDateData(
+                            year = year,
+                            month = month,
+                            day = dayOfMoth
+                        )
+                    )
                 },
                 dateInPicker.year,
                 dateInPicker.month,
@@ -56,9 +61,6 @@ class DayPickerFragment : Fragment() {
     private fun observeDateInPickerChanged() {
         viewModel.dayInPickerChanged.observe(viewLifecycleOwner) { date ->
             dateInPicker = date
-        }
-        viewModel.currentDayInPreviewChanged.observe(viewLifecycleOwner) { data ->
-            binding.dayPickerButton.text = data.first
         }
     }
 

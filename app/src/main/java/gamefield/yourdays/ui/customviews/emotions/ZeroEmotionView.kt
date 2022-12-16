@@ -7,8 +7,9 @@ import android.util.AttributeSet
 class ZeroEmotionView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0
-) : EmotionView(context, attrs, defStyleAttr, ALPHA_DIVIDER) {
+    defStyleAttr: Int = 0,
+    forceLightenTheme: Boolean = false
+) : EmotionView(context, attrs, defStyleAttr, ALPHA_DIVIDER, forceLightenTheme) {
 
     private companion object {
         const val ALPHA_DIVIDER = 100f

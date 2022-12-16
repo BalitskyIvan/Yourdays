@@ -13,14 +13,11 @@ class AddDayUseCase(
     private val repository = Repository.getInstance(AppDatabase.getInstance(context = context).monthDao())
 
     operator fun invoke(month: Month, dayNumber: Int, emotion: Emotion) {
-        var dayIter = 1
         month.weeks.forEach {
             it.days.forEach { day ->
-                if (dayIter == dayNumber && day.emotion != null) {
+                if (day.dayInMonth == dayNumber && day.emotion != null) {
                     day.emotion = emotion
                 }
-                if (day.emotion != null)
-                    dayIter++
             }
         }
         repository.updateMonth(month)

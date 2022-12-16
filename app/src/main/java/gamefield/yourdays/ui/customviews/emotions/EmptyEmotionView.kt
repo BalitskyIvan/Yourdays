@@ -15,18 +15,19 @@ class EmptyEmotionView@JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0,
-    defStyleRes: Int = 0
+    defStyleRes: Int = 0,
+    forceLightenTheme: Boolean = false
 ) : ConstraintLayout(context, attrs, defStyleAttr, defStyleRes) {
 
     private val binding = ViewEmptyEmotionBinding.inflate(LayoutInflater.from(context), this)
 
     private val lifecycleOwner = context as LifecycleOwner
 
-    private val viewModel =  ViewModelProvider(context as ViewModelStoreOwner).get(EmptyEmotionViewViewModel::class.java)
+    private val viewModel = ViewModelProvider(context as ViewModelStoreOwner).get(EmptyEmotionViewViewModel::class.java)
 
-    private val minusEmotionView: MinusEmotionView = MinusEmotionView(context).apply { isDrawStroke = true }
-    private val plusEmotionView: PlusEmotionView = PlusEmotionView(context).apply { isDrawStroke = true }
-    private val zeroEmotionView: ZeroEmotionView = ZeroEmotionView(context).apply { isDrawStroke = true }
+    private val minusEmotionView: MinusEmotionView = MinusEmotionView(context = context, forceLightenTheme = forceLightenTheme).apply { isDrawStroke = true }
+    private val plusEmotionView: PlusEmotionView = PlusEmotionView(context = context, forceLightenTheme = forceLightenTheme).apply { isDrawStroke = true }
+    private val zeroEmotionView: ZeroEmotionView = ZeroEmotionView(context = context, forceLightenTheme = forceLightenTheme).apply { isDrawStroke = true }
     private var currentEmotion: EmotionView = plusEmotionView
 
     init {

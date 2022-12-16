@@ -5,7 +5,7 @@
     android:layout_height="50dp"
     android:background="@drawable/rounded_36_stroke_corners"
     android:layout_marginHorizontal="20dp"
-    android:layout_marginTop="30dp"
+    android:layout_marginTop="15dp"
     tools:context=".ui.fragments.date_picker_fragment.DayPickerFragment">
 
     <TextView

@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.fragments.date_picker_fragment.MonthPreviewFragment"
-    android:layout_width="370dp"
+    android:layout_width="380dp"
     android:layout_height="wrap_content"
     android:background="@drawable/rounded_corners_always_white">
 
     <TextView
-        style="@style/Text10sp.Thin"
+        style="@style/Text10sp.Thin.Black"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/app_watermark"
@@ -18,7 +18,7 @@
 
     <TextView
         android:id="@+id/card_period_month_name"
-        style="@style/Text14sp.Spacing"
+        style="@style/Text14sp.Spacing.Black"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -29,7 +29,7 @@
 
     <TextView
         android:id="@+id/week_first_markup"
-        style="@style/Text12sp"
+        style="@style/Text12sp.Black"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/one"
@@ -100,7 +100,7 @@
 
     <TextView
         android:id="@+id/week_second_markup"
-        style="@style/Text12sp"
+        style="@style/Text12sp.Black"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/two"
@@ -171,7 +171,7 @@
 
     <TextView
         android:id="@+id/week_third_markup"
-        style="@style/Text12sp"
+        style="@style/Text12sp.Black"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/three"
@@ -242,7 +242,7 @@
 
     <TextView
         android:id="@+id/week_fourth_markup"
-        style="@style/Text12sp"
+        style="@style/Text12sp.Black"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/four"
@@ -313,7 +313,7 @@
 
     <TextView
         android:id="@+id/week_fifth_markup"
-        style="@style/Text12sp"
+        style="@style/Text12sp.Black"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/five"
@@ -382,6 +382,77 @@
             android:padding="@dimen/month_preview_card_day_padding" />
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/week_sixth_markup"
+        style="@style/Text12sp.Black"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/six"
+        app:layout_constraintBottom_toBottomOf="@id/card_period_month_sixth_week"
+        app:layout_constraintEnd_toStartOf="@id/card_period_month_sixth_week"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/card_period_month_sixth_week" />
+
+    <LinearLayout
+        android:id="@+id/card_period_month_sixth_week"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/month_preview_card_margin_start"
+        android:layout_marginTop="@dimen/month_preview_card_margin_top"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/card_period_month_fifth_week">
+
+        <FrameLayout
+            android:id="@+id/sixth_week_mon"
+            android:layout_width="@dimen/month_preview_emotion_width"
+            android:layout_height="@dimen/month_preview_emotion_height"
+            android:padding="@dimen/month_preview_card_day_padding" />
+
+        <FrameLayout
+            android:id="@+id/sixth_week_tue"
+            android:layout_width="@dimen/month_preview_emotion_width"
+            android:layout_height="@dimen/month_preview_emotion_height"
+            android:layout_marginStart="@dimen/month_preview_card_margin_between_days"
+            android:padding="@dimen/month_preview_card_day_padding" />
+
+        <FrameLayout
+            android:id="@+id/sixth_week_wed"
+            android:layout_width="@dimen/month_preview_emotion_width"
+            android:layout_height="@dimen/month_preview_emotion_height"
+            android:layout_marginStart="@dimen/month_preview_card_margin_between_days"
+            android:padding="@dimen/month_preview_card_day_padding" />
+
+        <FrameLayout
+            android:id="@+id/sixth_week_thu"
+            android:layout_width="@dimen/month_preview_emotion_width"
+            android:layout_height="@dimen/month_preview_emotion_height"
+            android:layout_marginStart="@dimen/month_preview_card_margin_between_days"
+            android:padding="@dimen/month_preview_card_day_padding" />
+
+        <FrameLayout
+            android:id="@+id/sixth_week_fri"
+            android:layout_width="@dimen/month_preview_emotion_width"
+            android:layout_height="@dimen/month_preview_emotion_height"
+            android:layout_marginStart="@dimen/month_preview_card_margin_between_days"
+            android:padding="@dimen/month_preview_card_day_padding" />
+
+        <FrameLayout
+            android:id="@+id/sixth_week_sat"
+            android:layout_width="@dimen/month_preview_emotion_width"
+            android:layout_height="@dimen/month_preview_emotion_height"
+            android:layout_marginStart="@dimen/month_preview_card_margin_between_days"
+            android:padding="@dimen/month_preview_card_day_padding" />
+
+        <FrameLayout
+            android:id="@+id/sixth_week_sun"
+            android:layout_width="@dimen/month_preview_emotion_width"
+            android:layout_height="@dimen/month_preview_emotion_height"
+            android:layout_marginStart="@dimen/month_preview_card_margin_between_days"
+            android:padding="@dimen/month_preview_card_day_padding" />
+    </LinearLayout>
+
     <LinearLayout
         android:id="@+id/card_period_days_markup"
         android:layout_width="wrap_content"
@@ -392,18 +463,18 @@
         android:paddingBottom="6dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/card_period_month_fifth_week">
+        app:layout_constraintTop_toBottomOf="@id/card_period_month_sixth_week">
 
         <TextView
             android:id="@+id/markup_day_mon"
-            style="@style/Text10sp.Center"
+            style="@style/Text10sp.Center.Black"
             android:layout_width="@dimen/month_preview_emotion_width"
             android:layout_height="wrap_content"
             android:text="@string/mon" />
 
         <TextView
             android:id="@+id/markup_day_tue"
-            style="@style/Text10sp.Center"
+            style="@style/Text10sp.Center.Black"
             android:layout_width="@dimen/month_preview_emotion_width"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/month_preview_card_margin_between_days"
@@ -411,7 +482,7 @@
 
         <TextView
             android:id="@+id/markup_day_wed"
-            style="@style/Text10sp.Center"
+            style="@style/Text10sp.Center.Black"
             android:layout_width="@dimen/month_preview_emotion_width"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/month_preview_card_margin_between_days"
@@ -419,7 +490,7 @@
 
         <TextView
             android:id="@+id/markup_day_thu"
-            style="@style/Text10sp.Center"
+            style="@style/Text10sp.Center.Black"
             android:layout_width="@dimen/month_preview_emotion_width"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/month_preview_card_margin_between_days"
@@ -427,7 +498,7 @@
 
         <TextView
             android:id="@+id/markup_day_fri"
-            style="@style/Text10sp.Center"
+            style="@style/Text10sp.Center.Black"
             android:layout_width="@dimen/month_preview_emotion_width"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/month_preview_card_margin_between_days"
@@ -435,7 +506,7 @@
 
         <TextView
             android:id="@+id/markup_day_sat"
-            style="@style/Text10sp.Center"
+            style="@style/Text10sp.Center.Black"
             android:layout_width="@dimen/month_preview_emotion_width"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/month_preview_card_margin_between_days"
@@ -443,7 +514,7 @@
 
         <TextView
             android:id="@+id/markup_day_sun"
-            style="@style/Text10sp.Center"
+            style="@style/Text10sp.Center.Black"
             android:layout_width="@dimen/month_preview_emotion_width"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/month_preview_card_margin_between_days"

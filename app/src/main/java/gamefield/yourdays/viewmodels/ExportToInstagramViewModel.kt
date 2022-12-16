@@ -36,15 +36,20 @@ class ExportToInstagramViewModel : ViewModel() {
     private val _periodPickerChanged = MutableLiveData<DatePickerType>()
     val periodPickerChanged = _periodPickerChanged.toImmutable()
 
-    private val _mothListChangedEvent = MutableLiveData<List<Month>>()
-
+    private val _monthListChangedEvent = MutableLiveData<List<Month>>()
 
     //Pickers
-    private val _monthListInPickerChanged = MutableLiveData<Set<String>>()
+    private val _monthListInPickerChanged = MutableLiveData<Set<Pair<String, Int>>>()
     val monthListInPickerChanged = _monthListInPickerChanged.toImmutable()
 
     private val _yearsListInPickerChanged = MutableLiveData<Set<String>>()
     val yearsListInPickerChanged = _yearsListInPickerChanged.toImmutable()
+
+    private val _monthValueInPickerChanged = MutableLiveData<Int>()
+    val monthValueInPickerChanged = _monthValueInPickerChanged.toImmutable()
+
+    private val _yearsValueInPickerChanged = MutableLiveData<Int>()
+    val yearsValueInPickerChanged = _yearsValueInPickerChanged.toImmutable()
 
     private val _dayInPickerChanged = MutableLiveData<PickedDateData>()
     val dayInPickerChanged = _dayInPickerChanged.toImmutable()
@@ -90,37 +95,113 @@ class ExportToInstagramViewModel : ViewModel() {
         getMonthsInMonthsListUseCase = GetMonthsInMonthsListUseCase(context = context)
         getDateStrFromDateUseCase = GetDateStrFromDateUseCase(context = context)
 
-        _monthListInPickerChanged.postValue(setOf(calendar.get(Calendar.MONTH).getMonthName(isUppercase = false, context = context)))
-        _yearsListInPickerChanged.postValue(setOf(calendar.get(Calendar.YEAR).toString()))
+        if (_monthListInPickerChanged.value == null) {
+            val monthNumber = calendar.get(Calendar.MONTH)
+            _monthListInPickerChanged.postValue(
+                setOf(
+                    Pair(
+                        monthNumber.getMonthName(isUppercase = false, context = context),
+                        monthNumber
+                    )
+                )
+            )
+        }
+        if (_yearsListInPickerChanged.value == null) {
+            _yearsListInPickerChanged.postValue(setOf(calendar.get(Calendar.YEAR).toString()))
+        }
 
         val getAllMonthsListUseCase = GetAllMonthsListUseCase(
             context = context,
             firstDayOfWeekChanged = _firstDayOfWeekChangedEvent,
-            mothListChangedEvent = _mothListChangedEvent,
+            mothListChangedEvent = _monthListChangedEvent,
             viewModelScope = viewModelScope,
         )
         getAllMonthsListUseCase.invoke()
     }
 
     private fun observeMonthListChanged() {
-        _mothListChangedEvent.observeForever { monthList ->
+        _monthListChangedEvent.observeForever { monthList ->
             val monthNames = getMonthsInMonthsListUseCase.invoke(monthList)
             val yearNames = getYearsInMonthsListUseCase.invoke(monthList)
 
             _monthListInPickerChanged.postValue(monthNames)
             _yearsListInPickerChanged.postValue(yearNames)
-            initDate?.let { date ->
-                _dayInPickerChanged.postValue(date)
-                _currentDayInPreviewChanged.postValue(Pair(getDateStrFromDateUseCase.invoke(date), getCurrentEmotionFromMonthListUseCase(monthList, date)))
+            setInitDate(monthList)
+
+            val monthInPreview = getMonthInPreview(monthList)
+            setCurrentMonthInPicker(
+                monthNames = monthNames,
+                yearNames = yearNames,
+                monthInPreview = monthInPreview
+            )
+
+            _currentMonthInPreviewChanged.postValue(
+                Pair(monthInPreview, _firstDayOfWeekChangedEvent.value!!)
+            )
+        }
+    }
+
+    private fun setCurrentMonthInPicker(
+        monthNames: Set<Pair<String, Int>>,
+        yearNames: Set<String>,
+        monthInPreview: Month
+    ) {
+        var currentMonthInPickerIndex = 0
+        var currentYearInPickerIndex = 0
+
+        monthNames.forEachIndexed { index, month ->
+            if (monthInPreview.monthNumber == month.second)
+                currentMonthInPickerIndex = index
+        }
+        yearNames.forEachIndexed { index, yearStr ->
+            if (monthInPreview.year == yearStr.toInt())
+                currentYearInPickerIndex = index
+        }
+        _monthValueInPickerChanged.postValue(currentMonthInPickerIndex)
+        _yearsValueInPickerChanged.postValue(currentYearInPickerIndex)
+    }
+
+    private fun setInitDate(monthList: List<Month>) {
+        initDate?.let { date ->
+            _dayInPickerChanged.postValue(date)
+            _currentDayInPreviewChanged.postValue(
+                Pair(
+                    getDateStrFromDateUseCase.invoke(date),
+                    getCurrentEmotionFromMonthListUseCase(monthList, date)
+                )
+            )
+        }
+    }
+
+    private fun getMonthInPreview(monthList: List<Month>): Month {
+        return if (initDate != null) {
+            var selectedMonth = monthList.last()
+            monthList.forEach { month ->
+                if (month.monthNumber == initDate!!.month && month.year == initDate!!.year)
+                    selectedMonth = month
             }
-
-        //    _currentMonthChanged.postValue(Pair(monthList.last(), _firstDayOfWeekChangedEvent.value!!))
-
+            selectedMonth
+        } else {
+            monthList.last()
         }
     }
 
     fun initSelectedData(dateData: PickedDateData) {
         initDate = dateData
+    }
+
+    fun dateInDayPickerChanged(newDate: PickedDateData) {
+        if (_monthListChangedEvent.value != null) {
+            _currentDayInPreviewChanged.postValue(
+                Pair(
+                    getDateStrFromDateUseCase.invoke(dateData = newDate),
+                    getCurrentEmotionFromMonthListUseCase.invoke(
+                        monthList = _monthListChangedEvent.value!!,
+                        date = newDate
+                    )
+                )
+            )
+        }
     }
 
     fun onDayButtonClicked() {
@@ -138,7 +219,13 @@ class ExportToInstagramViewModel : ViewModel() {
     }
 
     fun onUploadButtonClicked(bitmap: Bitmap, context: Context) {
-        val uri = saveBitmap(context = context, bitmap = bitmap, format = Bitmap.CompressFormat.PNG, mimeType = "", displayName =  Stored_path)
+        val uri = saveBitmap(
+            context = context,
+            bitmap = bitmap,
+            format = Bitmap.CompressFormat.PNG,
+            mimeType = "",
+            displayName = Stored_path
+        )
         _openInstagramEvent.postValue(uri)
     }
 
@@ -178,7 +265,11 @@ class ExportToInstagramViewModel : ViewModel() {
     }
 
     fun colorSelected(color: InstagramStoriesBackgroundColor) {
-        _colorSelectedEvent.value?.let { currentColor -> _colorUnselectedEvent.postValue(currentColor) }
+        _colorSelectedEvent.value?.let { currentColor ->
+            _colorUnselectedEvent.postValue(
+                currentColor
+            )
+        }
         _colorSelectedEvent.postValue(color)
     }
 
@@ -189,10 +280,75 @@ class ExportToInstagramViewModel : ViewModel() {
     }
 
     fun onMonthPickerChanged(monthName: String, yearName: String, context: Context) {
-        val pickedMonth = _mothListChangedEvent.value?.find { month ->
-            yearName.toInt() == month.year && month.monthNumber.getMonthName(isUppercase = false, context = context) == monthName
+        if (!changeYearPickerIfNeeded(monthName, yearName)) {
+            changeMonthInPreview(monthName, yearName, context)
         }
-        pickedMonth?.let { _currentMonthInPreviewChanged.postValue(Pair(it, _firstDayOfWeekChangedEvent.value!!)) }
+    }
+
+    fun onYearPickerChanged(monthName: String, yearName: String, context: Context) {
+        if (!changeMonthPickerIfNeeded(monthName, yearName)) {
+            changeMonthInPreview(monthName, yearName, context)
+        }
+    }
+
+    private fun changeMonthPickerIfNeeded(monthName: String, yearName: String): Boolean {
+        _monthListInPickerChanged.value?.filter { it.first == monthName }?.forEach { month ->
+            _monthListChangedEvent.value?.forEach {
+                if (month.second == it.monthNumber && it.year == yearName.toInt())
+                    return false
+            }
+        }
+        _monthListInPickerChanged.value?.forEachIndexed { monthIndex, month ->
+            _monthListChangedEvent.value?.forEach {
+                if (month.second == it.monthNumber && it.year == yearName.toInt()) {
+                    _monthValueInPickerChanged.postValue(monthIndex)
+                    return true
+                }
+            }
+        }
+        return false
+    }
+
+    private fun changeYearPickerIfNeeded(monthName: String, yearName: String): Boolean {
+        _monthListInPickerChanged.value?.forEach { month ->
+            if (month.first == monthName) {
+                _monthListChangedEvent.value?.forEach {
+                    if (it.monthNumber == month.second) {
+                        if (it.year == yearName.toInt())
+                            return false
+                    }
+                }
+                _monthListChangedEvent.value?.forEach {
+                    if (it.monthNumber == month.second) {
+                        if (it.year != yearName.toInt()) {
+                            _yearsListInPickerChanged.value?.forEachIndexed { index, yearStr ->
+                                if (it.year == yearStr.toInt()) {
+                                    _yearsValueInPickerChanged.postValue(index)
+                                    return true
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return false
+    }
+
+    private fun changeMonthInPreview(monthName: String, yearName: String, context: Context) {
+        _monthListChangedEvent.value?.find { month ->
+            yearName.toInt() == month.year && month.monthNumber.getMonthName(
+                isUppercase = false,
+                context = context
+            ) == monthName
+        }?.let {
+            _currentMonthInPreviewChanged.postValue(
+                Pair(
+                    it,
+                    _firstDayOfWeekChangedEvent.value!!
+                )
+            )
+        }
     }
 
     private companion object {

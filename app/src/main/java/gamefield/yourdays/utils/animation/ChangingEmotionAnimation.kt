@@ -7,9 +7,12 @@ import kotlinx.coroutines.*
 
 class ChangingEmotionAnimation(
     private val viewModelScope: CoroutineScope,
-    private val emotionContainerAlpha: MutableLiveData<Float>,
-    private val currentEmotionType: MutableLiveData<EmotionType>,
+    private val emotionContainerAlphaChangedEvent: MutableLiveData<Float>,
+    private val currentEmotionTypeChangedEvent: MutableLiveData<EmotionType>,
 ) : Animation {
+
+    private var emotionContainerAlpha: Float = 0f
+    private var currentEmotionType: EmotionType = EmotionType.PLUS
 
     @Volatile
     var isAnimationActive: Boolean = false
@@ -23,28 +26,30 @@ class ChangingEmotionAnimation(
             viewModelScope.launch(Dispatchers.Default) {
                 while (isAnimationActive) {
                     if (alphaState == AlphaState.INCREASE) {
-                        val alpha = emotionContainerAlpha.value
-                        if (alpha != null && alpha + ALPHA_SPEED > 1) {
+                        if (emotionContainerAlpha + ALPHA_SPEED > 1) {
                             alphaState = AlphaState.DECREASE
-                            emotionContainerAlpha.postValue(1f)
-                        } else if (alpha != null) {
-                            emotionContainerAlpha.postValue(alpha + ALPHA_SPEED)
+                            emotionContainerAlpha = 1f
+                            emotionContainerAlphaChangedEvent.postValue(emotionContainerAlpha)
+                        } else {
+                            emotionContainerAlpha += ALPHA_SPEED
+                            emotionContainerAlphaChangedEvent.postValue(emotionContainerAlpha)
                         }
                     } else {
-                        val alpha = emotionContainerAlpha.value
-                        if (alpha != null && alpha - ALPHA_SPEED < 0.1f) {
+                        if (emotionContainerAlpha - ALPHA_SPEED < 0.1f) {
                             alphaState = AlphaState.INCREASE
-                            currentEmotionType.postValue(
-                                currentEmotionType.value?.getNextEmotion() ?: EmotionType.PLUS
-                            )
-                            emotionContainerAlpha.postValue(0.1f)
-                        } else if (alpha != null) {
-                            emotionContainerAlpha.postValue(alpha - ALPHA_SPEED)
+                            currentEmotionType = currentEmotionType.getNextEmotion()
+                            currentEmotionTypeChangedEvent.postValue(currentEmotionType)
+                            emotionContainerAlpha = 0.1f
+                            emotionContainerAlphaChangedEvent.postValue(emotionContainerAlpha)
+                        } else {
+                            emotionContainerAlpha -= ALPHA_SPEED
+                            emotionContainerAlphaChangedEvent.postValue(emotionContainerAlpha)
                         }
                     }
                     delay(40)
                 }
-                emotionContainerAlpha.postValue(1f)
+                emotionContainerAlpha = 1f
+                emotionContainerAlphaChangedEvent.postValue(emotionContainerAlpha)
                 alphaState = AlphaState.INCREASE
             }
         }

@@ -1,5 +1,6 @@
 package gamefield.yourdays.ui.fragments.date_picker_fragment
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -26,12 +27,13 @@ class MonthPickerFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(requireActivity()).get(ExportToInstagramViewModel::class.java)
         observePickersDataChanged()
+        observeCurrentValueChanged()
         setPickerListeners()
     }
 
     private fun observePickersDataChanged() {
         viewModel.monthListInPickerChanged.observe(viewLifecycleOwner) { months ->
-            binding.monthPicker.displayedValues = months.toTypedArray()
+            binding.monthPicker.displayedValues = months.map { it.first }.toTypedArray()
             binding.monthPicker.minValue = 0
             binding.monthPicker.maxValue = months.size - 1
         }
@@ -42,20 +44,31 @@ class MonthPickerFragment : Fragment() {
         }
     }
 
-    private fun setPickerListeners() {
-        binding.monthPicker.setOnValueChangedListener { _, _, _ ->
-           onPickerChanged()
+    private fun observeCurrentValueChanged() {
+        viewModel.monthValueInPickerChanged.observe(viewLifecycleOwner) { month ->
+            binding.monthPicker.value = month
+            onPickersChanged(viewModel::onMonthPickerChanged)
         }
-        binding.yearPicker.setOnValueChangedListener { _, _, _ ->
-            onPickerChanged()
+        viewModel.yearsValueInPickerChanged.observe(viewLifecycleOwner) { years ->
+            binding.yearPicker.value = years
+            onPickersChanged(viewModel::onYearPickerChanged)
         }
     }
 
-    private fun onPickerChanged() {
-        viewModel.onMonthPickerChanged(
-            monthName = binding.monthPicker.displayedValues.get(binding.monthPicker.value),
-            yearName = binding.yearPicker.displayedValues.get(binding.yearPicker.value),
-            context = requireContext()
+    private fun setPickerListeners() {
+        binding.monthPicker.setOnValueChangedListener { _, _, _ ->
+            onPickersChanged(viewModel::onMonthPickerChanged)
+        }
+        binding.yearPicker.setOnValueChangedListener { _, _, _ ->
+            onPickersChanged(viewModel::onYearPickerChanged)
+        }
+    }
+
+    private fun onPickersChanged(listener: (monthName: String, yearName: String, context: Context) -> Unit) {
+        listener.invoke(
+            binding.monthPicker.displayedValues.get(binding.monthPicker.value),
+            binding.yearPicker.displayedValues.get(binding.yearPicker.value),
+            requireContext()
         )
     }
 

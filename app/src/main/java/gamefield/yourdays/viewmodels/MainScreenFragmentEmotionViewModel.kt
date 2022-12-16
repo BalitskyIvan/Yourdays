@@ -43,8 +43,8 @@ class MainScreenFragmentEmotionViewModel : ViewModel() {
 
     private val changeEmotionAnimation = ChangingEmotionAnimation(
         viewModelScope = viewModelScope,
-        emotionContainerAlpha = _emotionContainerAlpha,
-        currentEmotionType = _currentEmotionType,
+        emotionContainerAlphaChangedEvent = _emotionContainerAlpha,
+        currentEmotionTypeChangedEvent = _currentEmotionType,
     )
     private val clickToFillVisibilityAnimation =
         SoftVisibilityAnimation(_clickToFillTextAlphaChangedEvent, SoftVisibilityAnimation.State.APPEAR)

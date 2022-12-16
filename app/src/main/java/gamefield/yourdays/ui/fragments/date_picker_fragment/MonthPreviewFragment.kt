@@ -71,58 +71,68 @@ class MonthPreviewFragment : Fragment() {
         val daysInWeek = getMonthMarkupByFirstDayOfWeekUseCase.invoke(context = requireContext(), firstDayOfWeek = firstDayOfWeek)
 
         with(month) {
-            weeks[0].days[daysInWeek.first].getEmotionViewFromDay(requireContext()).let { binding.firstWeekMon.setEmotion(it) }
-            weeks[0].days[daysInWeek.second].getEmotionViewFromDay(requireContext()).let { binding.firstWeekTue.setEmotion(it) }
-            weeks[0].days[daysInWeek.third].getEmotionViewFromDay(requireContext()).let { binding.firstWeekWed.setEmotion(it) }
-            weeks[0].days[daysInWeek.fourth].getEmotionViewFromDay(requireContext()).let { binding.firstWeekThu.setEmotion(it) }
-            weeks[0].days[daysInWeek.fifth].getEmotionViewFromDay(requireContext()).let { binding.firstWeekFri.setEmotion(it) }
-            weeks[0].days[daysInWeek.sixth].getEmotionViewFromDay(requireContext()).let { binding.firstWeekSat.setEmotion(it) }
-            weeks[0].days[daysInWeek.seventh].getEmotionViewFromDay(requireContext()).let { binding.firstWeekSun.setEmotion(it) }
+            weeks[0].days[daysInWeek.first].getEmotionViewFromDay(requireContext(), true).let { binding.firstWeekMon.setEmotion(it) }
+            weeks[0].days[daysInWeek.second].getEmotionViewFromDay(requireContext(), true).let { binding.firstWeekTue.setEmotion(it) }
+            weeks[0].days[daysInWeek.third].getEmotionViewFromDay(requireContext(), true).let { binding.firstWeekWed.setEmotion(it) }
+            weeks[0].days[daysInWeek.fourth].getEmotionViewFromDay(requireContext(), true).let { binding.firstWeekThu.setEmotion(it) }
+            weeks[0].days[daysInWeek.fifth].getEmotionViewFromDay(requireContext(), true).let { binding.firstWeekFri.setEmotion(it) }
+            weeks[0].days[daysInWeek.sixth].getEmotionViewFromDay(requireContext(), true).let { binding.firstWeekSat.setEmotion(it) }
+            weeks[0].days[daysInWeek.seventh].getEmotionViewFromDay(requireContext(), true).let { binding.firstWeekSun.setEmotion(it) }
 
             if (!MonthPreviewUtils.setAllAfterFirstWeekVisibility(binding, weeks))
                 return
 
-            weeks[1].days[daysInWeek.first].getEmotionViewFromDay(requireContext()).let { binding.secondWeekMon.setEmotion(it) }
-            weeks[1].days[daysInWeek.second].getEmotionViewFromDay(requireContext()).let { binding.secondWeekTue.setEmotion(it) }
-            weeks[1].days[daysInWeek.third].getEmotionViewFromDay(requireContext()).let { binding.secondWeekWed.setEmotion(it) }
-            weeks[1].days[daysInWeek.fourth].getEmotionViewFromDay(requireContext()).let { binding.secondWeekThu.setEmotion(it) }
-            weeks[1].days[daysInWeek.fifth].getEmotionViewFromDay(requireContext()).let { binding.secondWeekFri.setEmotion(it) }
-            weeks[1].days[daysInWeek.sixth].getEmotionViewFromDay(requireContext()).let { binding.secondWeekSat.setEmotion(it) }
-            weeks[1].days[daysInWeek.seventh].getEmotionViewFromDay(requireContext()).let { binding.secondWeekSun.setEmotion(it) }
+            weeks[1].days[daysInWeek.first].getEmotionViewFromDay(requireContext(), true).let { binding.secondWeekMon.setEmotion(it) }
+            weeks[1].days[daysInWeek.second].getEmotionViewFromDay(requireContext(), true).let { binding.secondWeekTue.setEmotion(it) }
+            weeks[1].days[daysInWeek.third].getEmotionViewFromDay(requireContext(), true).let { binding.secondWeekWed.setEmotion(it) }
+            weeks[1].days[daysInWeek.fourth].getEmotionViewFromDay(requireContext(), true).let { binding.secondWeekThu.setEmotion(it) }
+            weeks[1].days[daysInWeek.fifth].getEmotionViewFromDay(requireContext(), true).let { binding.secondWeekFri.setEmotion(it) }
+            weeks[1].days[daysInWeek.sixth].getEmotionViewFromDay(requireContext(), true).let { binding.secondWeekSat.setEmotion(it) }
+            weeks[1].days[daysInWeek.seventh].getEmotionViewFromDay(requireContext(), true).let { binding.secondWeekSun.setEmotion(it) }
 
             if (!MonthPreviewUtils.setAllAfterSecondWeekVisibility(binding, weeks))
                 return
 
-            weeks[2].days[daysInWeek.first].getEmotionViewFromDay(requireContext()).let { binding.thirdWeekMon.setEmotion(it) }
-            weeks[2].days[daysInWeek.second].getEmotionViewFromDay(requireContext()).let { binding.thirdWeekTue.setEmotion(it) }
-            weeks[2].days[daysInWeek.third].getEmotionViewFromDay(requireContext()).let { binding.thirdWeekWed.setEmotion(it) }
-            weeks[2].days[daysInWeek.fourth].getEmotionViewFromDay(requireContext()).let { binding.thirdWeekThu.setEmotion(it) }
-            weeks[2].days[daysInWeek.fifth].getEmotionViewFromDay(requireContext()).let { binding.thirdWeekFri.setEmotion(it) }
-            weeks[2].days[daysInWeek.sixth].getEmotionViewFromDay(requireContext()).let { binding.thirdWeekSat.setEmotion(it) }
-            weeks[2].days[daysInWeek.seventh].getEmotionViewFromDay(requireContext()).let { binding.thirdWeekSun.setEmotion(it) }
+            weeks[2].days[daysInWeek.first].getEmotionViewFromDay(requireContext(), true).let { binding.thirdWeekMon.setEmotion(it) }
+            weeks[2].days[daysInWeek.second].getEmotionViewFromDay(requireContext(), true).let { binding.thirdWeekTue.setEmotion(it) }
+            weeks[2].days[daysInWeek.third].getEmotionViewFromDay(requireContext(), true).let { binding.thirdWeekWed.setEmotion(it) }
+            weeks[2].days[daysInWeek.fourth].getEmotionViewFromDay(requireContext(), true).let { binding.thirdWeekThu.setEmotion(it) }
+            weeks[2].days[daysInWeek.fifth].getEmotionViewFromDay(requireContext(), true).let { binding.thirdWeekFri.setEmotion(it) }
+            weeks[2].days[daysInWeek.sixth].getEmotionViewFromDay(requireContext(), true).let { binding.thirdWeekSat.setEmotion(it) }
+            weeks[2].days[daysInWeek.seventh].getEmotionViewFromDay(requireContext(), true).let { binding.thirdWeekSun.setEmotion(it) }
 
             if (!MonthPreviewUtils.setAllAfterThirdWeekVisibility(binding, weeks))
                 return
 
-            weeks[3].days[daysInWeek.first].getEmotionViewFromDay(requireContext()).let { binding.fourthWeekMon.setEmotion(it) }
-            weeks[3].days[daysInWeek.second].getEmotionViewFromDay(requireContext()).let { binding.fourthWeekTue.setEmotion(it) }
-            weeks[3].days[daysInWeek.third].getEmotionViewFromDay(requireContext()).let { binding.fourthWeekWed.setEmotion(it) }
-            weeks[3].days[daysInWeek.fourth].getEmotionViewFromDay(requireContext()).let { binding.fourthWeekThu.setEmotion(it) }
-            weeks[3].days[daysInWeek.fifth].getEmotionViewFromDay(requireContext()).let { binding.fourthWeekFri.setEmotion(it) }
-            weeks[3].days[daysInWeek.sixth].getEmotionViewFromDay(requireContext()).let { binding.fourthWeekSat.setEmotion(it) }
-            weeks[3].days[daysInWeek.seventh].getEmotionViewFromDay(requireContext()).let { binding.fourthWeekSun.setEmotion(it) }
+            weeks[3].days[daysInWeek.first].getEmotionViewFromDay(requireContext(), true).let { binding.fourthWeekMon.setEmotion(it) }
+            weeks[3].days[daysInWeek.second].getEmotionViewFromDay(requireContext(), true).let { binding.fourthWeekTue.setEmotion(it) }
+            weeks[3].days[daysInWeek.third].getEmotionViewFromDay(requireContext(), true).let { binding.fourthWeekWed.setEmotion(it) }
+            weeks[3].days[daysInWeek.fourth].getEmotionViewFromDay(requireContext(), true).let { binding.fourthWeekThu.setEmotion(it) }
+            weeks[3].days[daysInWeek.fifth].getEmotionViewFromDay(requireContext(), true).let { binding.fourthWeekFri.setEmotion(it) }
+            weeks[3].days[daysInWeek.sixth].getEmotionViewFromDay(requireContext(), true).let { binding.fourthWeekSat.setEmotion(it) }
+            weeks[3].days[daysInWeek.seventh].getEmotionViewFromDay(requireContext(), true).let { binding.fourthWeekSun.setEmotion(it) }
 
             if (!MonthPreviewUtils.setAllAfterFourthWeekVisibility(binding, weeks))
                 return
 
-            weeks[4].days[daysInWeek.first].getEmotionViewFromDay(requireContext()).let { binding.fifthWeekMon.setEmotion(it) }
-            weeks[4].days[daysInWeek.second].getEmotionViewFromDay(requireContext()).let { binding.fifthWeekTue.setEmotion(it) }
-            weeks[4].days[daysInWeek.third].getEmotionViewFromDay(requireContext()).let { binding.fifthWeekWed.setEmotion(it) }
-            weeks[4].days[daysInWeek.fourth].getEmotionViewFromDay(requireContext()).let { binding.fifthWeekThu.setEmotion(it) }
-            weeks[4].days[daysInWeek.fifth].getEmotionViewFromDay(requireContext()).let { binding.fifthWeekFri.setEmotion(it) }
-            weeks[4].days[daysInWeek.sixth].getEmotionViewFromDay(requireContext()).let { binding.fifthWeekSat.setEmotion(it) }
-            weeks[4].days[daysInWeek.seventh].getEmotionViewFromDay(requireContext()).let { binding.fifthWeekSun.setEmotion(it) }
+            weeks[4].days[daysInWeek.first].getEmotionViewFromDay(requireContext(), true).let { binding.fifthWeekMon.setEmotion(it) }
+            weeks[4].days[daysInWeek.second].getEmotionViewFromDay(requireContext(), true).let { binding.fifthWeekTue.setEmotion(it) }
+            weeks[4].days[daysInWeek.third].getEmotionViewFromDay(requireContext(), true).let { binding.fifthWeekWed.setEmotion(it) }
+            weeks[4].days[daysInWeek.fourth].getEmotionViewFromDay(requireContext(), true).let { binding.fifthWeekThu.setEmotion(it) }
+            weeks[4].days[daysInWeek.fifth].getEmotionViewFromDay(requireContext(), true).let { binding.fifthWeekFri.setEmotion(it) }
+            weeks[4].days[daysInWeek.sixth].getEmotionViewFromDay(requireContext(), true).let { binding.fifthWeekSat.setEmotion(it) }
+            weeks[4].days[daysInWeek.seventh].getEmotionViewFromDay(requireContext(), true).let { binding.fifthWeekSun.setEmotion(it) }
 
+            if (!MonthPreviewUtils.setAllAfterFifthWeekVisibility(binding, weeks))
+                return
+
+            weeks[5].days[daysInWeek.first].getEmotionViewFromDay(requireContext(), true).let { binding.sixthWeekMon.setEmotion(it) }
+            weeks[5].days[daysInWeek.second].getEmotionViewFromDay(requireContext(), true).let { binding.sixthWeekTue.setEmotion(it) }
+            weeks[5].days[daysInWeek.third].getEmotionViewFromDay(requireContext(), true).let { binding.sixthWeekWed.setEmotion(it) }
+            weeks[5].days[daysInWeek.fourth].getEmotionViewFromDay(requireContext(), true).let { binding.sixthWeekThu.setEmotion(it) }
+            weeks[5].days[daysInWeek.fifth].getEmotionViewFromDay(requireContext(), true).let { binding.sixthWeekFri.setEmotion(it) }
+            weeks[5].days[daysInWeek.sixth].getEmotionViewFromDay(requireContext(), true).let { binding.sixthWeekSat.setEmotion(it) }
+            weeks[5].days[daysInWeek.seventh].getEmotionViewFromDay(requireContext(), true).let { binding.sixthWeekSun.setEmotion(it) }
         }
     }
 
