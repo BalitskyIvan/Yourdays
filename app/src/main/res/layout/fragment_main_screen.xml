@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
+    android:fitsSystemWindows="false"
+    android:paddingTop="30dp"
+    android:background="@color/background"
     android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -26,7 +26,6 @@ class MainScreenFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentMainScreenBinding.inflate(inflater, container, false)
-
         childFragmentManager
             .beginTransaction()
             .replace(R.id.change_emotion_container, ChangeEmotionFragment.newInstance())
