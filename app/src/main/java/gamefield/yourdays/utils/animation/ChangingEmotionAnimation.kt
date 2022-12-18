@@ -21,6 +21,12 @@ class ChangingEmotionAnimation(
     private var alphaState = AlphaState.INCREASE
 
     override fun start() {
+        currentEmotionType = currentEmotionType.getNextEmotion()
+        currentEmotionTypeChangedEvent.postValue(currentEmotionType)
+        emotionContainerAlpha = 0f
+        emotionContainerAlphaChangedEvent.postValue(emotionContainerAlpha)
+        alphaState = AlphaState.INCREASE
+
         if (!isAnimationActive) {
             isAnimationActive = true
             viewModelScope.launch(Dispatchers.Default) {

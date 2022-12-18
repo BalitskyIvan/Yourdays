@@ -1,6 +1,6 @@
 package gamefield.yourdays.utils.export_screen
 
-enum class InstagramStoriesBackgroundColor(startColor: String, endColor: String) {
+enum class InstagramStoriesBackgroundColor(val startColor: String, val endColor: String) {
     WHITE("#FFFFFF", "#FFFFFF"),
     PURPLE("#FF4AC2", "#000000"),
     BLUE("#3FEDF9", "#9600F2"),

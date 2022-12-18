@@ -48,10 +48,10 @@
     <string name="six">6</string>
 
     <!-- Emotions -->
-    <string name="worry">Worry</string>
-    <string name="happiness">Happiness</string>
-    <string name="sadness">Sadness</string>
-    <string name="productivity">Productivity</string>
+    <string name="worry">worry</string>
+    <string name="happiness">happiness</string>
+    <string name="sadness">sadness</string>
+    <string name="productivity">productivity</string>
 
     <string name="worry_emoji">😖</string>
     <string name="happiness_emoji">🤩</string>
@@ -73,6 +73,14 @@
     <string name="or_choose_color_text">or choose background color:</string>
     <string name="month">MONTH</string>
     <string name="day">DAY</string>
+
+    <string name="ok_text">OK</string>
+
+    <!-- Errors -->
+    <string name="unexpected_error">Sorry, an unexpected error has occurred, we are already trying to fix it</string>
+    <string name="file_system_error">Filesystem error, make sure you have enough space in internal storage</string>
+    <string name="instagram_not_installed_error">Oh, looks like you don\'t have instagram installed, please install and try again</string>
+    <string name="day_not_filled_error">Error: please, choose filled day :)</string>
 
     <string name="emotion_progress_default_text">0/10</string>
 

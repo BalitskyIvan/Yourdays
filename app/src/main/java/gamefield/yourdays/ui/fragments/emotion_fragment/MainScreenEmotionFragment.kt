@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.lifecycle.ViewModelProvider
 import gamefield.yourdays.Navigation
+import gamefield.yourdays.R
 import gamefield.yourdays.databinding.FragmentMainScreenEmotionBinding
 import gamefield.yourdays.domain.models.EmotionType
 import gamefield.yourdays.ui.customviews.emotions.*
@@ -38,11 +39,17 @@ class MainScreenEmotionFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentMainScreenEmotionBinding.inflate(inflater, container, false)
-        dateTitleAnimation = DateTitleAnimation(
-            titleFirstView = binding.titeDate,
-            titleSecondView = binding.tite
-        )
+        binding = FragmentMainScreenEmotionBinding.inflate(inflater, container, false).apply {
+            titeDate.y = resources.getDimension(R.dimen.top_position_y)
+            tite.y = resources.getDimension(R.dimen.bottom_position_y)
+
+            dateTitleAnimation = DateTitleAnimation(
+                titleFirstView = titeDate,
+                titleSecondView = tite,
+                resources = resources
+            )
+        }
+
         initEmotions()
         initEmotionContainer()
         return binding.root
@@ -130,7 +137,6 @@ class MainScreenEmotionFragment : Fragment() {
 
     private fun observeAnimation() {
         viewModel.currentEmotionType.observe(viewLifecycleOwner) { newEmotionType ->
-            emotionContainer?.removeView(currentEmotion)
             val nextEmotion = when (newEmotionType) {
                 EmotionType.PLUS -> plusEmotionView
                 EmotionType.ZERO -> zeroEmotionView
@@ -138,9 +144,11 @@ class MainScreenEmotionFragment : Fragment() {
                 else -> plusEmotionView
             }
             currentEmotion?.let { nextEmotion.copyEmotions(it) }
+            emotionContainer?.removeView(currentEmotion)
+
+            mainScreenViewModel.emotionTypeChanged(newEmotionType)
             currentEmotion = nextEmotion
             emotionContainer?.addView(currentEmotion)
-            mainScreenViewModel.emotionTypeChanged(newEmotionType)
         }
         viewModel.emotionContainerAlpha.observe(viewLifecycleOwner) {
             emotionContainer?.alpha = it
@@ -168,7 +176,9 @@ class MainScreenEmotionFragment : Fragment() {
             if (openCloseActionData.isEmotionNotFilled)
                 setDrawStroke(true)
         }
-        viewModel.changeDateWithTitle.observe(viewLifecycleOwner) { dateTitleAnimation.start() }
+        viewModel.changeDateWithTitle.observe(viewLifecycleOwner) { data ->
+            data?.let { dateTitleAnimation.start(animationState = data.first, isFirstViewDate = data.second) }
+        }
         viewModel.dateTitleChanged.observe(viewLifecycleOwner) {
             dateTitleAnimation.setDateTitle(
                 newDate = it
@@ -185,6 +195,7 @@ class MainScreenEmotionFragment : Fragment() {
     private fun observeEmotionMutableChanged() {
         mainScreenViewModel.isDayMutableChangedEvent.observe(viewLifecycleOwner) { isMutable ->
             setDrawStroke(isMutable)
+            currentEmotion?.invalidate()
             viewModel.dayMutableChanged(isMutable = isMutable)
         }
     }
@@ -202,6 +213,7 @@ class MainScreenEmotionFragment : Fragment() {
         plusEmotionView.isDrawStroke = isDraw
         minusEmotionView.isDrawStroke = isDraw
         zeroEmotionView.isDrawStroke = isDraw
+        currentEmotion?.isDrawStroke = isDraw
     }
 
     companion object {

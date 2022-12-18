@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import gamefield.yourdays.data.entity.Emotion
 import gamefield.yourdays.data.entity.Month
+import gamefield.yourdays.domain.models.EmotionType
 import gamefield.yourdays.domain.usecase.io.GetAllMonthsListUseCase
 import gamefield.yourdays.domain.usecase.period_logic.GetCurrentEmotionFromMonthListUseCase
 import gamefield.yourdays.domain.usecase.period_logic.GetDateStrFromDateUseCase
@@ -18,8 +19,10 @@ import gamefield.yourdays.domain.usecase.period_logic.GetMonthsInMonthsListUseCa
 import gamefield.yourdays.domain.usecase.period_logic.GetYearsInMonthsListUseCase
 import gamefield.yourdays.extensions.getMonthName
 import gamefield.yourdays.extensions.toImmutable
+import gamefield.yourdays.ui.fragments.alert_dialog.ErrorType
 import gamefield.yourdays.utils.emum.DatePickerType
 import gamefield.yourdays.utils.export_screen.InstagramStoriesBackgroundColor
+import gamefield.yourdays.utils.export_screen.OpenInstagramData
 import gamefield.yourdays.utils.export_screen.PickedDateData
 import java.io.IOException
 import java.text.SimpleDateFormat
@@ -35,6 +38,15 @@ class ExportToInstagramViewModel : ViewModel() {
 
     private val _periodPickerChanged = MutableLiveData<DatePickerType>()
     val periodPickerChanged = _periodPickerChanged.toImmutable()
+
+    private val _showErrorAlertEvent = MutableLiveData<ErrorType?>()
+    val showErrorAlertEvent = _showErrorAlertEvent.toImmutable()
+
+    private val _uploadMonthEvent = MutableLiveData<Boolean?>()
+    val uploadMonthEvent = _uploadMonthEvent.toImmutable()
+
+    private val _uploadDayEvent = MutableLiveData<Boolean?>()
+    val uploadDayEvent = _uploadDayEvent.toImmutable()
 
     private val _monthListChangedEvent = MutableLiveData<List<Month>>()
 
@@ -61,7 +73,7 @@ class ExportToInstagramViewModel : ViewModel() {
     val currentDayInPreviewChanged = _currentDayInPreviewChanged.toImmutable()
 
 
-    private val _openInstagramEvent = MutableLiveData<Uri>()
+    private val _openInstagramEvent = MutableLiveData<OpenInstagramData?>()
     val openInstagramEvent = _openInstagramEvent.toImmutable()
 
     private val _firstDayOfWeekChangedEvent = MutableLiveData(1)
@@ -72,7 +84,7 @@ class ExportToInstagramViewModel : ViewModel() {
     private val _colorSelectedEvent = MutableLiveData<InstagramStoriesBackgroundColor>()
     val colorSelectedEvent = _colorSelectedEvent.toImmutable()
 
-    private val _backgroundImagePickedEvent = MutableLiveData<Uri>()
+    private val _backgroundImagePickedEvent = MutableLiveData<Uri?>()
     val backgroundImagePickedEvent = _backgroundImagePickedEvent.toImmutable()
 
     private var cardType = DatePickerType.MONTH
@@ -92,6 +104,11 @@ class ExportToInstagramViewModel : ViewModel() {
     }
 
     fun initWithContext(context: Context) {
+        _showErrorAlertEvent.value = null
+        _openInstagramEvent.value = null
+        _uploadMonthEvent.value = null
+        _uploadDayEvent.value = null
+
         getMonthsInMonthsListUseCase = GetMonthsInMonthsListUseCase(context = context)
         getDateStrFromDateUseCase = GetDateStrFromDateUseCase(context = context)
 
@@ -186,8 +203,12 @@ class ExportToInstagramViewModel : ViewModel() {
         }
     }
 
-    fun initSelectedData(dateData: PickedDateData) {
+    fun initSelectedData(dateData: PickedDateData, isExportDay: Boolean) {
         initDate = dateData
+        if (isExportDay)
+            onDayButtonClicked()
+        else
+            onMonthButtonClicked()
     }
 
     fun dateInDayPickerChanged(newDate: PickedDateData) {
@@ -218,7 +239,20 @@ class ExportToInstagramViewModel : ViewModel() {
         _periodPickerChanged.postValue(DatePickerType.MONTH)
     }
 
-    fun onUploadButtonClicked(bitmap: Bitmap, context: Context) {
+    fun onUploadButtonClicked() {
+        if (cardType == DatePickerType.DAY) {
+            if (_currentDayInPreviewChanged.value?.second != null &&
+                _currentDayInPreviewChanged.value?.second?.type != EmotionType.NONE
+            )
+                _uploadDayEvent.postValue(true)
+            else
+                _showErrorAlertEvent.postValue(ErrorType.DAY_NOT_FILLED_ERROR)
+        } else {
+            _uploadMonthEvent.postValue(true)
+        }
+    }
+
+    fun upload(bitmap: Bitmap, context: Context) {
         val uri = saveBitmap(
             context = context,
             bitmap = bitmap,
@@ -226,7 +260,13 @@ class ExportToInstagramViewModel : ViewModel() {
             mimeType = "",
             displayName = Stored_path
         )
-        _openInstagramEvent.postValue(uri)
+        _openInstagramEvent.postValue(
+            OpenInstagramData(
+                uri = uri,
+                background = _backgroundImagePickedEvent.value,
+                backgroundColor = _colorSelectedEvent.value
+            )
+        )
     }
 
     private fun saveBitmap(
@@ -255,6 +295,7 @@ class ExportToInstagramViewModel : ViewModel() {
                 } ?: throw IOException("Failed to create new MediaStore record.")
             }
         }.getOrElse {
+            _showErrorAlertEvent.postValue(ErrorType.FILE_SYSTEM_ERROR)
             uri?.let { orphanUri ->
                 // Don't leave an orphan entry in the MediaStore
                 context.contentResolver.delete(orphanUri, null, null)
@@ -349,6 +390,10 @@ class ExportToInstagramViewModel : ViewModel() {
                 )
             )
         }
+    }
+
+    fun onInstagramError() {
+        _showErrorAlertEvent.postValue(ErrorType.INSTAGRAM_NOT_INSTALLED_ERROR)
     }
 
     private companion object {

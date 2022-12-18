@@ -47,7 +47,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clipChildren="true"
-        android:paddingBottom="170dp"
+        android:paddingBottom="250dp"
         android:translationY="-35dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         app:layout_constraintEnd_toEndOf="parent"

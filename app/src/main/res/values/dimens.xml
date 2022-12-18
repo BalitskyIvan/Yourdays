@@ -8,6 +8,13 @@
     <dimen name="month_card_margin_between_days">5dp</dimen>
     <dimen name="month_card_day_padding">5dp</dimen>
 
+    <dimen name="top_position_y">8dp</dimen>
+    <dimen name="bottom_position_y">54dp</dimen>
+    <dimen name="center_position_y">35dp</dimen>
+
+    <dimen name="top_title_text_size">25dp</dimen>
+    <dimen name="bottom_title_text_size">60dp</dimen>
+
     <!-- Month preview card -->
     <dimen name="month_preview_emotion_width">42dp</dimen>
     <dimen name="month_preview_emotion_height">42dp</dimen>

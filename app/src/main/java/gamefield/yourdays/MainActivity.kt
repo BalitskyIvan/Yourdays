@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import gamefield.yourdays.ui.fragments.screens.ExportToInstagramScreenFragment
 import gamefield.yourdays.ui.fragments.screens.MainScreenFragment
 import gamefield.yourdays.utils.main_screen.DateToExportData
-import gamefield.yourdays.utils.main_screen.DaySelectedContainer
 
 class MainActivity : AppCompatActivity(), Navigation {
 
@@ -28,7 +27,8 @@ class MainActivity : AppCompatActivity(), Navigation {
             .replace(R.id.main_screen_container, ExportToInstagramScreenFragment.newInstance(
                 day = dateToExportData.day,
                 month = dateToExportData.month,
-                year = dateToExportData.year
+                year = dateToExportData.year,
+                isExportDay = dateToExportData.isExportDay
             ))
             .commitNow()
     }

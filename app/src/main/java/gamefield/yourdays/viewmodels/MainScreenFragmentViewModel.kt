@@ -90,7 +90,14 @@ class MainScreenFragmentViewModel : ViewModel() {
         _isDayMutableChangedEvent.value = true
 
         _currentDaySelected.observeForever { selectedDay ->
-            selectedDay.emotion?.let { onDaySelected(selectedDay.month, selectedDay.day, selectedDay.year, selectedDay.emotion) }
+            selectedDay.emotion?.let {
+                onDaySelected(
+                    selectedDay.month,
+                    selectedDay.day,
+                    selectedDay.year,
+                    selectedDay.emotion
+                )
+            }
         }
     }
 
@@ -184,13 +191,16 @@ class MainScreenFragmentViewModel : ViewModel() {
     fun onDaySelected(monthNumber: Int, day: Int, year: Int, emotion: Emotion) {
         if (_changeEmotionFragmentOpenCloseAction.value?.isOpening != true) {
             clearSelectedDayAndSelectClicked(monthNumber, day, year)
+
+            selectedDate =
+                DaySelectedContainer(day = day, month = monthNumber, year = year, emotion = emotion)
+            _daySelectedEvent.postValue(selectedDate)
+
             _worryEmotionChangedEvent.value = emotion.worry
             _happinessEmotionChangedEvent.value = emotion.happiness
             _sadnessEmotionChangedEvent.value = emotion.sadness
             _productivityEmotionChangedEvent.value = emotion.productivity
 
-            selectedDate = DaySelectedContainer(day = day, month = monthNumber, year = year, emotion = emotion)
-            _daySelectedEvent.postValue(selectedDate)
             val isMutable = day == calendar.get(Calendar.DAY_OF_MONTH) || isEmotionNotFilled()
             _isDayMutableChangedEvent.postValue(isMutable)
         }
@@ -228,12 +238,13 @@ class MainScreenFragmentViewModel : ViewModel() {
             _emotionsPeriodScrolled.postValue(y)
     }
 
-    fun onExportToInstagramClicked() {
+    fun onExportToInstagramClicked(isExportDay: Boolean = false) {
         _navigateToExportScreen.postValue(
             DateToExportData(
                 year = selectedDate.year,
                 month = selectedDate.month,
-                day = selectedDate.day
+                day = selectedDate.day,
+                isExportDay = isExportDay
             )
         )
     }

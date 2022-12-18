@@ -91,7 +91,7 @@
     </style>
 
     <style name="Text8sp.Happiness">
-        <item name="android:textColor">@color/happiness</item>
+        <item name="android:textColor">@color/happiness_dark</item>
     </style>
 
     <style name="Text8sp.SadnessColor">
@@ -99,7 +99,7 @@
     </style>
 
     <style name="Text8sp.ProductivityColor">
-        <item name="android:textColor">@color/productivity</item>
+        <item name="android:textColor">@color/productivity_dark</item>
     </style>
 
     <style name="Text12sp.Thin">

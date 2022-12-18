@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/export_to_stories_background"
-    android:fitsSystemWindows="true"
     tools:context=".ui.fragments.screens.ExportToInstagramScreenFragment">
 
     <ImageView
@@ -25,7 +24,6 @@
         style="@style/Text36sp.Light.ExtraLight"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
         android:gravity="center"
         android:text="@string/upload_to_stories"
         app:layout_constraintEnd_toEndOf="parent"
@@ -36,7 +34,7 @@
         android:id="@+id/month_button"
         android:layout_width="110dp"
         android:layout_height="40dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:background="@drawable/rounded_stroke_corners"
         app:layout_constraintEnd_toStartOf="@+id/day_button"
         app:layout_constraintStart_toStartOf="parent"
@@ -54,7 +52,7 @@
         android:id="@+id/day_button"
         android:layout_width="110dp"
         android:layout_height="40dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:background="@drawable/rounded_stroke_corners"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/month_button"
@@ -72,7 +70,7 @@
         android:id="@+id/period_picker_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/day_button" />
@@ -100,7 +98,7 @@
         style="@style/Text12sp.Black"
         android:layout_width="190dp"
         android:layout_height="35dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:background="@drawable/upload_button_background"
         android:drawableStart="@drawable/upload_background_button_icon"
         android:paddingStart="10dp"
@@ -109,78 +107,78 @@
         android:textAllCaps="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/preview_container" />
+        app:layout_constraintBottom_toTopOf="@id/choose_color_text" />
 
     <TextView
         android:id="@+id/choose_color_text"
         style="@style/Text12sp.White.Bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginBottom="2dp"
         android:text="@string/or_choose_color_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/upload_background_button" />
+        app:layout_constraintBottom_toTopOf="@id/white_color_selector" />
 
     <ImageView
         android:id="@+id/white_color_selector"
         android:layout_width="55dp"
         android:layout_height="55dp"
-        android:layout_marginTop="5dp"
         android:padding="7dp"
+        android:layout_marginBottom="60dp"
         android:src="@drawable/white_color_selector"
         app:layout_constraintEnd_toStartOf="@+id/purple_color_selector"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/choose_color_text" />
+        app:layout_constraintBottom_toBottomOf="parent" />
 
     <ImageView
         android:id="@+id/purple_color_selector"
         android:layout_width="55dp"
         android:layout_height="55dp"
-        android:layout_marginTop="5dp"
         android:padding="7dp"
+        android:layout_marginBottom="60dp"
         android:src="@drawable/purple_color_selector"
         app:layout_constraintEnd_toStartOf="@+id/blue_color_selector"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/white_color_selector"
-        app:layout_constraintTop_toBottomOf="@id/choose_color_text" />
+        app:layout_constraintBottom_toBottomOf="parent" />
 
     <ImageView
         android:id="@+id/blue_color_selector"
         android:layout_width="55dp"
         android:layout_height="55dp"
-        android:layout_marginTop="5dp"
         android:padding="7dp"
+        android:layout_marginBottom="60dp"
         android:src="@drawable/blue_color_selector"
         app:layout_constraintEnd_toStartOf="@+id/orange_color_selector"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/purple_color_selector"
-        app:layout_constraintTop_toBottomOf="@id/choose_color_text" />
+        app:layout_constraintBottom_toBottomOf="parent" />
 
     <ImageView
         android:id="@+id/orange_color_selector"
         android:layout_width="55dp"
         android:layout_height="55dp"
-        android:layout_marginTop="5dp"
         android:padding="7dp"
+        android:layout_marginBottom="60dp"
         android:src="@drawable/orange_color_selector"
         app:layout_constraintEnd_toStartOf="@+id/black_color_selector"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/blue_color_selector"
-        app:layout_constraintTop_toBottomOf="@id/choose_color_text" />
+        app:layout_constraintBottom_toBottomOf="parent"  />
 
     <ImageView
         android:id="@+id/black_color_selector"
         android:layout_width="55dp"
         android:layout_height="55dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginBottom="60dp"
         android:padding="7dp"
         android:src="@drawable/black_color_selector"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/orange_color_selector"
-        app:layout_constraintTop_toBottomOf="@id/choose_color_text" />
+        app:layout_constraintBottom_toBottomOf="parent" />
 
     <Button
         android:id="@+id/upload_button"
@@ -188,7 +186,7 @@
         android:layout_width="115dp"
         android:layout_height="35dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginBottom="30dp"
+        android:layout_marginBottom="20dp"
         android:background="@drawable/upload_button_background"
         android:text="@string/upload"
         app:layout_constraintBottom_toBottomOf="parent"

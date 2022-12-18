@@ -7,12 +7,14 @@
 
     <color name="happiness">#FDEB48</color>
     <color name="happiness_20_alpha">#A4FDEB48</color>
+    <color name="happiness_dark">#FFD9C300</color>
 
     <color name="sadness">#1400FF</color>
     <color name="sadness_20_alpha">#A41400FF</color>
 
     <color name="productivity">#7DFFD8</color>
     <color name="productivity_20_alpha">#A47DFFD8</color>
+    <color name="productivity_dark">#FF0B856F</color>
 
     <color name="instagram_gradient_start_color">#FFDC00A6</color>
     <color name="instagram_gradient_end_color">#FFFFCA00</color>

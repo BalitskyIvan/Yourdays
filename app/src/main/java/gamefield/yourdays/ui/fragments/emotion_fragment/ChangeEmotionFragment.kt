@@ -39,7 +39,7 @@ class ChangeEmotionFragment : Fragment() {
         }
 
         setSeekBarListeners()
-        setOkButtonListener()
+        setButtonsListeners()
         observeEmotionActions()
         observeEmotionMutableChanged()
         return binding.root
@@ -88,8 +88,13 @@ class ChangeEmotionFragment : Fragment() {
         }
     }
 
-    private fun setOkButtonListener() {
-        binding.changeEmotionFragmentOkButton.setOnRippleClickListener(viewModel::emotionContainerOkButtonClicked)
+    private fun setButtonsListeners() {
+        with(binding) {
+            changeEmotionFragmentOkButton.setOnRippleClickListener(viewModel::emotionContainerOkButtonClicked)
+            exportDayToInstagram.setOnRippleClickListener {
+                viewModel.onExportToInstagramClicked(isExportDay = true)
+            }
+        }
     }
 
     companion object {

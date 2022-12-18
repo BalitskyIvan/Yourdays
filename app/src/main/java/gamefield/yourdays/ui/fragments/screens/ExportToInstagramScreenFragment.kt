@@ -19,12 +19,14 @@ import gamefield.yourdays.Navigation
 import gamefield.yourdays.R
 import gamefield.yourdays.databinding.FragmentExportToInstagramScreenBinding
 import gamefield.yourdays.extensions.setOnRippleClickListener
+import gamefield.yourdays.ui.fragments.alert_dialog.CommonErrorDialog
 import gamefield.yourdays.ui.fragments.date_picker_fragment.DayPickerFragment
 import gamefield.yourdays.ui.fragments.date_picker_fragment.DayPreviewFragment
 import gamefield.yourdays.ui.fragments.date_picker_fragment.MonthPickerFragment
 import gamefield.yourdays.ui.fragments.date_picker_fragment.MonthPreviewFragment
 import gamefield.yourdays.utils.emum.DatePickerType
 import gamefield.yourdays.utils.export_screen.InstagramStoriesBackgroundColor
+import gamefield.yourdays.utils.export_screen.OpenInstagramUtils
 import gamefield.yourdays.utils.export_screen.PickedDateData
 import gamefield.yourdays.viewmodels.ExportToInstagramViewModel
 import java.util.Calendar
@@ -43,6 +45,7 @@ class ExportToInstagramScreenFragment : Fragment() {
         month = calendar.get(Calendar.MONTH),
         year = calendar.get(Calendar.YEAR)
     )
+    private var isExportDay: Boolean = false
 
     private val monthPreviewFragment = MonthPreviewFragment.newInstance()
     private val dayPreviewFragment = DayPreviewFragment.newInstance()
@@ -51,15 +54,17 @@ class ExportToInstagramScreenFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        pickImageActivityResult = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
-            viewModel.onBackgroundImagePicked(uri)
-        }
+        pickImageActivityResult =
+            registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
+                viewModel.onBackgroundImagePicked(uri)
+            }
         arguments?.let {
             initDate = PickedDateData(
                 day = it.getInt(DAY_KEY),
                 month = it.getInt(MONTH_KEY),
                 year = it.getInt(YEAR_KEY)
             )
+            isExportDay = it.getBoolean(IS_EXPORT_DAY_KEY)
         }
     }
 
@@ -75,7 +80,7 @@ class ExportToInstagramScreenFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(requireActivity()).get(ExportToInstagramViewModel::class.java)
         viewModel.initWithContext(context = requireContext())
-        viewModel.initSelectedData(dateData = initDate)
+        viewModel.initSelectedData(dateData = initDate, isExportDay = isExportDay)
 
         colorSelector = requireContext().getDrawable(R.drawable.color_selctor)!!
         navigation = requireActivity() as Navigation
@@ -87,6 +92,8 @@ class ExportToInstagramScreenFragment : Fragment() {
         observeOpenInstagram()
         observeSelectedColorChanged()
         observeBackgroundImagePicked()
+        observeShowErrorEvent()
+        observeUploadPreviewEvent()
     }
 
     private fun initButtons() {
@@ -113,11 +120,29 @@ class ExportToInstagramScreenFragment : Fragment() {
                 Shader.TileMode.MIRROR
             )
             setOnRippleClickListener {
+                viewModel.onUploadButtonClicked()
+            }
+        }
+    }
+
+    private fun observeUploadPreviewEvent() {
+        viewModel.uploadDayEvent.observe(viewLifecycleOwner) {
+            it?.let {
+                with(dayPreviewFragment.requireView()) {
+                    val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+                    val canvas = Canvas(bitmap)
+                    dayPreviewFragment.view?.draw(canvas)
+                    viewModel.upload(bitmap, requireContext())
+                }
+            }
+        }
+        viewModel.uploadMonthEvent.observe(viewLifecycleOwner) {
+            it?.let {
                 with(monthPreviewFragment.requireView()) {
                     val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
                     val canvas = Canvas(bitmap)
                     monthPreviewFragment.view?.draw(canvas)
-                    viewModel.onUploadButtonClicked(bitmap, requireContext())
+                    viewModel.upload(bitmap, requireContext())
                 }
             }
         }
@@ -133,14 +158,18 @@ class ExportToInstagramScreenFragment : Fragment() {
     }
 
     private fun observeOpenInstagram() {
-        viewModel.openInstagramEvent.observe(viewLifecycleOwner) { uri ->
-            Intent("com.instagram.share.ADD_TO_STORY").apply {
-                putExtra("source_application", "124143913125566")
-                type = "image/*"
-                putExtra("interactive_asset_uri", uri)
-                flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
+        viewModel.openInstagramEvent.observe(viewLifecycleOwner) { openInstagramData ->
+            openInstagramData?.let {
+                if (!OpenInstagramUtils.open(openInstagramData, requireActivity()))
+                    viewModel.onInstagramError()
+            }
+        }
+    }
 
-                activity?.startActivityForResult(this, 0);
+    private fun observeShowErrorEvent() {
+        viewModel.showErrorAlertEvent.observe(viewLifecycleOwner) { errorType ->
+            errorType?.let {
+                CommonErrorDialog(errorType = errorType).show(childFragmentManager, "")
             }
         }
     }
@@ -200,9 +229,11 @@ class ExportToInstagramScreenFragment : Fragment() {
         with(binding) {
             when (selectedColor) {
                 InstagramStoriesBackgroundColor.WHITE -> whiteColorSelector.background = background
-                InstagramStoriesBackgroundColor.PURPLE -> purpleColorSelector.background = background
+                InstagramStoriesBackgroundColor.PURPLE -> purpleColorSelector.background =
+                    background
                 InstagramStoriesBackgroundColor.BLUE -> blueColorSelector.background = background
-                InstagramStoriesBackgroundColor.ORANGE -> orangeColorSelector.background = background
+                InstagramStoriesBackgroundColor.ORANGE -> orangeColorSelector.background =
+                    background
                 InstagramStoriesBackgroundColor.BLACK -> blackColorSelector.background = background
             }
         }
@@ -212,14 +243,16 @@ class ExportToInstagramScreenFragment : Fragment() {
         private const val DAY_KEY = "DAY_KEY"
         private const val MONTH_KEY = "MONTH_KEY"
         private const val YEAR_KEY = "YEAR_KEY"
+        private const val IS_EXPORT_DAY_KEY = "IS_EXPORT_DAY_KEY"
 
         @JvmStatic
-        fun newInstance(day: Int, month: Int, year: Int) =
+        fun newInstance(day: Int, month: Int, year: Int, isExportDay: Boolean) =
             ExportToInstagramScreenFragment().apply {
                 arguments = Bundle().apply {
                     putInt(DAY_KEY, day)
                     putInt(MONTH_KEY, month)
                     putInt(YEAR_KEY, year)
+                    putBoolean(IS_EXPORT_DAY_KEY, isExportDay)
                 }
             }
     }

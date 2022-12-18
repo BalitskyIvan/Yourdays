@@ -49,5 +49,4 @@ class EmptyEmotionView@JvmOverloads constructor(
         }
     }
 
-
 }
