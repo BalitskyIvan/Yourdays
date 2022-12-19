@@ -26,7 +26,6 @@ class MainScreenEmotionFragment : Fragment() {
 
     private var currentEmotion: EmotionView? = null
     private var emotionContainer: FrameLayout? = null
-    private var titleTextSize: Int = 0
     private var emotionContainerWidth: Int = 0
     private var emotionContainerHeight: Int = 0
     private lateinit var minusEmotionView: MinusEmotionView
@@ -88,7 +87,6 @@ class MainScreenEmotionFragment : Fragment() {
         with(emotionContainer!!) {
             addView(currentEmotion)
             layoutParams
-            titleTextSize = binding.tite.layoutParams.height
             emotionContainerWidth = layoutParams.height
             emotionContainerHeight = layoutParams.width
 
@@ -120,16 +118,16 @@ class MainScreenEmotionFragment : Fragment() {
                 isAlreadyScrolled = false
                 emotionContainer?.layoutParams?.height = emotionContainerWidth - (y / 2)
                 emotionContainer?.layoutParams?.width = emotionContainerHeight - (y / 2)
-                binding.tite.layoutParams.height = titleTextSize - (y / 10)
                 binding.tite.requestLayout()
+                binding.titeDate.requestLayout()
                 emotionContainer?.requestLayout()
 
             } else if (!isAlreadyScrolled) {
                 isAlreadyScrolled = true
                 emotionContainer?.layoutParams?.height = emotionContainerWidth - (600 / 2)
                 emotionContainer?.layoutParams?.width = emotionContainerHeight - (600 / 2)
-                binding.tite.layoutParams.height = titleTextSize - (y / 10)
                 binding.tite.requestLayout()
+                binding.titeDate.requestLayout()
                 emotionContainer?.requestLayout()
             }
         }
@@ -165,16 +163,15 @@ class MainScreenEmotionFragment : Fragment() {
         viewModel.exportInstagramAlphaChangedEvent.observe(viewLifecycleOwner) { alpha ->
             binding.uploadMonthToInstagramButton.alpha = alpha
         }
-        viewModel.changeFirstTitleVisibility.observe(viewLifecycleOwner) { isVisible ->
-            binding.titeDate.visibility = if (isVisible) View.VISIBLE else View.INVISIBLE
-        }
     }
 
     private fun observeDateAndTitle() {
         mainScreenViewModel.changeEmotionFragmentOpeCloseAction.observe(viewLifecycleOwner) { openCloseActionData ->
-            viewModel.onOpenCloseChangingEmotionContained(data = openCloseActionData)
-            if (openCloseActionData.isEmotionNotFilled)
-                setDrawStroke(true)
+            openCloseActionData?.let {
+                viewModel.onOpenCloseChangingEmotionContained(data = openCloseActionData)
+                if (openCloseActionData.isEmotionNotFilled)
+                    setDrawStroke(true)
+            }
         }
         viewModel.changeDateWithTitle.observe(viewLifecycleOwner) { data ->
             data?.let { dateTitleAnimation.start(animationState = data.first, isFirstViewDate = data.second) }

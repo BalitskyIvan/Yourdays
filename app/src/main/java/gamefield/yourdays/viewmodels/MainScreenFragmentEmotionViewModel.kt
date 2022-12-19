@@ -29,9 +29,6 @@ class MainScreenFragmentEmotionViewModel : ViewModel() {
     private val _dateTitleChanged = MutableLiveData<String>()
     val dateTitleChanged = _dateTitleChanged.toImmutable()
 
-    private val _changeFirstTitleVisibility = MutableLiveData<Boolean>()
-    val changeFirstTitleVisibility = _changeFirstTitleVisibility.toImmutable()
-
     private val _clickToFillTextAlphaChangedEvent = MutableLiveData<Float>()
     val clickToFillTextAlphaChangedEvent = _clickToFillTextAlphaChangedEvent.toImmutable()
 
@@ -91,7 +88,6 @@ class MainScreenFragmentEmotionViewModel : ViewModel() {
             clickToFillVisibilityAnimation.start(SoftVisibilityAnimation.State.APPEAR)
             changeEmotionAnimation.start()
             _emotionContainerAlpha.postValue(0f)
-            _changeFirstTitleVisibility.postValue(true)
             _changeDateWithTitle.postValue(Pair(DateTitleAnimation.AnimationState.EMPTY_EMOTION_POSITIONS, true))
         } else {
             exportToInstagramVisibilityAnimation.start(SoftVisibilityAnimation.State.APPEAR)
@@ -102,8 +98,7 @@ class MainScreenFragmentEmotionViewModel : ViewModel() {
             changeEmotionAnimation.isAnimationActive = false
             _emotionContainerAlpha.postValue(1f)
 
-            _changeFirstTitleVisibility.postValue(false)
-            _changeDateWithTitle.postValue(Pair(DateTitleAnimation.AnimationState.FILLED_EMOTION_POSITIONS, false))
+            _changeDateWithTitle.postValue(Pair(DateTitleAnimation.AnimationState.FILLED_EMOTION_POSITIONS, true))
         }
 
         calcDateTitle(month = daySelectedContainer.month, day = daySelectedContainer.day, context)
@@ -124,7 +119,6 @@ class MainScreenFragmentEmotionViewModel : ViewModel() {
             clickToFillVisibilityAnimation.start(SoftVisibilityAnimation.State.DISAPPEAR)
             if (data.isEmotionNotFilled) {
                 clickToChangeEmotionVisibilityAnimation.start(SoftVisibilityAnimation.State.APPEAR_FOR_TWO_SECONDS)
-                _changeFirstTitleVisibility.postValue(true)
                 _changeDateWithTitle.postValue(Pair(DateTitleAnimation.AnimationState.FILLING_EMOTION_POSITIONS, true))
             }
         } else {
@@ -132,13 +126,11 @@ class MainScreenFragmentEmotionViewModel : ViewModel() {
             clickToChangeEmotionVisibilityAnimation.start(SoftVisibilityAnimation.State.DISAPPEAR)
             if (data.isEmotionNotFilled) {
                 _changeDateWithTitle.postValue(Pair(DateTitleAnimation.AnimationState.EMPTY_EMOTION_POSITIONS, true))
-                _changeFirstTitleVisibility.postValue(true)
                 clickToFillVisibilityAnimation.start(SoftVisibilityAnimation.State.APPEAR)
                 changeEmotionAnimation.start()
                 _emotionContainerAlpha.postValue(0f)
             } else {
                 exportToInstagramVisibilityAnimation.start(SoftVisibilityAnimation.State.APPEAR)
-                _changeFirstTitleVisibility.postValue(false)
             }
         }
     }

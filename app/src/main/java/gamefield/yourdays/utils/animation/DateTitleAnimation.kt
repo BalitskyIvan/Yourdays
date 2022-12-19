@@ -25,6 +25,9 @@ class DateTitleAnimation(
     private var firstTitleEndTextSize: Int = topTitleTextSize
     private var secondTitleEndTextSize: Int = bottomTitleTextSize
 
+    private var firstTitleEndAlpha: Float = VISIBLE
+    private var secondTitleEndAlpha: Float = VISIBLE
+
     private var currentAnimationState: AnimationState? = null
 
     private var currentDateView: TextView = titleFirstView
@@ -36,11 +39,11 @@ class DateTitleAnimation(
         currentAnimationState = animationState
         calculateFirstAndSecondTitlePositions()
 
-        initAnimation(titleFirstView, firstTitleEndPositionY, firstTitleEndTextSize)
-        initAnimation(titleSecondView, secondTitleEndPositionY, secondTitleEndTextSize)
+        initAnimation(titleFirstView, firstTitleEndPositionY, firstTitleEndTextSize, firstTitleEndAlpha)
+        initAnimation(titleSecondView, secondTitleEndPositionY, secondTitleEndTextSize, secondTitleEndAlpha)
     }
 
-    private fun initAnimation(textView: TextView, endYPosition: Float, endTextSize: Int) {
+    private fun initAnimation(textView: TextView, endYPosition: Float, endTextSize: Int, endAlpha: Float) {
         ValueAnimator
             .ofFloat(textView.y, endYPosition)
             .setDuration(DURATION_MS)
@@ -60,6 +63,15 @@ class DateTitleAnimation(
                 }
             }
             .start()
+        ValueAnimator
+            .ofFloat(textView.alpha, endAlpha)
+            .setDuration(DURATION_MS)
+            .apply {
+                addUpdateListener {
+                    textView.alpha = it.animatedValue as Float
+                }
+            }
+            .start()
     }
 
     fun setDateTitle(newDate: String) {
@@ -74,6 +86,9 @@ class DateTitleAnimation(
 
                 firstTitleEndTextSize = topTitleTextSize
                 secondTitleEndTextSize = bottomTitleTextSize
+
+                firstTitleEndAlpha = VISIBLE
+                secondTitleEndAlpha = VISIBLE
             }
             AnimationState.FILLING_EMOTION_POSITIONS -> {
                 firstTitleEndPositionY = bottomPositionY
@@ -81,13 +96,19 @@ class DateTitleAnimation(
 
                 firstTitleEndTextSize = bottomTitleTextSize
                 secondTitleEndTextSize = topTitleTextSize
+
+                firstTitleEndAlpha = VISIBLE
+                secondTitleEndAlpha = VISIBLE
             }
             AnimationState.FILLED_EMOTION_POSITIONS -> {
-                firstTitleEndPositionY = topPositionY
-                secondTitleEndPositionY = centerPositionY
+                firstTitleEndPositionY = centerPositionY
+                secondTitleEndPositionY = bottomPositionY
 
-                firstTitleEndTextSize = topTitleTextSize
-                secondTitleEndTextSize = bottomTitleTextSize
+                firstTitleEndTextSize = bottomTitleTextSize
+                secondTitleEndTextSize = topTitleTextSize
+
+                firstTitleEndAlpha = VISIBLE
+                secondTitleEndAlpha = INVISIBLE
             }
             null -> Unit
         }
@@ -101,6 +122,9 @@ class DateTitleAnimation(
         titleSecondView.layoutParams.height = secondTitleEndTextSize
         titleSecondView.requestLayout()
         titleFirstView.requestLayout()
+
+        titleFirstView.alpha = firstTitleEndAlpha
+        titleSecondView.alpha = secondTitleEndAlpha
 
         currentAnimationState = null
     }
@@ -119,6 +143,8 @@ class DateTitleAnimation(
 
     private companion object {
         const val DURATION_MS = 600L
+        const val VISIBLE = 1f
+        const val INVISIBLE = 0f
     }
 
     enum class AnimationState {

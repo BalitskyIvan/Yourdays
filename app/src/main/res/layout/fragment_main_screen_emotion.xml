@@ -11,7 +11,7 @@
         android:id="@+id/tite_date"
         style="@style/Text40sp.Thin"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="@dimen/top_title_text_size"
         android:textAlignment="center"
         android:autoSizeTextType="uniform"
         app:layout_constraintEnd_toEndOf="parent"

@@ -67,7 +67,8 @@ class MainScreenFragment : Fragment() {
 
     private fun observeShowToast() {
         viewModel.showCantChangeEmotionToastEvent.observe(viewLifecycleOwner) { show ->
-            if (show)
+
+            if (show != null && show)
                 Toast.makeText(requireContext(), getString(R.string.cant_change_error_toast), Toast.LENGTH_SHORT).show()
         }
     }

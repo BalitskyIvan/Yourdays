@@ -3,6 +3,9 @@ package gamefield.yourdays.ui.customviews.emotions
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
+import androidx.core.graphics.blue
+import androidx.core.graphics.green
+import androidx.core.graphics.red
 
 class PlusEmotionView @JvmOverloads constructor(
     context: Context,
@@ -24,10 +27,62 @@ class PlusEmotionView @JvmOverloads constructor(
 
     private var rectangleCornerRadius = 0f
 
+    private val backgroundVerticalPaint = Paint(Paint.ANTI_ALIAS_FLAG)
+    private val backgroundHorizontalPaint = Paint(Paint.ANTI_ALIAS_FLAG)
+
+    override fun calculateVerticalGradient() {
+        super.calculateVerticalGradient()
+        backgroundVerticalPaint.shader = LinearGradient(
+            width / 2f + (width / 2f),
+            0f,
+            width / 2f - (width / 2f),
+            0f,
+            Color.argb(
+                (productivity / BACKGROUND_ALPHA_DIVIDER * 255).toInt(),
+                productivityColor.red,
+                productivityColor.green,
+                productivityColor.blue
+            ),
+            Color.argb(
+                (sadness / BACKGROUND_ALPHA_DIVIDER * 255).toInt(),
+                sadnessColor.red,
+                sadnessColor.green,
+                sadnessColor.blue
+            ),
+            Shader.TileMode.MIRROR
+        )
+        invalidate()
+    }
+
+    override fun calculateHorizontalGradient() {
+        super.calculateHorizontalGradient()
+        backgroundHorizontalPaint.shader = LinearGradient(
+            0f,
+            height.toFloat(),
+            0f,
+            0f,
+            Color.argb(
+                (happiness / BACKGROUND_ALPHA_DIVIDER * 255).toInt(),
+                happinessColor.red,
+                happinessColor.green,
+                happinessColor.blue
+
+            ),
+            Color.argb(
+                (worry / BACKGROUND_ALPHA_DIVIDER * 255).toInt(),
+                worryColor.red,
+                worryColor.green,
+                worryColor.blue
+            ),
+            Shader.TileMode.MIRROR
+        )
+        invalidate()
+    }
+
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
 
-        rectangleCornerRadius = height  / 40f
+        rectangleCornerRadius = height / 40f
 
         drawLeftHorizontal = width / 2f + (width / 8f)
         drawTopHorizontal = height / 2f + (height / 2.1f)
@@ -42,6 +97,8 @@ class PlusEmotionView @JvmOverloads constructor(
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
+        calculateHorizontalGradient()
+        calculateVerticalGradient()
         canvas?.drawRoundRect(
             drawLeftHorizontal,
             drawTopHorizontal,
@@ -78,6 +135,26 @@ class PlusEmotionView @JvmOverloads constructor(
             rectangleCornerRadius,
             invisiblePaint
         )
+        if (happiness != 0 || worry != 0 || sadness != 0 || productivity != 0) {
+            canvas?.drawRoundRect(
+                drawLeftHorizontal - strokePaintWidth / 2,
+                drawTopHorizontal - strokePaintWidth / 2,
+                drawRightHorizontal + strokePaintWidth / 2,
+                drawBottomHorizontal + strokePaintWidth / 2,
+                rectangleCornerRadius,
+                rectangleCornerRadius,
+                backgroundVerticalPaint
+            )
+            canvas?.drawRoundRect(
+                drawLeftVertical - strokePaintWidth / 2,
+                drawTopVertical - strokePaintWidth / 2,
+                drawRightVertical + strokePaintWidth / 2,
+                drawBottomVertical + strokePaintWidth / 2,
+                rectangleCornerRadius,
+                rectangleCornerRadius,
+                backgroundHorizontalPaint
+            )
+        }
         canvas?.drawRoundRect(
             drawLeftHorizontal - strokePaintWidth / 2,
             drawTopHorizontal - strokePaintWidth / 2,
@@ -88,9 +165,9 @@ class PlusEmotionView @JvmOverloads constructor(
             horizontalPaint
         )
         canvas?.drawRoundRect(
-            drawLeftVertical  - strokePaintWidth / 2,
+            drawLeftVertical - strokePaintWidth / 2,
             drawTopVertical - strokePaintWidth / 2,
-            drawRightVertical  + strokePaintWidth / 2,
+            drawRightVertical + strokePaintWidth / 2,
             drawBottomVertical + strokePaintWidth / 2,
             rectangleCornerRadius,
             rectangleCornerRadius,
@@ -98,4 +175,7 @@ class PlusEmotionView @JvmOverloads constructor(
         )
     }
 
+    private companion object {
+        const val BACKGROUND_ALPHA_DIVIDER = 100f
+    }
 }

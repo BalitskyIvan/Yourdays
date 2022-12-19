@@ -19,11 +19,10 @@ abstract class EmotionView @JvmOverloads constructor(
 
     val strokePaintWidth = context.resources.getDimension(R.dimen.common_stroke_width)
 
-    val horizontalPaint = Paint(Paint.FILTER_BITMAP_FLAG)
+    val horizontalPaint = Paint(Paint.ANTI_ALIAS_FLAG)
+    val verticalPaint = Paint(Paint.ANTI_ALIAS_FLAG)
 
-    val verticalPaint = Paint(Paint.FILTER_BITMAP_FLAG)
-
-    val strokePaint = Paint(Paint.FILTER_BITMAP_FLAG).apply {
+    val strokePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         color = context.getColor(
             if (!forceLightenTheme)
                 R.color.common_stroke_color
@@ -32,10 +31,10 @@ abstract class EmotionView @JvmOverloads constructor(
         )
         style = Paint.Style.STROKE;
         strokeWidth = strokePaintWidth;
-        isAntiAlias = true;
+        isAntiAlias = true
     }
 
-    val invisiblePaint = Paint(Paint.FILTER_BITMAP_FLAG).apply {
+    val invisiblePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         color = context.getColor(
             if (!forceLightenTheme)
                 R.color.invisible_color
@@ -43,6 +42,7 @@ abstract class EmotionView @JvmOverloads constructor(
                 R.color.white_text_color
         )
         xfermode = PorterDuffXfermode(PorterDuff.Mode.SRC_OVER);
+        isAntiAlias = true
     }
 
     var isDrawStroke = false
@@ -68,10 +68,10 @@ abstract class EmotionView @JvmOverloads constructor(
             calculateVerticalGradient()
         }
 
-    private val worryColor = context.getColor(R.color.worry)
-    private val happinessColor = context.getColor(R.color.happiness)
-    private val sadnessColor = context.getColor(R.color.sadness)
-    private val productivityColor = context.getColor(R.color.productivity)
+    val worryColor = context.getColor(R.color.worry)
+    val happinessColor = context.getColor(R.color.happiness)
+    val sadnessColor = context.getColor(R.color.sadness)
+    val productivityColor = context.getColor(R.color.productivity)
 
     fun copyEmotions(prevEmotion: EmotionView) {
         this.worry = prevEmotion.worry
@@ -80,7 +80,7 @@ abstract class EmotionView @JvmOverloads constructor(
         this.productivity = prevEmotion.productivity
     }
 
-    private fun calculateHorizontalGradient() {
+    open fun calculateHorizontalGradient() {
         horizontalPaint.shader = LinearGradient(
             0f,
             height.toFloat(),
@@ -103,7 +103,7 @@ abstract class EmotionView @JvmOverloads constructor(
         invalidate()
     }
 
-    private fun calculateVerticalGradient() {
+    open fun calculateVerticalGradient() {
         verticalPaint.shader = LinearGradient(
             width / 2f + (width / 2f),
             0f,

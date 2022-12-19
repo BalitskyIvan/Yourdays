@@ -45,14 +45,14 @@ class MainScreenFragmentViewModel : ViewModel() {
     private val _isDayMutableChangedEvent = MutableLiveData<Boolean>()
     val isDayMutableChangedEvent = _isDayMutableChangedEvent.toImmutable()
 
-    private val _showCantChangeEmotionToastEvent = MutableLiveData<Boolean>()
+    private val _showCantChangeEmotionToastEvent = MutableLiveData<Boolean?>()
     val showCantChangeEmotionToastEvent = _showCantChangeEmotionToastEvent.toImmutable()
 
     private val _navigateToExportScreen = MutableLiveData<DateToExportData?>()
     val navigateToExportScreen = _navigateToExportScreen.toImmutable()
 
     private val _changeEmotionFragmentOpenCloseAction =
-        MutableLiveData<CloseChangeEmotionContainerData>()
+        MutableLiveData<CloseChangeEmotionContainerData?>()
     val changeEmotionFragmentOpeCloseAction = _changeEmotionFragmentOpenCloseAction.toImmutable()
 
     private var isFillEmotionClicked = false
@@ -102,6 +102,9 @@ class MainScreenFragmentViewModel : ViewModel() {
     }
 
     fun initDatabaseWithContext(context: Context) {
+        _changeEmotionFragmentOpenCloseAction.value = null
+        _showCantChangeEmotionToastEvent.value = null
+
         addDayUseCase = AddDayUseCase(context)
         _navigateToExportScreen.postValue(null)
         getAllMonthsListUseCase = GetAllMonthsListUseCase(

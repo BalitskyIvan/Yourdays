@@ -47,7 +47,7 @@ class ChangeEmotionFragment : Fragment() {
 
     private fun observeEmotionActions() {
         viewModel.changeEmotionFragmentOpeCloseAction.observe(viewLifecycleOwner) { openCloseActionData ->
-            changeEmotionOpeCloseAnimation.start()
+            openCloseActionData?.let { changeEmotionOpeCloseAnimation.start() }
         }
 
         viewModel.worryEmotionChangedEvent.observe(viewLifecycleOwner) { worry ->
