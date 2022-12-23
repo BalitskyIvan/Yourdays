@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Yourdays</string>
+    <string name="app_name" translatable="false">Yourdays</string>
 
     <!-- Months -->
     <string name="january">January</string>
@@ -40,12 +40,12 @@
     <string name="sun">SUN</string>
 
     <!-- Number -->
-    <string name="one">1</string>
-    <string name="two">2</string>
-    <string name="three">3</string>
-    <string name="four">4</string>
-    <string name="five">5</string>
-    <string name="six">6</string>
+    <string name="one" translatable="false">1</string>
+    <string name="two" translatable="false">2</string>
+    <string name="three" translatable="false">3</string>
+    <string name="four" translatable="false">4</string>
+    <string name="five" translatable="false">5</string>
+    <string name="six" translatable="false">6</string>
 
     <!-- Emotions -->
     <string name="worry">worry</string>
@@ -53,15 +53,16 @@
     <string name="sadness">sadness</string>
     <string name="productivity">productivity</string>
 
-    <string name="worry_emoji">😖</string>
-    <string name="happiness_emoji">🤩</string>
-    <string name="sadness_emoji">🙁</string>
-    <string name="productivity_emoji">😎</string>
+    <string name="worry_emoji" translatable="false">😖</string>
+    <string name="happiness_emoji" translatable="false">🤩</string>
+    <string name="sadness_emoji" translatable="false">🙁</string>
+    <string name="productivity_emoji" translatable="false">😎</string>
 
     <!-- Toast -->
     <string name="cant_change_error_toast">Sorry, you can\'t change the past</string>
 
     <!-- Messages -->
+    <string name="how_was_the_day">How was the day?</string>
     <string name="click_to_fill">click to fill</string>
     <string name="click_to_change_emotion">click to change emotion</string>
     <string name="enter_month">ENTER MONTH</string>
@@ -82,7 +83,24 @@
     <string name="instagram_not_installed_error">Oh, looks like you don\'t have instagram installed, please install and try again</string>
     <string name="day_not_filled_error">Error: please, choose filled day :)</string>
 
-    <string name="emotion_progress_default_text">0/10</string>
 
-    <string name="app_watermark">yourdays app</string>
+    <!-- Onboarding -->
+    <string name="next_button_first_screen_text">It\'s clear</string>
+    <string name="next_button_second_screen_text">OK</string>
+    <string name="next_button_third_screen_text">MAYBE</string>
+    <string name="plus_shape_description">good</string>
+    <string name="zero_shape_description">ok</string>
+    <string name="minus_shape_description">not well</string>
+    <string name="onboarding_hello_message">Hello,\nwelcome to</string>
+    <string name="onboarding_app_decription">this is an app where you can track how your days go</string>
+    <string name="onboarding_shapes_description">you can evaluate the past day using three types of shapes:</string>
+    <string name="onboarding_emotion_progress_description">You can also choose how you feel throughout the day</string>
+    <string name="onboarding_month_preview_description">After that, your day will be saved and will be visible in the month:</string>
+    <string name="onboarding_empty_animation_description">Days that you have not filled yet are displayed like this:</string>
+    <string name="onboarding_export_to_stories_description">After filling day you can share how it went on instagram by selecting the period:</string>
+
+
+    <string name="emotion_progress_default_text" translatable="false">0/10</string>
+
+    <string name="app_watermark" translatable="false">yourdays app</string>
 </resources>

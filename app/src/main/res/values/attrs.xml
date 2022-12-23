@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="ZeroEmotionView">
-        <attr name="worry" format="float" />
-        <attr name="happiness" format="float" />
-        <attr name="sadness" format="float" />
-        <attr name="productivity" format="float" />
-        <attr name="size" format="float"/>
+    <declare-styleable name="StrokeButton">
+        <attr name="buttonText" format="string"/>
     </declare-styleable>
 </resources>

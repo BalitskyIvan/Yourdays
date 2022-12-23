@@ -25,7 +25,7 @@
         android:layout_height="60dp"
         android:autoSizeTextType="uniform"
         android:textAlignment="center"
-        android:text="How are you?"
+        android:text="@string/how_was_the_day"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -42,12 +42,13 @@
 
     <TextView
         android:id="@+id/click_to_fill_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         style="@style/Text12sp.Thin"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/click_to_fill"
         app:layout_constraintBottom_toBottomOf="@id/emotionContainer"
-        app:layout_constraintStart_toEndOf="@id/emotionContainer"
-        android:text="@string/click_to_fill"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/emotionContainer" />
 
     <TextView
         android:id="@+id/click_to_change_emotion_text"

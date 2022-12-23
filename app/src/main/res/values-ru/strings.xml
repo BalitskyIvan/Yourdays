@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Months -->
+    <string name="january">Январь</string>
+    <string name="february">Февраль</string>
+    <string name="march">Март</string>
+    <string name="april">Апрель</string>
+    <string name="may">Май</string>
+    <string name="june">Июнь</string>
+    <string name="july">Июль</string>
+    <string name="august">Август</string>
+    <string name="september">Сентябрь</string>
+    <string name="october">Октябрь</string>
+    <string name="november">Ноябрь</string>
+    <string name="december">Декабрь</string>
+
+    <string-array name="moths_array">
+        <item>Январь</item>
+        <item>Февраль</item>
+        <item>Март</item>
+        <item>Апрель</item>
+        <item>Май</item>
+        <item>Июнь</item>
+        <item>Июль</item>
+        <item>Август</item>
+        <item>Сентябрь</item>
+        <item>Октябрь</item>
+        <item>Ноябрь</item>
+        <item>Декабрь</item>
+    </string-array>
+
+    <!-- Days -->
+    <string name="mon">ПН</string>
+    <string name="tue">ВТ</string>
+    <string name="wed">СР</string>
+    <string name="thu">ЧТ</string>
+    <string name="fri">ПТ</string>
+    <string name="sat">СБ</string>
+    <string name="sun">ВС</string>
+
+    <!-- Emotions -->
+    <string name="worry">тревожность</string>
+    <string name="happiness">счастье</string>
+    <string name="sadness">грусть</string>
+    <string name="productivity">продуктивность</string>
+
+    <!-- Toast -->
+    <string name="cant_change_error_toast">Sorry, you can\'t change the past</string>
+
+    <!-- Messages -->
+    <string name="how_was_the_day">Как прошёл день?</string>
+    <string name="click_to_fill">нажмите чтобы заполнить</string>
+    <string name="click_to_change_emotion">нажмите чтобы изменить</string>
+    <string name="enter_month">ВВЕДИТЕ МЕСЯЦ</string>
+    <string name="enter_date">ENTER DATE</string>
+
+    <string name="upload_to_stories">UPLOAD TO STORIES</string>
+    <string name="upload">ЗАГРУЗИТЬ</string>
+    <string name="upload_background">добавить фоновое изображение</string>
+    <string name="or_choose_color_text">or choose background color:</string>
+    <string name="month">МЕСЯЦ</string>
+    <string name="day">ДЕНЬ</string>
+
+    <string name="ok_text">OK</string>
+
+    <!-- Errors -->
+    <string name="unexpected_error">Sorry, an unexpected error has occurred, we are already trying to fix it</string>
+    <string name="file_system_error">Filesystem error, make sure you have enough space in internal storage</string>
+    <string name="instagram_not_installed_error">Oh, looks like you don\'t have instagram installed, please install and try again</string>
+    <string name="day_not_filled_error">Error: please, choose filled day :)</string>
+
+
+    <!-- Onboarding -->
+    <string name="next_button_first_screen_text">ПОНЯТНО</string>
+    <string name="next_button_second_screen_text">OK</string>
+    <string name="next_button_third_screen_text">ВОЗМОЖНО</string>
+    <string name="plus_shape_description">хорошо</string>
+    <string name="zero_shape_description">нормально</string>
+    <string name="minus_shape_description">плохо</string>
+    <string name="onboarding_hello_message">Привет,\nдобро пожаловать на проект</string>
+    <string name="onboarding_app_decription">Это приложение в котором ты можешь отслеживать свое эмоциональное состояние</string>
+    <string name="onboarding_shapes_description">Ты можешь оцениь как прошёл день выбрав одну из трех фигур:</string>
+    <string name="onboarding_emotion_progress_description">Также ты можешь выбрать какие чувства оставил прошедший день:</string>
+    <string name="onboarding_month_preview_description">После этого день сохранится и ты сможешь увидеть его в превью месяца:</string>
+    <string name="onboarding_empty_animation_description">Если день еще не заполнен, то вместо него будет анимация:</string>
+    <string name="onboarding_export_to_stories_description">После заполнения дня ты можешь рассказать о нем в инстаграмме, получается довольно красивая сторис:</string>
+
+</resources>

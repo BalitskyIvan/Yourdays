@@ -5,10 +5,11 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.withStyledAttributes
 import gamefield.yourdays.R
 import gamefield.yourdays.databinding.ViewOkButtonBinding
 
-class OkButton @JvmOverloads constructor(
+class StrokeButton @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet?,
     defStyleAttr: Int = 0,
@@ -19,9 +20,16 @@ class OkButton @JvmOverloads constructor(
 
     init {
         binding = ViewOkButtonBinding.inflate(LayoutInflater.from(context), this)
+        context.withStyledAttributes(attrs, R.styleable.StrokeButton) {
+            binding.buttonOkText.text = getString(R.styleable.StrokeButton_buttonText) ?: context.getString(R.string.ok_text)
+        }
         focusable = FOCUSABLE
         isClickable = true
         background = context.getDrawable(R.drawable.button_ok_background)
+    }
+
+    fun setButtonText(text: String) {
+        binding.buttonOkText.text = text
     }
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {

@@ -1,6 +1,5 @@
 package gamefield.yourdays.ui.fragments.screens
 
-import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.LinearGradient

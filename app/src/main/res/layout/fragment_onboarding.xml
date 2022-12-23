@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:fitsSystemWindows="false"
+    tools:context=".ui.fragments.onboarding.OnboardingFragment">
+
+    <TextView
+        android:id="@+id/onboarding_hello_message"
+        style="@style/Text40sp.Thin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="35dp"
+        android:text="@string/onboarding_hello_message"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/onboarding_logo"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:src="@drawable/onboarding_logo"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/onboarding_hello_message" />
+
+    <TextView
+        android:id="@+id/onboarding_app_description"
+        style="@style/Text20sp.Thin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="10dp"
+        android:text="@string/onboarding_app_decription"
+        android:textAlignment="center"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/onboarding_emotions_shapes_description"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/onboarding_logo" />
+
+    <TextView
+        android:id="@+id/onboarding_emotions_shapes_description"
+        style="@style/Text20sp.Thin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:paddingHorizontal="40dp"
+        android:text="@string/onboarding_shapes_description"
+        android:textAlignment="center"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/onboarding_plus_shape"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/onboarding_plus_shape"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginBottom="190dp"
+        android:src="@drawable/onboarding_plus_shape"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/onboarding_zero_shape"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/onboarding_zero_shape"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginBottom="190dp"
+        android:src="@drawable/onboarding_zero_shape"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/onboarding_minus_shape"
+        app:layout_constraintStart_toEndOf="@+id/onboarding_plus_shape" />
+
+    <ImageView
+        android:id="@+id/onboarding_minus_shape"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginBottom="190dp"
+        android:src="@drawable/onboarding_minus_shape"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/onboarding_zero_shape" />
+
+
+    <TextView
+        android:id="@+id/onboarding_plus_shape_description"
+        style="@style/Text20sp.Thin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="@string/plus_shape_description"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@id/onboarding_plus_shape"
+        app:layout_constraintStart_toStartOf="@id/onboarding_plus_shape"
+        app:layout_constraintTop_toBottomOf="@id/onboarding_plus_shape" />
+
+    <TextView
+        android:id="@+id/onboarding_zero_shape_description"
+        style="@style/Text20sp.Thin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="@string/zero_shape_description"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@id/onboarding_zero_shape"
+        app:layout_constraintStart_toStartOf="@id/onboarding_zero_shape"
+        app:layout_constraintTop_toBottomOf="@id/onboarding_zero_shape" />
+
+    <TextView
+        android:id="@+id/onboarding_minus_shape_description"
+        style="@style/Text20sp.Thin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="@string/minus_shape_description"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@id/onboarding_minus_shape"
+        app:layout_constraintStart_toStartOf="@id/onboarding_minus_shape"
+        app:layout_constraintTop_toBottomOf="@id/onboarding_minus_shape" />
+
+    <TextView
+        android:id="@+id/onboarding_emotion_description_title"
+        style="@style/Text20sp.Thin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="10dp"
+        android:layout_marginTop="40dp"
+        android:text="@string/onboarding_emotion_progress_description"
+        android:textAlignment="center"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/onboarding_worry_progress_title"
+        style="@style/Text20sp.Thin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:text="@string/worry"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="@id/onboarding_worry_progress"
+        app:layout_constraintTop_toTopOf="@id/onboarding_worry_progress" />
+
+    <ImageView
+        android:id="@+id/onboarding_worry_progress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/onboarding_worry_preview"
+        android:visibility="gone"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/onboarding_emotion_description_title" />
+
+    <TextView
+        android:id="@+id/onboarding_happiness_progress_title"
+        style="@style/Text20sp.Thin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:text="@string/happiness"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="@id/onboarding_happiness_progress"
+        app:layout_constraintTop_toTopOf="@id/onboarding_happiness_progress" />
+
+    <ImageView
+        android:id="@+id/onboarding_happiness_progress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/onboarding_happiness_preview"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/onboarding_worry_progress" />
+
+    <TextView
+        android:id="@+id/onboarding_sadness_progress_title"
+        style="@style/Text20sp.Thin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:text="@string/sadness"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="@id/onboarding_sadness_progress"
+        app:layout_constraintTop_toTopOf="@id/onboarding_sadness_progress" />
+
+    <ImageView
+        android:id="@+id/onboarding_sadness_progress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/onboarding_sadness_preview"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/onboarding_happiness_progress" />
+
+    <TextView
+        android:id="@+id/onboarding_productivity_progress_title"
+        style="@style/Text20sp.Thin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:text="@string/productivity"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="@id/onboarding_productivity_progress"
+        app:layout_constraintTop_toTopOf="@id/onboarding_productivity_progress" />
+
+    <ImageView
+        android:id="@+id/onboarding_productivity_progress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/onboarding_productivity_preview"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/onboarding_sadness_progress" />
+
+    <TextView
+        android:id="@+id/onboarding_month_preview_title"
+        style="@style/Text20sp.Thin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:paddingHorizontal="10dp"
+        android:text="@string/onboarding_month_preview_description"
+        android:textAlignment="center"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/onboarding_productivity_progress" />
+
+    <ImageView
+        android:id="@+id/onboarding_month_preview"
+        android:layout_width="match_parent"
+        android:layout_height="170dp"
+        android:src="@drawable/onboarding_month_preview"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/onboarding_month_preview_title" />
+
+    <TextView
+        android:id="@+id/onboarding_empty_animation_title"
+        style="@style/Text20sp.Thin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:paddingHorizontal="10dp"
+        android:text="@string/onboarding_empty_animation_description"
+        android:textAlignment="center"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/onboarding_month_preview" />
+
+    <gamefield.yourdays.ui.customviews.emotions.EmptyEmotionView
+        android:id="@+id/onboarding_empty_animation"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/onboarding_empty_animation_title" />
+
+    <TextView
+        android:id="@+id/onboarding_share_to_instagram_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/Text40sp.Thin"
+        android:visibility="gone"
+        android:textAlignment="center"
+        android:layout_marginTop="60dp"
+        android:paddingHorizontal="10dp"
+        android:text="@string/onboarding_export_to_stories_description"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <ImageView
+        android:id="@+id/onboarding_share_to_instagram_preview"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:visibility="gone"
+        android:layout_marginHorizontal="20dp"
+        android:src="@drawable/onboarding_export_to_stories_preview"
+        app:layout_constraintTop_toBottomOf="@id/onboarding_share_to_instagram_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <gamefield.yourdays.ui.customviews.buttons.StrokeButton
+        android:id="@+id/button_next"
+        android:layout_width="190dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="65dp"
+        app:buttonText="@string/ok_text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
