@@ -43,6 +43,13 @@ class OnboardingFragment : Fragment() {
         observeClearScreen()
         observeScreenChanged()
         observeAlphaChanged()
+        observeNextButtonEnabled()
+    }
+
+    private fun observeNextButtonEnabled() {
+        viewModel.nextButtonEnabledEvent.observe(viewLifecycleOwner) {
+            binding.buttonNext.isEnabled = it
+        }
     }
 
     private fun observeClearScreen() {
@@ -70,7 +77,7 @@ class OnboardingFragment : Fragment() {
                 is OnboardingState.SecondScreenState -> initSecondScreenSections(screenState.nextButtonText)
                 is OnboardingState.ThirdScreenState -> initThirdScreenSections(screenState.nextButtonText)
                 is OnboardingState.GoToMainScreenState -> {
-                    navigation.goBack()
+                    navigation.goBackFromOnboarding()
                 }
             }
         }

@@ -49,8 +49,8 @@
 
     <!-- Messages -->
     <string name="how_was_the_day">Как прошёл день?</string>
-    <string name="click_to_fill">нажмите чтобы заполнить</string>
-    <string name="click_to_change_emotion">нажмите чтобы изменить</string>
+    <string name="click_to_fill">нажми чтобы заполнить</string>
+    <string name="click_to_change_emotion">нажми чтобы изменить</string>
     <string name="enter_month">ВВЕДИТЕ МЕСЯЦ</string>
     <string name="enter_date">ENTER DATE</string>
 

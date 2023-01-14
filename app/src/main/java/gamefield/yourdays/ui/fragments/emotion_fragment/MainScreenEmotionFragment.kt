@@ -98,17 +98,33 @@ class MainScreenEmotionFragment : Fragment() {
     }
 
     private fun observeEmotionChanges() {
-        mainScreenViewModel.worryEmotionChangedEvent.observe(viewLifecycleOwner) { worry ->
-            currentEmotion?.worry = worry
+        with(mainScreenViewModel) {
+            worryEmotionChangedEvent.observe(viewLifecycleOwner) { worry ->
+                viewModel.onEmotionWorryChanged(worry)
+            }
+            happinessEmotionChangedEvent.observe(viewLifecycleOwner) { happiness ->
+                viewModel.onEmotionHappinessChanged(happiness)
+            }
+            sadnessEmotionChangedEvent.observe(viewLifecycleOwner) { sadness ->
+                viewModel.onEmotionSadnessChanged(sadness)
+            }
+            productivityEmotionChangedEvent.observe(viewLifecycleOwner) { productivity ->
+                viewModel.onEmotionProductivityChanged(productivity)
+            }
         }
-        mainScreenViewModel.happinessEmotionChangedEvent.observe(viewLifecycleOwner) { happiness ->
-            currentEmotion?.happiness = happiness
-        }
-        mainScreenViewModel.sadnessEmotionChangedEvent.observe(viewLifecycleOwner) { sadness ->
-            currentEmotion?.sadness = sadness
-        }
-        mainScreenViewModel.productivityEmotionChangedEvent.observe(viewLifecycleOwner) { productivity ->
-            currentEmotion?.productivity = productivity
+        with(viewModel) {
+            worryEmotionChangedEvent.observe(viewLifecycleOwner) { worry ->
+                currentEmotion?.worry = worry
+            }
+            happinessEmotionChangedEvent.observe(viewLifecycleOwner) { happiness ->
+                currentEmotion?.happiness = happiness
+            }
+            sadnessEmotionChangedEvent.observe(viewLifecycleOwner) { sadness ->
+                currentEmotion?.sadness = sadness
+            }
+            productivityEmotionChangedEvent.observe(viewLifecycleOwner) { productivity ->
+                currentEmotion?.productivity = productivity
+            }
         }
     }
 

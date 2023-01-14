@@ -1,6 +1,7 @@
 package gamefield.yourdays.viewmodels.onboarding
 
 import android.animation.ValueAnimator
+import androidx.core.animation.doOnEnd
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import gamefield.yourdays.extensions.toImmutable
@@ -16,7 +17,11 @@ class OnboardingViewModel : ViewModel() {
     private val _sectionAlphaChanged = MutableLiveData<OnboardingSectionAnimationData>()
     val sectionAlphaChanged = _sectionAlphaChanged.toImmutable()
 
+    private val _nextButtonEnabledEvent = MutableLiveData<Boolean>()
+    val nextButtonEnabledEvent = _nextButtonEnabledEvent.toImmutable()
+
     init {
+        _nextButtonEnabledEvent.value = false
         _changeScreenEvent.postValue(OnboardingState.FirstScreenState())
         observeScreenChanged()
     }
@@ -37,12 +42,17 @@ class OnboardingViewModel : ViewModel() {
             )
             startAnimation(
                 delay = state.nextButtonAppearance,
-                state = OnboardingSectionsAnimationState.NEXT_BUTTON_SECTION
+                state = OnboardingSectionsAnimationState.NEXT_BUTTON_SECTION,
+                onAnimationEndAction = { _nextButtonEnabledEvent.postValue(true) }
             )
         }
     }
 
-    private fun startAnimation(delay: Long, state: OnboardingSectionsAnimationState) {
+    private fun startAnimation(
+        delay: Long,
+        state: OnboardingSectionsAnimationState,
+        onAnimationEndAction: (() -> Unit)? = null
+    ) {
         ValueAnimator
             .ofFloat(START_ALPHA, END_ALPHA)
             .setDuration(APPEAR_DURATION).apply {
@@ -55,11 +65,15 @@ class OnboardingViewModel : ViewModel() {
                         )
                     )
                 }
+                doOnEnd {
+                    onAnimationEndAction?.invoke()
+                }
             }
             .start()
     }
 
     fun onNextButtonClicked() {
+        _nextButtonEnabledEvent.postValue(false)
         _clearPreviousScreen.postValue(true)
         when (_changeScreenEvent.value) {
             is OnboardingState.FirstScreenState -> {

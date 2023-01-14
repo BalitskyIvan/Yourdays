@@ -104,6 +104,8 @@ class MainScreenFragmentViewModel : ViewModel() {
     fun initDatabaseWithContext(context: Context) {
         _changeEmotionFragmentOpenCloseAction.value = null
         _showCantChangeEmotionToastEvent.value = null
+        isFillEmotionClicked = false
+        isEmotionContainerOpened = false
 
         addDayUseCase = AddDayUseCase(context)
         _navigateToExportScreen.postValue(null)

@@ -46,25 +46,26 @@ class ChangeEmotionFragment : Fragment() {
     }
 
     private fun observeEmotionActions() {
-        viewModel.changeEmotionFragmentOpeCloseAction.observe(viewLifecycleOwner) { openCloseActionData ->
-            openCloseActionData?.let { changeEmotionOpeCloseAnimation.start() }
-        }
-
-        viewModel.worryEmotionChangedEvent.observe(viewLifecycleOwner) { worry ->
-            binding.worryScore.text = EMOTION_PROGRESS.format(worry / 10)
-            binding.worry.progress = worry
-        }
-        viewModel.happinessEmotionChangedEvent.observe(viewLifecycleOwner) { happiness ->
-            binding.happinessScore.text = EMOTION_PROGRESS.format(happiness / 10)
-            binding.happiness.progress = happiness
-        }
-        viewModel.sadnessEmotionChangedEvent.observe(viewLifecycleOwner) { sadness ->
-            binding.sadnessScore.text = EMOTION_PROGRESS.format(sadness / 10)
-            binding.sadness.progress = sadness
-        }
-        viewModel.productivityEmotionChangedEvent.observe(viewLifecycleOwner) { productivity ->
-            binding.productivityScore.text = EMOTION_PROGRESS.format(productivity / 10)
-            binding.productivity.progress = productivity
+        with(viewModel) {
+            changeEmotionFragmentOpeCloseAction.observe(viewLifecycleOwner) { openCloseActionData ->
+                openCloseActionData?.let { changeEmotionOpeCloseAnimation.start() }
+            }
+            worryEmotionChangedEvent.observe(viewLifecycleOwner) { worry ->
+                binding.worryScore.text = EMOTION_PROGRESS.format(worry / 10)
+                binding.worry.progress = worry
+            }
+            happinessEmotionChangedEvent.observe(viewLifecycleOwner) { happiness ->
+                binding.happinessScore.text = EMOTION_PROGRESS.format(happiness / 10)
+                binding.happiness.progress = happiness
+            }
+            sadnessEmotionChangedEvent.observe(viewLifecycleOwner) { sadness ->
+                binding.sadnessScore.text = EMOTION_PROGRESS.format(sadness / 10)
+                binding.sadness.progress = sadness
+            }
+            productivityEmotionChangedEvent.observe(viewLifecycleOwner) { productivity ->
+                binding.productivityScore.text = EMOTION_PROGRESS.format(productivity / 10)
+                binding.productivity.progress = productivity
+            }
         }
     }
 

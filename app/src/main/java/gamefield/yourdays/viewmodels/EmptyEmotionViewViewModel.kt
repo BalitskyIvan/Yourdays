@@ -24,7 +24,7 @@ class EmptyEmotionViewViewModel: ViewModel() {
     init {
         _currentEmotionType.value = EmotionType.PLUS
         _emotionContainerAlpha.value = 0f
-        changeEmotionAnimation.start()
+        changeEmotionAnimation.startAnimation()
     }
 
 }
