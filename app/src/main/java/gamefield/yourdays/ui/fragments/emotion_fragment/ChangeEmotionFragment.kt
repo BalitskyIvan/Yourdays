@@ -31,9 +31,6 @@ class ChangeEmotionFragment : Fragment() {
             animationEndAction = viewModel::onChangeEmotionContainerOpenCloseAnimationEnd
         )
 
-        binding.root.focusable = View.FOCUSABLE
-        binding.root.isEnabled = true
-
         binding.root.setOnClickListener {
             viewModel.onChangeContainerClicked()
         }
@@ -81,6 +78,9 @@ class ChangeEmotionFragment : Fragment() {
     private fun observeEmotionMutableChanged() {
         viewModel.isDayMutableChangedEvent.observe(viewLifecycleOwner) { isMutable ->
             with(binding) {
+                root.focusable = if (isMutable) View.NOT_FOCUSABLE else View.FOCUSABLE
+                root.isEnabled = !isMutable
+
                 worry.isEnabled = isMutable
                 happiness.isEnabled = isMutable
                 sadness.isEnabled = isMutable
