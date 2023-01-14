@@ -45,7 +45,7 @@
     <string name="productivity">продуктивность</string>
 
     <!-- Toast -->
-    <string name="cant_change_error_toast">Sorry, you can\'t change the past</string>
+    <string name="cant_change_error_toast">Извините, вы не можете изменить прошлое</string>
 
     <!-- Messages -->
     <string name="how_was_the_day">Как прошёл день?</string>
@@ -54,26 +54,26 @@
     <string name="enter_month">ВВЕДИТЕ МЕСЯЦ</string>
     <string name="enter_date">ENTER DATE</string>
 
-    <string name="upload_to_stories">UPLOAD TO STORIES</string>
+    <string name="upload_to_stories">ПУБЛИКАЦИЯ В СТОРИС</string>
     <string name="upload">ЗАГРУЗИТЬ</string>
     <string name="upload_background">добавить фоновое изображение</string>
-    <string name="or_choose_color_text">or choose background color:</string>
+    <string name="or_choose_color_text">или выберите цвет:</string>
     <string name="month">МЕСЯЦ</string>
     <string name="day">ДЕНЬ</string>
 
     <string name="ok_text">OK</string>
 
     <!-- Errors -->
-    <string name="unexpected_error">Sorry, an unexpected error has occurred, we are already trying to fix it</string>
-    <string name="file_system_error">Filesystem error, make sure you have enough space in internal storage</string>
-    <string name="instagram_not_installed_error">Oh, looks like you don\'t have instagram installed, please install and try again</string>
-    <string name="day_not_filled_error">Error: please, choose filled day :)</string>
+    <string name="unexpected_error">Произошла неизвестная ошибка, мы уже пытаемся всё починить</string>
+    <string name="file_system_error">Ошибка файловой системы, убедитесь что у вас достаточно места</string>
+    <string name="instagram_not_installed_error">Ой, похоже что у вас не установленно приложение инстаграмма, установите и попробуйте ещё раз</string>
+    <string name="day_not_filled_error">Ошибка: пожалуйста, выберите заполненный день :)</string>
 
 
     <!-- Onboarding -->
     <string name="next_button_first_screen_text">ПОНЯТНО</string>
     <string name="next_button_second_screen_text">OK</string>
-    <string name="next_button_third_screen_text">ВОЗМОЖНО</string>
+    <string name="next_button_third_screen_text">ПОПРОБУЮ</string>
     <string name="plus_shape_description">хорошо</string>
     <string name="zero_shape_description">нормально</string>
     <string name="minus_shape_description">плохо</string>
@@ -83,6 +83,6 @@
     <string name="onboarding_emotion_progress_description">Также ты можешь выбрать какие чувства оставил прошедший день:</string>
     <string name="onboarding_month_preview_description">После этого день сохранится и ты сможешь увидеть его в превью месяца:</string>
     <string name="onboarding_empty_animation_description">Если день еще не заполнен, то вместо него будет анимация:</string>
-    <string name="onboarding_export_to_stories_description">После заполнения дня ты можешь рассказать о нем в инстаграмме, получается довольно красивая сторис:</string>
+    <string name="onboarding_export_to_stories_description">После заполнения дня ты можешь рассказать о нем в инстаграмме, получится красивая сторис:</string>
 
 </resources>
