@@ -28,12 +28,12 @@ class FillDaysBeforeNow(context: Context) {
             var dayInWeekNumber = calendar.get(Calendar.DAY_OF_WEEK)
 
             while (isSameWeek(currentMonth = currentMonth, currentWeek = currentWeek, currentDay = currentDay)) {
-                if (currentWeek > month.weeks.size) {
+                if (currentWeek > month.weeks.size - 1) {
                     month.weeks.add(Week(getEmptyWeek()))
                 }
-                with(month.weeks[currentWeek - 1].days[dayInWeekNumber - 1]) {
+                with(month.weeks[currentWeek].days[dayInWeekNumber - 1]) {
                     if (emotion == null) {
-                        month.weeks[currentWeek - 1].days.setEmptyDay(dayInWeekNumber - 1, calendar.get(Calendar.DAY_OF_MONTH))
+                        month.weeks[currentWeek].days.setEmptyDay(dayInWeekNumber - 1, calendar.get(Calendar.DAY_OF_MONTH))
                     }
                 }
                 calendar.set(currentYear, currentMonth, calendar.get(Calendar.DAY_OF_MONTH) + 1)
