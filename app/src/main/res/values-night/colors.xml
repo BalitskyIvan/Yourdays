@@ -2,6 +2,7 @@
 <resources>
 
     <color name="common_text_color">#FFFFFF</color>
+    <color name="common_text_color_dark">#80FFFFFF</color>
     <color name="common_stroke_color">#80FFFFFF</color>
     <color name="invisible_color">#FF000000</color>
     <color name="day_selector_color">#B3FFFFFF</color>

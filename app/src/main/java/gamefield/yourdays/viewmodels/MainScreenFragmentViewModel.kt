@@ -226,7 +226,7 @@ class MainScreenFragmentViewModel : ViewModel() {
     }
 
     fun onChangeEmotionContainerOpenCloseAnimationEnd(isOpened: Boolean) {
-        isEmotionContainerOpened = isOpened
+        isEmotionContainerOpened = !isOpened
     }
 
     fun emotionTypeChanged(emotionType: EmotionType) {
@@ -239,7 +239,7 @@ class MainScreenFragmentViewModel : ViewModel() {
     }
 
     fun onEmotionPeriodScrolled(y: Int) {
-        if (isEmotionContainerOpened)
+        if (!isEmotionContainerOpened)
             _emotionsPeriodScrolled.postValue(y)
     }
 

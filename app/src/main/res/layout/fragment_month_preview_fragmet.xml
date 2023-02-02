@@ -5,6 +5,8 @@
     tools:context=".ui.fragments.date_picker_fragment.MonthPreviewFragment"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginHorizontal="20dp"
+    android:fitsSystemWindows="false"
     android:background="@drawable/rounded_corners_always_white">
 
     <TextView
@@ -27,22 +29,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/week_first_markup"
-        style="@style/Text12sp.Black"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/one"
-        app:layout_constraintBottom_toBottomOf="@id/card_period_month_first_week"
-        app:layout_constraintEnd_toStartOf="@id/card_period_month_first_week"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/card_period_month_first_week" />
 
     <LinearLayout
         android:id="@+id/card_period_month_first_week"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/month_preview_card_margin_start"
         android:layout_marginTop="8dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -98,22 +89,10 @@
             android:padding="@dimen/month_preview_card_day_padding" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/week_second_markup"
-        style="@style/Text12sp.Black"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/two"
-        app:layout_constraintBottom_toBottomOf="@id/card_period_month_second_week"
-        app:layout_constraintEnd_toStartOf="@id/card_period_month_second_week"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/card_period_month_second_week" />
-
     <LinearLayout
         android:id="@+id/card_period_month_second_week"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/month_preview_card_margin_start"
         android:layout_marginTop="@dimen/month_preview_card_margin_top"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -169,22 +148,11 @@
             android:padding="@dimen/month_preview_card_day_padding" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/week_third_markup"
-        style="@style/Text12sp.Black"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/three"
-        app:layout_constraintBottom_toBottomOf="@id/card_period_month_third_week"
-        app:layout_constraintEnd_toStartOf="@id/card_period_month_third_week"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/card_period_month_third_week" />
 
     <LinearLayout
         android:id="@+id/card_period_month_third_week"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/month_preview_card_margin_start"
         android:layout_marginTop="@dimen/month_preview_card_margin_top"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -240,22 +208,10 @@
             android:padding="@dimen/month_preview_card_day_padding" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/week_fourth_markup"
-        style="@style/Text12sp.Black"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/four"
-        app:layout_constraintBottom_toBottomOf="@id/card_period_month_fourth_week"
-        app:layout_constraintEnd_toStartOf="@id/card_period_month_fourth_week"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/card_period_month_fourth_week" />
-
     <LinearLayout
         android:id="@+id/card_period_month_fourth_week"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/month_preview_card_margin_start"
         android:layout_marginTop="@dimen/month_preview_card_margin_top"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -311,22 +267,10 @@
             android:padding="@dimen/month_preview_card_day_padding" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/week_fifth_markup"
-        style="@style/Text12sp.Black"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/five"
-        app:layout_constraintBottom_toBottomOf="@id/card_period_month_fifth_week"
-        app:layout_constraintEnd_toStartOf="@id/card_period_month_fifth_week"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/card_period_month_fifth_week" />
-
     <LinearLayout
         android:id="@+id/card_period_month_fifth_week"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/month_preview_card_margin_start"
         android:layout_marginTop="@dimen/month_preview_card_margin_top"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -382,22 +326,10 @@
             android:padding="@dimen/month_preview_card_day_padding" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/week_sixth_markup"
-        style="@style/Text12sp.Black"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/six"
-        app:layout_constraintBottom_toBottomOf="@id/card_period_month_sixth_week"
-        app:layout_constraintEnd_toStartOf="@id/card_period_month_sixth_week"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/card_period_month_sixth_week" />
-
     <LinearLayout
         android:id="@+id/card_period_month_sixth_week"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/month_preview_card_margin_start"
         android:layout_marginTop="@dimen/month_preview_card_margin_top"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -457,7 +389,6 @@
         android:id="@+id/card_period_days_markup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
         android:layout_marginTop="6dp"
         android:orientation="horizontal"
         android:paddingBottom="6dp"

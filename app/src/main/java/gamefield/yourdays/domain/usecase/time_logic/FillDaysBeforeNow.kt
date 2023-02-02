@@ -20,20 +20,22 @@ class FillDaysBeforeNow(context: Context) {
         val currentYear = calendar.get(Calendar.YEAR)
         val currentMonth = calendar.get(Calendar.MONTH)
         val currentDay = calendar.get(Calendar.DAY_OF_MONTH)
+        val currentWeek = calendar.get(Calendar.WEEK_OF_MONTH)
+
         calendar.set(currentYear, currentMonth, 1)
 
-        while (isSameMonth(currentMonth = currentMonth, currentDay = currentDay)) {
+        while (isSameMonth(currentMonth = currentMonth, currentDay = currentDay, currentWeek = currentWeek)) {
 
-            val currentWeek = calendar.get(Calendar.WEEK_OF_MONTH)
+            val weekInMonth = calendar.get(Calendar.WEEK_OF_MONTH)
             var dayInWeekNumber = calendar.get(Calendar.DAY_OF_WEEK)
 
-            while (isSameWeek(currentMonth = currentMonth, currentWeek = currentWeek, currentDay = currentDay)) {
-                if (currentWeek > month.weeks.size - 1) {
+            while (isSameWeek(currentMonth = currentMonth, currentWeek = currentWeek, currentDay = currentDay,  weekInMonth = weekInMonth)) {
+                if (weekInMonth > month.weeks.size) {
                     month.weeks.add(Week(getEmptyWeek()))
                 }
-                with(month.weeks[currentWeek].days[dayInWeekNumber - 1]) {
+                with(month.weeks[weekInMonth - 1].days[dayInWeekNumber - 1]) {
                     if (emotion == null) {
-                        month.weeks[currentWeek].days.setEmptyDay(dayInWeekNumber - 1, calendar.get(Calendar.DAY_OF_MONTH))
+                        month.weeks[weekInMonth - 1].days.setEmptyDay(dayInWeekNumber - 1, calendar.get(Calendar.DAY_OF_MONTH))
                     }
                 }
                 calendar.set(currentYear, currentMonth, calendar.get(Calendar.DAY_OF_MONTH) + 1)
@@ -43,15 +45,17 @@ class FillDaysBeforeNow(context: Context) {
         repository.updateMonth(month)
     }
 
-    private fun isSameMonth(currentMonth: Int, currentDay: Int): Boolean {
-        return currentMonth == calendar.get(Calendar.MONTH) &&
-                currentDay >= calendar.get(Calendar.DAY_OF_MONTH)
-    }
-
-    private fun isSameWeek(currentMonth: Int, currentWeek: Int, currentDay: Int): Boolean {
+    private fun isSameMonth(currentMonth: Int, currentDay: Int, currentWeek: Int): Boolean {
         return currentMonth == calendar.get(Calendar.MONTH) &&
                 currentDay >= calendar.get(Calendar.DAY_OF_MONTH) &&
-                currentWeek == calendar.get(Calendar.WEEK_OF_MONTH)
+                currentWeek >= calendar.get(Calendar.WEEK_OF_MONTH)
+    }
+
+    private fun isSameWeek(currentMonth: Int, currentWeek: Int, currentDay: Int, weekInMonth: Int): Boolean {
+        return currentMonth == calendar.get(Calendar.MONTH) &&
+                currentDay >= calendar.get(Calendar.DAY_OF_MONTH) &&
+                weekInMonth == calendar.get(Calendar.WEEK_OF_MONTH) &&
+                currentWeek >= calendar.get(Calendar.WEEK_OF_MONTH)
     }
 
     private fun getEmptyWeek(): MutableList<Day> {

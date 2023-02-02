@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "105949491127",
+    "project_id": "yourdays-3fbfe",
+    "storage_bucket": "yourdays-3fbfe.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:105949491127:android:fec6036fd884e530fd0232",
+        "android_client_info": {
+          "package_name": "gamefield.yourdays"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "105949491127-770o9o2qmidj30shqsh64op495g6oi6m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD9k6I-zmG00j_Qoi6PfKi4sKtrX_S-DKc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "105949491127-770o9o2qmidj30shqsh64op495g6oi6m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

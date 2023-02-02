@@ -84,6 +84,26 @@ class DayPreviewFragment : Fragment() {
                         dayPreviewHappinessProgress.progress = happiness
                         dayPreviewSadnessProgress.progress = sadness
                         dayPreviewProductivityProgress.progress = productivity
+
+                        dayPreviewWorryEmoji.visibility = worry.getVisibility()
+                        dayPreviewWorryProgress.visibility = worry.getVisibility()
+                        dayPreviewWorryScore.visibility = worry.getVisibility()
+                        dayPreviewWorryTitle.visibility = worry.getVisibility()
+
+                        dayPreviewHappinessEmoji.visibility = happiness.getVisibility()
+                        dayPreviewHappinessProgress.visibility = happiness.getVisibility()
+                        dayPreviewHappinessScore.visibility = happiness.getVisibility()
+                        dayPreviewHappinessTitle.visibility = happiness.getVisibility()
+
+                        dayPreviewSadnessEmoji.visibility = sadness.getVisibility()
+                        dayPreviewSadnessProgress.visibility = sadness.getVisibility()
+                        dayPreviewSadnessScore.visibility = sadness.getVisibility()
+                        dayPreviewSadnessTitle.visibility = sadness.getVisibility()
+
+                        dayPreviewProductivityEmoji.visibility = productivity.getVisibility()
+                        dayPreviewProductivityProgress.visibility = productivity.getVisibility()
+                        dayPreviewProductivityScore.visibility = productivity.getVisibility()
+                        dayPreviewProductivityTitle.visibility = productivity.getVisibility()
                     }
                 } else {
                     dayPreviewWorryScore.text = EMOTION_PROGRESS.format(0)
@@ -102,6 +122,8 @@ class DayPreviewFragment : Fragment() {
             }
         }
     }
+
+    private fun Int.getVisibility(): Int = if (this == 0) View.GONE else View.VISIBLE
 
     companion object {
         private const val EMOTION_PROGRESS = "%s/10"

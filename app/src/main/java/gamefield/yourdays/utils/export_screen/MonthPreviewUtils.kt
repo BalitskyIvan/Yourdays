@@ -13,19 +13,13 @@ object MonthPreviewUtils {
         with(binding) {
             if (weeks.size < 2) {
                 cardPeriodMonthSecondWeek.visibility = View.GONE
-                weekSecondMarkup.visibility = View.GONE
                 cardPeriodMonthThirdWeek.visibility = View.GONE
-                weekThirdMarkup.visibility = View.GONE
                 cardPeriodMonthFourthWeek.visibility = View.GONE
-                weekFourthMarkup.visibility = View.GONE
                 cardPeriodMonthFifthWeek.visibility = View.GONE
-                weekFifthMarkup.visibility = View.GONE
                 cardPeriodMonthSixthWeek.visibility = View.GONE
-                weekSixthMarkup.visibility = View.GONE
                 return false
             } else {
                 cardPeriodMonthSecondWeek.visibility = View.VISIBLE
-                weekSecondMarkup.visibility = View.VISIBLE
                 return true
             }
         }
@@ -38,17 +32,12 @@ object MonthPreviewUtils {
         with(binding) {
             if (weeks.size < 3) {
                 cardPeriodMonthThirdWeek.visibility = View.GONE
-                weekThirdMarkup.visibility = View.GONE
                 cardPeriodMonthFourthWeek.visibility = View.GONE
-                weekFourthMarkup.visibility = View.GONE
                 cardPeriodMonthFifthWeek.visibility = View.GONE
-                weekFifthMarkup.visibility = View.GONE
                 cardPeriodMonthSixthWeek.visibility = View.GONE
-                weekSixthMarkup.visibility = View.GONE
                 return false
             } else {
                 cardPeriodMonthThirdWeek.visibility = View.VISIBLE
-                weekThirdMarkup.visibility = View.VISIBLE
                 return true
             }
         }
@@ -61,15 +50,11 @@ object MonthPreviewUtils {
         with(binding) {
             if (weeks.size < 4) {
                 cardPeriodMonthFourthWeek.visibility = View.GONE
-                weekFourthMarkup.visibility = View.GONE
                 cardPeriodMonthFifthWeek.visibility = View.GONE
-                weekFifthMarkup.visibility = View.GONE
                 cardPeriodMonthSixthWeek.visibility = View.GONE
-                weekSixthMarkup.visibility = View.GONE
                 return false
             } else {
                 cardPeriodMonthFourthWeek.visibility = View.VISIBLE
-                weekFourthMarkup.visibility = View.VISIBLE
                 return true
             }
         }
@@ -82,13 +67,10 @@ object MonthPreviewUtils {
         with(binding) {
             if (weeks.size < 5) {
                 cardPeriodMonthFifthWeek.visibility = View.GONE
-                weekFifthMarkup.visibility = View.GONE
                 cardPeriodMonthSixthWeek.visibility = View.GONE
-                weekSixthMarkup.visibility = View.GONE
                 return false
             } else {
                 cardPeriodMonthFifthWeek.visibility = View.VISIBLE
-                weekFifthMarkup.visibility = View.VISIBLE
                 return true
             }
         }
@@ -101,11 +83,9 @@ object MonthPreviewUtils {
         with(binding) {
             if (weeks.size < 6) {
                 cardPeriodMonthSixthWeek.visibility = View.GONE
-                weekSixthMarkup.visibility = View.GONE
                 return false
             } else {
                 cardPeriodMonthSixthWeek.visibility = View.VISIBLE
-                weekSixthMarkup.visibility = View.VISIBLE
                 return true
             }
         }

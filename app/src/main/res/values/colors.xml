@@ -20,6 +20,7 @@
     <color name="instagram_gradient_end_color">#FFFFCA00</color>
 
     <color name="common_text_color">#000000</color>
+    <color name="common_text_color_dark">#B3000000</color>
     <color name="common_stroke_color">#80000000</color>
     <color name="invisible_color">#FFFFFFFF</color>
     <color name="day_selector_color">#66000000</color>

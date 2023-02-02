@@ -54,6 +54,12 @@
         <item name="android:textSize">20sp</item>
     </style>
 
+    <style name="Text26sp">
+        <item name="android:fontFamily">@font/roboto_regular</item>
+        <item name="android:textColor">@color/common_text_color</item>
+        <item name="android:textSize">26sp</item>
+    </style>
+
     <style name="Text30sp">
         <item name="android:textColor">@color/common_text_color</item>
         <item name="android:textSize">30sp</item>
@@ -78,12 +84,25 @@
         <item name="android:textColor">@color/black_text_color</item>
     </style>
 
+    <style name="Text26sp.Light">
+        <item name="android:textColor">@color/white_text_color</item>
+    </style>
+
     <style name="Text36sp.Light">
         <item name="android:textColor">@color/white_text_color</item>
     </style>
 
+    <style name="Text26sp.Light.ExtraLight">
+        <item name="android:fontFamily">@font/roboto_thin</item>
+    </style>
+
     <style name="Text36sp.Light.ExtraLight">
         <item name="android:fontFamily">@font/roboto_thin</item>
+    </style>
+
+    <style name="Text8sp.ExtraLight">
+        <item name="android:fontFamily">@font/roboto_thin</item>
+        <item name="android:textColor">@color/common_text_color_dark</item>
     </style>
 
     <style name="Text8sp.WorryColor">

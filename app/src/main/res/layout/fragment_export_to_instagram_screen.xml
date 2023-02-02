@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="false"
+    android:fitsSystemWindows="true"
     android:paddingTop="30dp"
     android:background="@drawable/export_to_stories_background"
     tools:context=".ui.fragments.screens.ExportToInstagramScreenFragment">
@@ -22,20 +22,21 @@
 
     <TextView
         android:id="@+id/textView"
-        style="@style/Text36sp.Light.ExtraLight"
-        android:layout_width="match_parent"
+        style="@style/Text26sp.Light.ExtraLight"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="@string/upload_to_stories"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/close_button" />
+        app:layout_constraintStart_toEndOf="@id/close_button"
+        app:layout_constraintTop_toTopOf="@id/close_button"
+        app:layout_constraintBottom_toBottomOf="@id/close_button"/>
 
     <FrameLayout
         android:id="@+id/month_button"
         android:layout_width="110dp"
         android:layout_height="40dp"
-        android:layout_marginTop="2dp"
+        android:layout_marginTop="6dp"
         android:background="@drawable/rounded_stroke_corners"
         app:layout_constraintEnd_toStartOf="@+id/day_button"
         app:layout_constraintStart_toStartOf="parent"
@@ -53,7 +54,7 @@
         android:id="@+id/day_button"
         android:layout_width="110dp"
         android:layout_height="40dp"
-        android:layout_marginTop="2dp"
+        android:layout_marginTop="6dp"
         android:background="@drawable/rounded_stroke_corners"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/month_button"
@@ -77,12 +78,13 @@
 
     <FrameLayout
         android:id="@+id/preview_container"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/period_picker_container" />
+        app:layout_constraintTop_toBottomOf="@id/period_picker_container"
+        app:layout_constraintBottom_toTopOf="@id/upload_background_button"/>
 
     <ImageView
         android:id="@+id/uploaded_image_preview"
@@ -125,7 +127,7 @@
         android:layout_width="55dp"
         android:layout_height="55dp"
         android:padding="7dp"
-        android:layout_marginBottom="90dp"
+        android:layout_marginBottom="45dp"
         android:src="@drawable/white_color_selector"
         app:layout_constraintEnd_toStartOf="@+id/purple_color_selector"
         app:layout_constraintHorizontal_bias="0.5"
@@ -137,7 +139,7 @@
         android:layout_width="55dp"
         android:layout_height="55dp"
         android:padding="7dp"
-        android:layout_marginBottom="90dp"
+        android:layout_marginBottom="45dp"
         android:src="@drawable/purple_color_selector"
         app:layout_constraintEnd_toStartOf="@+id/blue_color_selector"
         app:layout_constraintHorizontal_bias="0.5"
@@ -149,7 +151,7 @@
         android:layout_width="55dp"
         android:layout_height="55dp"
         android:padding="7dp"
-        android:layout_marginBottom="90dp"
+        android:layout_marginBottom="45dp"
         android:src="@drawable/blue_color_selector"
         app:layout_constraintEnd_toStartOf="@+id/orange_color_selector"
         app:layout_constraintHorizontal_bias="0.5"
@@ -161,7 +163,7 @@
         android:layout_width="55dp"
         android:layout_height="55dp"
         android:padding="7dp"
-        android:layout_marginBottom="90dp"
+        android:layout_marginBottom="45dp"
         android:src="@drawable/orange_color_selector"
         app:layout_constraintEnd_toStartOf="@+id/black_color_selector"
         app:layout_constraintHorizontal_bias="0.5"
@@ -172,7 +174,7 @@
         android:id="@+id/black_color_selector"
         android:layout_width="55dp"
         android:layout_height="55dp"
-        android:layout_marginBottom="90dp"
+        android:layout_marginBottom="45dp"
         android:padding="7dp"
         android:src="@drawable/black_color_selector"
         app:layout_constraintEnd_toEndOf="parent"
@@ -182,11 +184,11 @@
 
     <Button
         android:id="@+id/upload_button"
-        style="@style/Text20sp"
+        style="@style/Text16sp"
         android:layout_width="115dp"
         android:layout_height="35dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginBottom="55dp"
+        android:layout_marginBottom="10dp"
         android:background="@drawable/upload_button_background"
         android:text="@string/upload"
         app:layout_constraintBottom_toBottomOf="parent"
