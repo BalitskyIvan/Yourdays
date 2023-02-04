@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Months -->
+    <string name="january">一月</string>
+    <string name="february">二月</string>
+    <string name="march">三月</string>
+    <string name="april">四月</string>
+    <string name="may">五月</string>
+    <string name="june">六月</string>
+    <string name="july">七月</string>
+    <string name="august">八月</string>
+    <string name="september">九月</string>
+    <string name="october">十月</string>
+    <string name="november">十一月</string>
+    <string name="december">十二月</string>
+
+    <string-array name="moths_array">
+        <item>一月</item>
+        <item>二月</item>
+        <item>三月</item>
+        <item>四月</item>
+        <item>五月</item>
+        <item>六月</item>
+        <item>七月</item>
+        <item>八月</item>
+        <item>九月</item>
+        <item>十月</item>
+        <item>十一月</item>
+        <item>十二月</item>
+    </string-array>
+
+    <!-- Days -->
+    <string name="mon">月曜日</string>
+    <string name="tue">火曜日</string>
+    <string name="wed">水曜日</string>
+    <string name="thu">木曜日</string>
+    <string name="fri">金曜日</string>
+    <string name="sat">土曜日</string>
+    <string name="sun">日曜日</string>
+
+    <!-- Emotions -->
+    <string name="worry">心配</string>
+    <string name="happiness">幸せ</string>
+    <string name="sadness">悲しみ</string>
+    <string name="productivity">生産性</string>
+
+    <!-- Toast -->
+    <string name="cant_change_error_toast">ごめん、過去は変えられない</string>
+
+    <!-- Messages -->
+    <string name="how_was_the_day">今日はどうでしたか？</string>
+    <string name="click_to_fill">クリックして入力</string>
+    <string name="click_to_change_emotion">クリックして感情を変える</string>
+    <string name="enter_month">月を入力してください</string>
+    <string name="enter_date">日付を入力</string>
+
+    <string name="upload_to_stories">UPLOAD TO STORIES</string>
+    <string name="upload">UPLOAD</string>
+    <string name="upload_background">背景画像をアップロード</string>
+    <string name="or_choose_color_text">または背景色を選択:</string>
+    <string name="month">月</string>
+    <string name="day">日</string>
+
+    <string name="ok_text">OK</string>
+
+    <!-- Errors -->
+    <string name="unexpected_error">申し訳ありませんが、予期しないエラーが発生しました。すでに修正を試みています</string>
+    <string name="file_system_error">ファイルシステム エラーです。内部ストレージに十分なスペースがあることを確認してください</string>
+    <string name="instagram_not_installed_error">Instagram がインストールされていないようです。インストールしてからもう一度お試しください</string>
+    <string name="day_not_filled_error">エラー: 満たされた日を選択してください :)</string>
+
+    <!-- Onboarding -->
+    <string name="next_button_first_screen_text">OK</string>
+    <string name="next_button_second_screen_text">OK</string>
+    <string name="next_button_third_screen_text">多分</string>
+    <string name="plus_shape_description">良い</string>
+    <string name="zero_shape_description">普通</string>
+    <string name="minus_shape_description">悪い</string>
+    <string name="onboarding_hello_message">こんにちは、ようこそ</string>
+    <string name="onboarding_app_decription">日々の過ごし方を記録できるアプリです</string>
+    <string name="onboarding_shapes_description">次の 3 種類の図形を使用して過去 1 日を評価できます。</string>
+    <string name="onboarding_emotion_progress_description">一日の気分も選べます</string>
+    <string name="onboarding_month_preview_description">その後、あなたの日が保存され、月に表示されます。</string>
+    <string name="onboarding_empty_animation_description">まだ記入していない日は次のように表示されます。</string>
+    <string name="onboarding_export_to_stories_description">1日を埋めた後、期間を選択してInstagramで共有できます。</string>
+
+</resources>

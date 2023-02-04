@@ -99,7 +99,6 @@
     <string name="onboarding_empty_animation_description">Days that you have not filled yet are displayed like this:</string>
     <string name="onboarding_export_to_stories_description">After filling day you can share how it went on instagram by selecting the period:</string>
 
-
     <string name="emotion_progress_default_text" translatable="false">0/10</string>
 
     <string name="app_watermark" translatable="false">yourdays app</string>

@@ -19,10 +19,11 @@
     <!-- Month preview card -->
     <dimen name="month_preview_emotion_width">35dp</dimen>
     <dimen name="month_preview_emotion_height">35dp</dimen>
-    <dimen name="month_preview_card_margin_top">1dp</dimen>
+    <dimen name="month_preview_card_margin_top">4dp</dimen>
     <dimen name="month_preview_card_margin_start">20dp</dimen>
-    <dimen name="month_preview_card_margin_between_days">5dp</dimen>
-    <dimen name="month_preview_card_day_padding">0dp</dimen>
+    <dimen name="month_preview_card_margin_between_days">10dp</dimen>
+    <dimen name="month_preview_card_day_padding">3dp</dimen>
+    <dimen name="month_preview_card_markup_margin">33dp</dimen>
 
     <dimen name="change_emotion_container_height">370dp</dimen>
 

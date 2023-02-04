@@ -23,6 +23,7 @@ import gamefield.yourdays.ui.fragments.date_picker_fragment.DayPickerFragment
 import gamefield.yourdays.ui.fragments.date_picker_fragment.DayPreviewFragment
 import gamefield.yourdays.ui.fragments.date_picker_fragment.MonthPickerFragment
 import gamefield.yourdays.ui.fragments.date_picker_fragment.MonthPreviewFragment
+import gamefield.yourdays.utils.analytics.AnalyticsTracks
 import gamefield.yourdays.utils.emum.DatePickerType
 import gamefield.yourdays.utils.export_screen.InstagramStoriesBackgroundColor
 import gamefield.yourdays.utils.export_screen.OpenInstagramUtils
@@ -78,7 +79,7 @@ class ExportToInstagramScreenFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(requireActivity()).get(ExportToInstagramViewModel::class.java)
-        viewModel.initWithContext(context = requireContext())
+        viewModel.initWithContext(context = requireContext(), analyticsTracks = requireActivity() as AnalyticsTracks)
         viewModel.initSelectedData(dateData = initDate, isExportDay = isExportDay)
 
         colorSelector = requireContext().getDrawable(R.drawable.color_selctor)!!

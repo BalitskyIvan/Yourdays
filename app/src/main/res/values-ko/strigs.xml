@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Months -->
+    <string name="january">일월</string>
+    <string name="february">이월</string>
+    <string name="march">삼월</string>
+    <string name="april">사월</string>
+    <string name="may">오월</string>
+    <string name="june">유월</string>
+    <string name="july">칠월</string>
+    <string name="august">팔월</string>
+    <string name="september">구월</string>
+    <string name="october">십월</string>
+    <string name="november">십일월</string>
+    <string name="december">십이월</string>
+
+    <string-array name="moths_array">
+        <item>일월</item>
+        <item>이월</item>
+        <item>삼월</item>
+        <item>사월</item>
+        <item>오월</item>
+        <item>유월</item>
+        <item>칠월</item>
+        <item>팔월</item>
+        <item>구월</item>
+        <item>십월</item>
+        <item>십일월</item>
+        <item>십이월</item>
+    </string-array>
+
+    <!-- Days -->
+    <string name="mon">월요일</string>
+    <string name="tue">화요일</string>
+    <string name="wed">수요일</string>
+    <string name="thu">목요일</string>
+    <string name="fri">금요일</string>
+    <string name="sat">토요일</string>
+    <string name="sun">일요일</string>
+
+    <!-- Emotions -->
+    <string name="worry">걱정</string>
+    <string name="happiness">행복</string>
+    <string name="sadness">비애</string>
+    <string name="productivity">생산력</string>
+
+    <!-- Toast -->
+    <string name="cant_change_error_toast">미안해, 넌 과거를 바꿀 수 없어</string>
+
+    <!-- Messages -->
+    <string name="how_was_the_day">어떻게 날?</string>
+    <string name="click_to_fill">클릭하여 채우기</string>
+    <string name="click_to_change_emotion">클릭하여 감정 변경</string>
+    <string name="enter_month">월을 입력하세요</string>
+    <string name="enter_date">날짜를 입력하세요</string>
+
+    <string name="upload_to_stories">UPLOAD TO STORIES</string>
+    <string name="upload">UPLOAD</string>
+    <string name="upload_background">배경 이미지 업로드</string>
+    <string name="or_choose_color_text">또는 배경색 선택:</string>
+    <string name="month">월</string>
+    <string name="day">낮</string>
+
+    <string name="ok_text">OK</string>
+
+    <!-- Errors -->
+    <string name="unexpected_error">죄송합니다. 예상치 못한 오류가 발생했습니다. 이미 수정을 시도하고 있습니다.</string>
+    <string name="file_system_error">파일 시스템 오류, 내부 저장소에 충분한 공간이 있는지 확인하십시오.</string>
+    <string name="instagram_not_installed_error">아, 인스타그램이 설치되어 있지 않은 것 같군요 설치 후 다시 시도해주세요</string>
+    <string name="day_not_filled_error">오류: 채워진 요일을 선택하십시오 :)</string>
+
+    <!-- Onboarding -->
+    <string name="next_button_first_screen_text">OK</string>
+    <string name="next_button_second_screen_text">OK</string>
+    <string name="next_button_third_screen_text">아마도</string>
+    <string name="plus_shape_description">좋은</string>
+    <string name="zero_shape_description">정상</string>
+    <string name="minus_shape_description">나쁜</string>
+    <string name="onboarding_hello_message">안녕하세요, 환영합니다</string>
+    <string name="onboarding_app_decription">하루가 어떻게 가는지 추적할 수 있는 앱입니다.</string>
+    <string name="onboarding_shapes_description">세 가지 유형의 도형을 사용하여 지난 날을 평가할 수 있습니다.</string>
+    <string name="onboarding_emotion_progress_description">하루 종일 기분을 선택할 수도 있습니다.</string>
+    <string name="onboarding_month_preview_description">그런 다음 귀하의 하루가 저장되고 다음 달에 표시됩니다.</string>
+    <string name="onboarding_empty_animation_description">아직 채우지 않은 날짜는 다음과 같이 표시됩니다.</string>
+    <string name="onboarding_export_to_stories_description">하루를 채운 후 기간을 선택하여 Instagram에서 어떻게 진행되었는지 공유할 수 있습니다.</string>
+
+</resources>

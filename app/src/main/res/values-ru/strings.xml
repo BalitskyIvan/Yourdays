@@ -52,7 +52,7 @@
     <string name="click_to_fill">нажми чтобы заполнить</string>
     <string name="click_to_change_emotion">нажми чтобы изменить</string>
     <string name="enter_month">ВВЕДИТЕ МЕСЯЦ</string>
-    <string name="enter_date">ENTER DATE</string>
+    <string name="enter_date">ВЫБЕРИТЕ ДЕНЬ</string>
 
     <string name="upload_to_stories">ПУБЛИКАЦИЯ В СТОРИС</string>
     <string name="upload">ЗАГРУЗИТЬ</string>

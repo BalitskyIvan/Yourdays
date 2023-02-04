@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Months -->
+    <string name="january">Januar</string>
+    <string name="february">Februar</string>
+    <string name="march">März</string>
+    <string name="april">April</string>
+    <string name="may">Mai</string>
+    <string name="june">Juni</string>
+    <string name="july">Juli</string>
+    <string name="august">August</string>
+    <string name="september">September</string>
+    <string name="october">Oktober</string>
+    <string name="november">November</string>
+    <string name="december">Dezember</string>
+
+    <string-array name="moths_array">
+        <item>Januar</item>
+        <item>Februar</item>
+        <item>März</item>
+        <item>April</item>
+        <item>Mai</item>
+        <item>Juni</item>
+        <item>Juli</item>
+        <item>August</item>
+        <item>September</item>
+        <item>Oktober</item>
+        <item>November</item>
+        <item>Dezember</item>
+    </string-array>
+
+    <!-- Days -->
+    <string name="mon">MO</string>
+    <string name="tue">DI</string>
+    <string name="wed">MI</string>
+    <string name="thu">DO</string>
+    <string name="fri">FR</string>
+    <string name="sat">SA</string>
+    <string name="sun">SO</string>
+
+    <!-- Emotions -->
+    <string name="worry">sorge</string>
+    <string name="happiness">glück</string>
+    <string name="sadness">traurigkeit</string>
+    <string name="productivity">produktivität</string>
+
+    <!-- Toast -->
+    <string name="cant_change_error_toast">Tut mir leid, du kannst die Vergangenheit nicht ändern</string>
+
+    <!-- Messages -->
+    <string name="how_was_the_day">Wie war der Tag?</string>
+    <string name="click_to_fill">zum Ausfüllen anklicken</string>
+    <string name="click_to_change_emotion">Klicken Sie, um die Emotion zu ändern</string>
+    <string name="enter_month">MONAT EINGEBEN</string>
+    <string name="enter_date">DATUM EINGEBEN</string>
+
+    <string name="upload_to_stories">UPLOAD TO STORIES</string>
+    <string name="upload">UPLOAD</string>
+    <string name="upload_background">hintergrundbild hochladen</string>
+    <string name="or_choose_color_text">oder Hintergrundfarbe wählen:</string>
+    <string name="month">MONAT</string>
+    <string name="day">TAG</string>
+
+    <string name="ok_text">OK</string>
+
+    <!-- Errors -->
+    <string name="unexpected_error">Entschuldigung, ein unerwarteter Fehler ist aufgetreten, wir versuchen bereits, ihn zu beheben</string>
+    <string name="file_system_error">Dateisystemfehler, stellen Sie sicher, dass Sie genügend Speicherplatz im internen Speicher haben</string>
+    <string name="instagram_not_installed_error">Oh, sieht so aus, als hätten Sie Instagram nicht installiert. Bitte installieren Sie es und versuchen Sie es erneut</string>
+    <string name="day_not_filled_error">Fehler: Bitte wählen Sie einen ausgefüllten Tag :)</string>
+
+
+    <!-- Onboarding -->
+    <string name="next_button_first_screen_text">OK</string>
+    <string name="next_button_second_screen_text">OK</string>
+    <string name="next_button_third_screen_text">VIELLEICHT</string>
+    <string name="plus_shape_description">gut</string>
+    <string name="zero_shape_description">ok</string>
+    <string name="minus_shape_description">schlecht</string>
+    <string name="onboarding_hello_message">Hallo,\nwillkommen zu</string>
+    <string name="onboarding_app_decription">dies ist eine App, mit der Sie verfolgen können, wie Ihre Tage verlaufen</string>
+    <string name="onboarding_shapes_description">sie können den vergangenen Tag mit drei Arten von Formen auswerten:</string>
+    <string name="onboarding_emotion_progress_description">sie können auch wählen, wie Sie sich den ganzen Tag über fühlen</string>
+    <string name="onboarding_month_preview_description">danach wird Ihr Tag gespeichert und ist im Monat sichtbar:</string>
+    <string name="onboarding_empty_animation_description">tage, die Sie noch nicht ausgefüllt haben, werden wie folgt angezeigt:</string>
+    <string name="onboarding_export_to_stories_description">nach dem Fülltag können Sie auf Instagram teilen, wie es gelaufen ist, indem Sie den Zeitraum auswählen:</string>
+
+
+</resources>

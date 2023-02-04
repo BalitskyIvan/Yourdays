@@ -11,6 +11,8 @@ import gamefield.yourdays.domain.usecase.io.AddDayUseCase
 import gamefield.yourdays.domain.usecase.io.GetAllMonthsListUseCase
 import gamefield.yourdays.extensions.getDayFromNumberInMonth
 import gamefield.yourdays.extensions.toImmutable
+import gamefield.yourdays.utils.analytics.AnalyticsTracks
+import gamefield.yourdays.utils.analytics.main_screen.*
 import gamefield.yourdays.utils.main_screen.DateToExportData
 import gamefield.yourdays.utils.main_screen.DaySelectedContainer
 import kotlinx.coroutines.Dispatchers
@@ -73,6 +75,7 @@ class MainScreenFragmentViewModel : ViewModel() {
 
     private lateinit var addDayUseCase: AddDayUseCase
     private lateinit var getAllMonthsListUseCase: GetAllMonthsListUseCase
+    private lateinit var analyticsTracks: AnalyticsTracks
 
     private var selectedDate: DaySelectedContainer = DaySelectedContainer(
         month = Calendar.getInstance().get(Calendar.MONTH),
@@ -101,7 +104,9 @@ class MainScreenFragmentViewModel : ViewModel() {
         }
     }
 
-    fun initDatabaseWithContext(context: Context) {
+    fun initWithContext(context: Context, analyticsTracks: AnalyticsTracks) {
+        this.analyticsTracks = analyticsTracks
+        analyticsTracks.logEvent(MainScreenOpenedEvent())
         _changeEmotionFragmentOpenCloseAction.value = null
         _showCantChangeEmotionToastEvent.value = null
         isFillEmotionClicked = false
@@ -144,50 +149,62 @@ class MainScreenFragmentViewModel : ViewModel() {
     fun emotionContainerOkButtonClicked() {
         isFillEmotionClicked = false
         _scrollPeriodToTop.postValue(true)
+
         val isEmotionNotFilled = isEmotionNotFilled()
+        val emotion = getEmotion()
+
         _changeEmotionFragmentOpenCloseAction.postValue(
             CloseChangeEmotionContainerData(
                 isOpening = false,
                 isEmotionNotFilled = isEmotionNotFilled
             )
         )
+        analyticsTracks.logEvent(MainScreenOkButtonClickedEvent(emotion = emotion, isFilled = !isEmotionNotFilled))
         if (!isEmotionNotFilled) {
-            mothListChangedEvent.value?.let { monthList ->
-                viewModelScope.launch(Dispatchers.IO) {
-                    monthList.forEach { month ->
-                        if (month.monthNumber == selectedDate.month) {
-                            addDayUseCase.invoke(
-                                month,
-                                selectedDate.day,
-                                Emotion(
-                                    worry = worryEmotionChangedEvent.value!!,
-                                    happiness = happinessEmotionChangedEvent.value!!,
-                                    productivity = productivityEmotionChangedEvent.value!!,
-                                    sadness = sadnessEmotionChangedEvent.value!!,
-                                    type = emotionType
-                                )
-                            )
-                            fetchMonths()
-                        }
-                    }
+           updateMonthList(emotion = emotion)
+        }
+    }
 
+    private fun updateMonthList(emotion: Emotion) {
+        mothListChangedEvent.value?.let { monthList ->
+            viewModelScope.launch(Dispatchers.IO) {
+                monthList.forEach { month ->
+                    if (month.monthNumber == selectedDate.month) {
+                        addDayUseCase.invoke(
+                            month = month,
+                            dayNumber = selectedDate.day,
+                            emotion = emotion
+                        )
+                        fetchMonths()
+                    }
                 }
             }
         }
     }
+
+    private fun getEmotion() = Emotion(
+        worry = worryEmotionChangedEvent.value!!,
+        happiness = happinessEmotionChangedEvent.value!!,
+        productivity = productivityEmotionChangedEvent.value!!,
+        sadness = sadnessEmotionChangedEvent.value!!,
+        type = emotionType
+    )
 
     private fun isEmotionNotFilled(): Boolean =
         worryEmotionChangedEvent.value == 0 && happinessEmotionChangedEvent.value == 0 &&
                 productivityEmotionChangedEvent.value == 0 && sadnessEmotionChangedEvent.value == 0
 
     fun onFillEmotionClicked() {
+        val isEmotionNotFilled = isEmotionNotFilled()
+        analyticsTracks.logEvent(MainScreenEmotionClickedEvent(isEmotionFilled = isEmotionNotFilled))
+
         if (!isFillEmotionClicked) {
             isFillEmotionClicked = true
             _smoothScrollPeriodToTop.postValue(true)
             _changeEmotionFragmentOpenCloseAction.postValue(
                 CloseChangeEmotionContainerData(
                     isOpening = true,
-                    isEmotionNotFilled = isEmotionNotFilled()
+                    isEmotionNotFilled = isEmotionNotFilled
                 )
             )
         }
@@ -244,6 +261,7 @@ class MainScreenFragmentViewModel : ViewModel() {
     }
 
     fun onExportToInstagramClicked(isExportDay: Boolean = false) {
+        logExportToInstagramClicked(isExportDay)
         _navigateToExportScreen.postValue(
             DateToExportData(
                 year = selectedDate.year,
@@ -251,6 +269,16 @@ class MainScreenFragmentViewModel : ViewModel() {
                 day = selectedDate.day,
                 isExportDay = isExportDay
             )
+        )
+    }
+
+    private fun logExportToInstagramClicked(isExportDay: Boolean) {
+        analyticsTracks.logEvent(
+            event = if (isExportDay) {
+                MainScreenExportToInstagramByDayBtnClickedEvent(!isEmotionNotFilled())
+            } else {
+                MainScreenExportToInstagramBtnClickedEvent()
+            }
         )
     }
 

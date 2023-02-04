@@ -13,6 +13,7 @@ import gamefield.yourdays.utils.analytics.LogEventUseCase
 import gamefield.yourdays.utils.analytics.main_screen.AppClosedEvent
 import gamefield.yourdays.utils.analytics.main_screen.AppOpenedEvent
 import gamefield.yourdays.utils.main_screen.DateToExportData
+import java.util.UUID
 
 class MainActivity : AppCompatActivity(), Navigation, AnalyticsTracks {
 
@@ -26,6 +27,7 @@ class MainActivity : AppCompatActivity(), Navigation, AnalyticsTracks {
         val isNeedToShowOnboarding =
             getPreferences(MODE_PRIVATE).getBoolean(NEED_TO_SHOW_ONBOARDING_KEY, true)
 
+        initAnalytics()
         logEventUseCase = LogEventUseCase(analytics = Firebase.analytics)
 
         setContentView(R.layout.activity_main)
@@ -86,7 +88,24 @@ class MainActivity : AppCompatActivity(), Navigation, AnalyticsTracks {
             .commitNow()
     }
 
+    private fun initAnalytics() {
+        getPreferences(MODE_PRIVATE).getString(ANALYTICS_USER_ID_KEY, null).apply {
+            if (this == null) {
+                val userId = UUID.randomUUID().toString()
+                Firebase.analytics.setUserId(userId)
+                getPreferences(MODE_PRIVATE)
+                    .edit()
+                    .putString(ANALYTICS_USER_ID_KEY, userId)
+                    .apply()
+                goBack()
+            } else {
+                Firebase.analytics.setUserId(this)
+            }
+        }
+    }
+
     private companion object {
         const val NEED_TO_SHOW_ONBOARDING_KEY = "ONBOARDING_KEY"
+        const val ANALYTICS_USER_ID_KEY = "ANALYTICS_USER_ID_KEY"
     }
 }

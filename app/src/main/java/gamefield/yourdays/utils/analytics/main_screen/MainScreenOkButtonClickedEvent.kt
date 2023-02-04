@@ -4,10 +4,10 @@ import gamefield.yourdays.data.entity.Emotion
 import gamefield.yourdays.utils.analytics.AnalyticsEvent
 import java.io.Serializable
 
-class MainScreenOkButtonClicked(
+class MainScreenOkButtonClickedEvent(
     private val emotion: Emotion?,
     private val isFilled: Boolean
-    ) : AnalyticsEvent {
+) : AnalyticsEvent {
 
     override fun getScreenName(): String = "MainScreen"
 

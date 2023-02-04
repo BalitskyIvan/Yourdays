@@ -20,6 +20,8 @@ import gamefield.yourdays.domain.usecase.period_logic.GetYearsInMonthsListUseCas
 import gamefield.yourdays.extensions.getMonthName
 import gamefield.yourdays.extensions.toImmutable
 import gamefield.yourdays.ui.fragments.alert_dialog.ErrorType
+import gamefield.yourdays.utils.analytics.AnalyticsTracks
+import gamefield.yourdays.utils.analytics.export_to_instagram_screen.*
 import gamefield.yourdays.utils.emum.DatePickerType
 import gamefield.yourdays.utils.export_screen.InstagramStoriesBackgroundColor
 import gamefield.yourdays.utils.export_screen.OpenInstagramData
@@ -97,17 +99,22 @@ class ExportToInstagramViewModel : ViewModel() {
     private val getYearsInMonthsListUseCase = GetYearsInMonthsListUseCase()
     private val getCurrentEmotionFromMonthListUseCase = GetCurrentEmotionFromMonthListUseCase()
 
+    private lateinit var analyticsTracks: AnalyticsTracks
+
     init {
         _dayButtonAlphaChanged.postValue(UNSELECTED_ALPHA)
         _periodPickerChanged.postValue(DatePickerType.MONTH)
         observeMonthListChanged()
     }
 
-    fun initWithContext(context: Context) {
+    fun initWithContext(context: Context, analyticsTracks: AnalyticsTracks) {
         _showErrorAlertEvent.value = null
         _openInstagramEvent.value = null
         _uploadMonthEvent.value = null
         _uploadDayEvent.value = null
+
+        this.analyticsTracks = analyticsTracks
+        analyticsTracks.logEvent(ExportToInstagramScreenOpenedEvent())
 
         getMonthsInMonthsListUseCase = GetMonthsInMonthsListUseCase(context = context)
         getDateStrFromDateUseCase = GetDateStrFromDateUseCase(context = context)
@@ -212,6 +219,7 @@ class ExportToInstagramViewModel : ViewModel() {
     }
 
     fun dateInDayPickerChanged(newDate: PickedDateData) {
+        logDayPicked(dateData = newDate)
         if (_monthListChangedEvent.value != null) {
             _currentDayInPreviewChanged.postValue(
                 Pair(
@@ -226,6 +234,7 @@ class ExportToInstagramViewModel : ViewModel() {
     }
 
     fun onDayButtonClicked() {
+        analyticsTracks.logEvent(ExportToInstagramScreenDayChipClickedEvent())
         cardType = DatePickerType.DAY
         _monthButtonAlphaChanged.postValue(UNSELECTED_ALPHA)
         _dayButtonAlphaChanged.postValue(SELECTED_ALPHA)
@@ -233,6 +242,7 @@ class ExportToInstagramViewModel : ViewModel() {
     }
 
     fun onMonthButtonClicked() {
+        analyticsTracks.logEvent(ExportToInstagramScreenMonthChipClickedEvent())
         cardType = DatePickerType.MONTH
         _monthButtonAlphaChanged.postValue(SELECTED_ALPHA)
         _dayButtonAlphaChanged.postValue(UNSELECTED_ALPHA)
@@ -240,6 +250,7 @@ class ExportToInstagramViewModel : ViewModel() {
     }
 
     fun onUploadButtonClicked() {
+        analyticsTracks.logEvent(ExportToInstagramScreenUploadBtnClickedEvent(previewType = cardType))
         if (cardType == DatePickerType.DAY) {
             if (_currentDayInPreviewChanged.value?.second != null &&
                 _currentDayInPreviewChanged.value?.second?.type != EmotionType.NONE
@@ -253,6 +264,7 @@ class ExportToInstagramViewModel : ViewModel() {
     }
 
     fun upload(bitmap: Bitmap, context: Context) {
+        analyticsTracks.logEvent(ExportToInstagramScreenUploadBackgroundBtnClickedEvent())
         val uri = saveBitmap(
             context = context,
             bitmap = bitmap,
@@ -306,6 +318,7 @@ class ExportToInstagramViewModel : ViewModel() {
     }
 
     fun colorSelected(color: InstagramStoriesBackgroundColor) {
+        analyticsTracks.logEvent(ExportToInstagramScreenBackgroundColorClickedEvent(color = color))
         _colorSelectedEvent.value?.let { currentColor ->
             _colorUnselectedEvent.postValue(
                 currentColor
@@ -321,15 +334,32 @@ class ExportToInstagramViewModel : ViewModel() {
     }
 
     fun onMonthPickerChanged(monthName: String, yearName: String, context: Context) {
+        logMonthPreviewPickerChanged(monthName, yearName)
+
         if (!changeYearPickerIfNeeded(monthName, yearName)) {
             changeMonthInPreview(monthName, yearName, context)
         }
     }
 
     fun onYearPickerChanged(monthName: String, yearName: String, context: Context) {
+        logMonthPreviewPickerChanged(monthName, yearName)
+
         if (!changeMonthPickerIfNeeded(monthName, yearName)) {
             changeMonthInPreview(monthName, yearName, context)
         }
+    }
+
+    private fun logMonthPreviewPickerChanged(monthName: String, yearName: String) {
+        analyticsTracks.logEvent(ExportToInstagramScreenMonthSelectorChangedEvent(
+            pickedMonth = monthName,
+            pickedYear = yearName
+        ))
+    }
+
+    private fun logDayPicked(dateData: PickedDateData) {
+        analyticsTracks.logEvent(ExportToInstagramScreenDaySelectorClickedEvent(
+            pickedDay = "${dateData.day}.${dateData.month}.${dateData.year}"
+        ))
     }
 
     private fun changeMonthPickerIfNeeded(monthName: String, yearName: String): Boolean {
@@ -394,6 +424,11 @@ class ExportToInstagramViewModel : ViewModel() {
 
     fun onInstagramError() {
         _showErrorAlertEvent.postValue(ErrorType.INSTAGRAM_NOT_INSTALLED_ERROR)
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        analyticsTracks.logEvent(ExportToInstagramScreenClosedEvent())
     }
 
     private companion object {

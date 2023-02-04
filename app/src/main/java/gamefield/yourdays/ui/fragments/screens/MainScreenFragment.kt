@@ -13,6 +13,7 @@ import gamefield.yourdays.databinding.FragmentMainScreenBinding
 import gamefield.yourdays.ui.adapter.MonthAdapter
 import gamefield.yourdays.ui.fragments.emotion_fragment.ChangeEmotionFragment
 import gamefield.yourdays.ui.fragments.emotion_fragment.MainScreenEmotionFragment
+import gamefield.yourdays.utils.analytics.AnalyticsTracks
 import gamefield.yourdays.viewmodels.MainScreenFragmentViewModel
 
 class MainScreenFragment : Fragment() {
@@ -42,7 +43,10 @@ class MainScreenFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(requireActivity())
             .get(MainScreenFragmentViewModel::class.java)
-        viewModel.initDatabaseWithContext(context = requireActivity().applicationContext)
+        viewModel.initWithContext(
+            context = requireActivity().applicationContext,
+            analyticsTracks = requireActivity() as AnalyticsTracks
+        )
         binding.mainScreeScrollView.setOnScrollChangeListener { p0, p1, p2, p3, p4 ->
             viewModel.onEmotionPeriodScrolled(y = p2)
         }

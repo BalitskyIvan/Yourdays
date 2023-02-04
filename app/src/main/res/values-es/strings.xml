@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Months -->
+    <string name="january">enero</string>
+    <string name="february">febrero</string>
+    <string name="march">marzo</string>
+    <string name="april">abril</string>
+    <string name="may">mayo</string>
+    <string name="june">junio</string>
+    <string name="july">julio</string>
+    <string name="august">agosto</string>
+    <string name="september">septiembre</string>
+    <string name="october">octubre</string>
+    <string name="november">noviembre</string>
+    <string name="december">diciembre</string>
+
+    <string-array name="moths_array">
+        <item>enero</item>
+        <item>febrero</item>
+        <item>marzo</item>
+        <item>abril</item>
+        <item>mayo</item>
+        <item>junio</item>
+        <item>julio</item>
+        <item>agosto</item>
+        <item>septiembre</item>
+        <item>octubre</item>
+        <item>noviembre</item>
+        <item>diciembre</item>
+    </string-array>
+
+    <!-- Days -->
+    <string name="mon">LU</string>
+    <string name="tue">MA</string>
+    <string name="wed">MI</string>
+    <string name="thu">JU</string>
+    <string name="fri">VI</string>
+    <string name="sat">SA</string>
+    <string name="sun">DO</string>
+
+    <!-- Emotions -->
+    <string name="worry">preocuparse</string>
+    <string name="happiness">felicidad</string>
+    <string name="sadness">tristeza</string>
+    <string name="productivity">productividad</string>
+
+    <!-- Toast -->
+    <string name="cant_change_error_toast">Lo siento, no puedes cambiar el pasado.</string>
+
+    <!-- Messages -->
+    <string name="how_was_the_day">¿Cómo fue el día?</string>
+    <string name="click_to_fill">haga clic para llenar</string>
+    <string name="click_to_change_emotion">haga clic para cambiar la emoción</string>
+    <string name="enter_month">INTRODUCIR MES</string>
+    <string name="enter_date">INTRODUCIR FECHA</string>
+
+    <string name="upload_to_stories">UPLOAD TO STORIES</string>
+    <string name="upload">UPLOAD</string>
+    <string name="upload_background">subir imagen de fondo</string>
+    <string name="or_choose_color_text">o elige el color de fondo:</string>
+    <string name="month">MES</string>
+    <string name="day">DÍA</string>
+
+    <string name="ok_text">OK</string>
+
+    <!-- Errors -->
+    <string name="unexpected_error">Lo sentimos, se ha producido un error inesperado, ya estamos tratando de solucionarlo</string>
+    <string name="file_system_error">Error del sistema de archivos, asegúrese de tener suficiente espacio en el almacenamiento interno</string>
+    <string name="instagram_not_installed_error">Oh, parece que no tienes Instagram instalado, instálalo e inténtalo de nuevo.</string>
+    <string name="day_not_filled_error">Error: por favor, elija día lleno :)</string>
+
+
+    <!-- Onboarding -->
+    <string name="next_button_first_screen_text">OK</string>
+    <string name="next_button_second_screen_text">OK</string>
+    <string name="next_button_third_screen_text">TAL VEZ</string>
+    <string name="plus_shape_description">buen</string>
+    <string name="zero_shape_description">normal</string>
+    <string name="minus_shape_description">mal</string>
+    <string name="onboarding_hello_message">Hola\n bienvenido a</string>
+    <string name="onboarding_app_decription">esta es una aplicación donde puedes hacer un seguimiento de cómo van tus días</string>
+    <string name="onboarding_shapes_description">puedes evaluar el día pasado usando tres tipos de formas:</string>
+    <string name="onboarding_emotion_progress_description">You can also choose how you feel throughout the day</string>
+    <string name="onboarding_month_preview_description">Después de eso, su día se guardará y será visible en el mes:</string>
+    <string name="onboarding_empty_animation_description">Los días que aún no ha completado se muestran así:</string>
+    <string name="onboarding_export_to_stories_description">Después del día de llenado, puede compartir cómo le fue en Instagram seleccionando el período:</string>
+
+</resources>

@@ -105,6 +105,10 @@
         <item name="android:textColor">@color/common_text_color_dark</item>
     </style>
 
+    <style name="Text8sp.ExtraLight.Dark">
+        <item name="android:textColor">@color/black_text_color</item>
+    </style>
+
     <style name="Text8sp.WorryColor">
         <item name="android:textColor">@color/worry</item>
     </style>

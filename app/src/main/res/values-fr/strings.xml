@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Months -->
+    <string name="january">janvier</string>
+    <string name="february">février</string>
+    <string name="march">mars</string>
+    <string name="april">avril</string>
+    <string name="may">mai</string>
+    <string name="june">juin</string>
+    <string name="july">juillet</string>
+    <string name="august">août</string>
+    <string name="september">septembre</string>
+    <string name="october">octobre</string>
+    <string name="november">novembre</string>
+    <string name="december">décembre</string>
+
+    <string-array name="moths_array">
+        <item>janvier</item>
+        <item>février</item>
+        <item>mars</item>
+        <item>avril</item>
+        <item>mai</item>
+        <item>juin</item>
+        <item>juillet</item>
+        <item>août</item>
+        <item>septembre</item>
+        <item>octobre</item>
+        <item>novembre</item>
+        <item>décembre</item>
+    </string-array>
+
+    <!-- Days -->
+    <string name="mon">LU</string>
+    <string name="tue">MA</string>
+    <string name="wed">ME</string>
+    <string name="thu">JE</string>
+    <string name="fri">VE</string>
+    <string name="sat">SA</string>
+    <string name="sun">DI</string>
+
+    <!-- Emotions -->
+    <string name="worry">inquiétude</string>
+    <string name="happiness">bonheur</string>
+    <string name="sadness">tristesse</string>
+    <string name="productivity">productivité</string>
+
+    <!-- Toast -->
+    <string name="cant_change_error_toast">Désolé, vous ne pouvez pas changer le passé</string>
+
+    <!-- Messages -->
+    <string name="how_was_the_day">Comment était la journée?</string>
+    <string name="click_to_fill">cliquez pour remplir</string>
+    <string name="click_to_change_emotion">cliquez pour changer d\'émotion</string>
+    <string name="enter_month">ENTRER MOIS</string>
+    <string name="enter_date">ENTRER LA DATE</string>
+
+    <string name="upload_to_stories">UPLOAD TO STORIES</string>
+    <string name="upload">UPLOAD</string>
+    <string name="upload_background">télécharger l\'image d\'arrière-plan</string>
+    <string name="or_choose_color_text">ou choisissez la couleur de fond :</string>
+    <string name="month">MOIS</string>
+    <string name="day">JOUR</string>
+
+    <string name="ok_text">OK</string>
+
+    <!-- Errors -->
+    <string name="unexpected_error">Désolé, une erreur inattendue s\'est produite, nous essayons déjà de la corriger</string>
+    <string name="file_system_error">Erreur de système de fichiers, assurez-vous d\'avoir suffisamment d\'espace dans le stockage interne</string>
+    <string name="instagram_not_installed_error">Oh, on dirait que vous n\'avez pas installé instagram, veuillez installer et réessayer</string>
+    <string name="day_not_filled_error">Erreur : veuillez choisir un jour rempli :)</string>
+
+
+    <!-- Onboarding -->
+    <string name="next_button_first_screen_text">OK</string>
+    <string name="next_button_second_screen_text">OK</string>
+    <string name="next_button_third_screen_text">PEUT ÊTRE</string>
+    <string name="plus_shape_description">bien</string>
+    <string name="zero_shape_description">normale</string>
+    <string name="minus_shape_description">mauvais</string>
+    <string name="onboarding_hello_message">Bonjour,\nbienvenue à</string>
+    <string name="onboarding_app_decription">ceci est une application où vous pouvez suivre le déroulement de vos journées</string>
+    <string name="onboarding_shapes_description">vous pouvez évaluer la journée passée à l\'aide de trois types de formes :</string>
+    <string name="onboarding_emotion_progress_description">Vous pouvez également choisir comment vous vous sentez tout au long de la journée</string>
+    <string name="onboarding_month_preview_description">Après cela, votre journée sera enregistrée et sera visible dans le mois:</string>
+    <string name="onboarding_empty_animation_description">Les jours que vous n\'avez pas encore remplis sont affichés comme ceci:</string>
+    <string name="onboarding_export_to_stories_description">Après avoir rempli la journée, vous pouvez partager comment cela s\'est passé sur instagram en sélectionnant la période :</string>
+
+</resources>
