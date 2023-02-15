@@ -6,7 +6,7 @@ import android.content.Intent
 object OpenInstagramUtils {
 
     private const val OPEN_INSTAGRAM_ACTION = "com.instagram.share.ADD_TO_STORY"
-    private const val FACEBOOK_APP_ID = "124143913125566"
+    private const val FACEBOOK_APP_ID = "569307288472145"
     private const val FILE_TYPE =  "image/*"
 
     private const val APP_ID_INTENT_PARAMETER_NAME = "source_application"

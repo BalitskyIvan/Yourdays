@@ -178,6 +178,10 @@ class MainScreenEmotionFragment : Fragment() {
         }
         viewModel.exportInstagramAlphaChangedEvent.observe(viewLifecycleOwner) { alpha ->
             binding.uploadMonthToInstagramButton.alpha = alpha
+            if (alpha == 0f)
+                binding.uploadMonthToInstagramButton.visibility = View.GONE
+            else if (alpha > 0f)
+                binding.uploadMonthToInstagramButton.visibility = View.VISIBLE
         }
     }
 
