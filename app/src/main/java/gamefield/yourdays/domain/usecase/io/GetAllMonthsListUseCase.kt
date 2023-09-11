@@ -9,7 +9,7 @@ import gamefield.yourdays.domain.usecase.time_logic.FillDaysBeforeNow
 import gamefield.yourdays.domain.usecase.time_logic.FillNewMonthUseCase
 import gamefield.yourdays.domain.usecase.time_logic.IsNeedToAddDaysInMonthUseCase
 import gamefield.yourdays.extensions.selectCurrentDay
-import gamefield.yourdays.utils.main_screen.DaySelectedContainer
+import gamefield.yourdays.presentation.screen.main_screen.view_model.DaySelectedContainer
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

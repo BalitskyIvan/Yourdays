@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="150dp"
-    tools:context=".ui.fragments.date_picker_fragment.MonthPickerFragment">
+    tools:context=".presentation.screen.export_screen.MonthPickerFragment">
 
     <NumberPicker
         android:id="@+id/month_picker"

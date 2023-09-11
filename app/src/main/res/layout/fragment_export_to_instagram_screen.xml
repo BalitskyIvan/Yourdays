@@ -7,7 +7,7 @@
     android:fitsSystemWindows="true"
     android:paddingTop="30dp"
     android:background="@drawable/export_to_stories_background"
-    tools:context=".ui.fragments.screens.ExportToInstagramScreenFragment">
+    tools:context=".presentation.screen.export_screen.ExportToInstagramScreenFragment">
 
     <ImageView
         android:id="@+id/close_button"

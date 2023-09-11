@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    tools:context=".ui.fragments.emotion_fragment.MainScreenEmotionFragment">
+    tools:context=".presentation.screen.main_screen.MainScreenEmotionFragment">
 
     <TextView
         android:id="@+id/tite_date"
@@ -60,7 +60,7 @@
         app:layout_constraintStart_toStartOf="parent"
         android:text="@string/click_to_change_emotion"/>
     
-    <gamefield.yourdays.ui.customviews.buttons.UploadMonthToInstagramButton
+    <gamefield.yourdays.presentation.components.customviews.buttons.UploadMonthToInstagramButton
         android:id="@+id/upload_month_to_instagram_button"
         android:layout_width="44dp"
         android:layout_height="72dp"

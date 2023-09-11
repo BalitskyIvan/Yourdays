@@ -10,16 +10,22 @@ class AddDayUseCase(
     context: Context
 ) {
 
-    private val repository = Repository.getInstance(AppDatabase.getInstance(context = context).monthDao())
+    private val repository = Repository.getInstance(
+        AppDatabase.getInstance(context = context).monthDao()
+    )
 
     operator fun invoke(month: Month, dayNumber: Int, emotion: Emotion) {
-        month.weeks.forEach {
-            it.days.forEach { day ->
-                if (day.dayInMonth == dayNumber && day.emotion != null) {
-                    day.emotion = emotion
-                }
+        month
+            .weeks
+            .forEach { week ->
+                week
+                    .days
+                    .forEach { day ->
+                        if (day.dayInMonth == dayNumber && day.emotion != null) {
+                            day.emotion = emotion
+                        }
+                    }
             }
-        }
         repository.updateMonth(month)
     }
 

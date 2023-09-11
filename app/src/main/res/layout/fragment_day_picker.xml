@@ -6,7 +6,7 @@
     android:background="@drawable/rounded_36_stroke_corners"
     android:layout_marginHorizontal="20dp"
     android:layout_marginTop="15dp"
-    tools:context=".ui.fragments.date_picker_fragment.DayPickerFragment">
+    tools:context=".presentation.screen.export_screen.DayPickerFragment">
 
     <TextView
         android:id="@+id/day_picker_button"

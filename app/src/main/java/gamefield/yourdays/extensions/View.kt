@@ -1,7 +1,7 @@
 package gamefield.yourdays.extensions
 
 import android.view.View
-import gamefield.yourdays.utils.ActionThrottler
+import gamefield.yourdays.presentation.screen.main_screen.utils.ActionThrottler
 
 const val RIPPLE_EFFECT_DELAY_MS = 150L
 
