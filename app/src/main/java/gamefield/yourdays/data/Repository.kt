@@ -1,6 +1,5 @@
 package gamefield.yourdays.data
 
-import android.icu.util.Calendar
 import gamefield.yourdays.data.dao.MonthDao
 import gamefield.yourdays.data.entity.FirstDayOfWeek
 import gamefield.yourdays.data.entity.Month
@@ -21,14 +20,15 @@ class Repository(
     }
 
     fun addCalendarFirstDayOfWeek(firstDayOfWeek: Int) {
-       monthDao.insertCalendarFirstDayOfWeek(FirstDayOfWeek(firstDayOfWeek = firstDayOfWeek))
+        monthDao.insertCalendarFirstDayOfWeek(FirstDayOfWeek(firstDayOfWeek = firstDayOfWeek))
     }
 
     fun getCalendarFirstDayOfWeek(): FirstDayOfWeek = monthDao.getCalendarFirstDayOfWeek()
 
-    fun clear() {
-        monthDao.clearDatabase()
-    }
+    // TODO: Uncomment before account switching implementation
+//    fun clear() {
+//        monthDao.clearDatabase()
+//    }
 
     companion object {
 

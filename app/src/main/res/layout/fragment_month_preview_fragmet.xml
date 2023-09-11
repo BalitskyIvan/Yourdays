@@ -7,7 +7,7 @@
     android:layout_marginHorizontal="20dp"
     android:background="@drawable/rounded_corners_always_white"
     android:fitsSystemWindows="false"
-    tools:context=".ui.fragments.date_picker_fragment.MonthPreviewFragment">
+    tools:context=".presentation.screen.main_screen.MonthPreviewFragment">
 
     <TextView
         style="@style/Text10sp.Thin.Black"

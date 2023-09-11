@@ -28,7 +28,12 @@ class FillNewMonthUseCase(context: Context) {
             val days = getEmptyWeek()
             var dayInWeekNumber = calendar.get(Calendar.DAY_OF_WEEK)
 
-            while (isSameWeek(currentMonth = currentMonth, currentWeek = currentWeek, currentDay = currentDay)) {
+            while (isSameWeek(
+                    currentMonth = currentMonth,
+                    currentWeek = currentWeek,
+                    currentDay = currentDay
+                )
+            ) {
                 days.setEmptyDay(dayInWeekNumber - 1, calendar.get(Calendar.DAY_OF_MONTH))
                 calendar.set(currentYear, currentMonth, calendar.get(Calendar.DAY_OF_MONTH) + 1)
                 dayInWeekNumber = calendar.get(Calendar.DAY_OF_WEEK)

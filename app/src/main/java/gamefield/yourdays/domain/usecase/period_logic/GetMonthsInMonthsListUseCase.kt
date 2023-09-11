@@ -13,10 +13,22 @@ class GetMonthsInMonthsListUseCase(
 
     operator fun invoke(months: List<Month>): Set<Pair<String, Int>> {
         val currentMonth = calendar.get(Calendar.MONTH)
-        val monthNames = mutableSetOf(Pair(currentMonth.getMonthName(isUppercase = false, context = context), currentMonth))
+        val monthNames = mutableSetOf(
+            Pair(
+                currentMonth.getMonthName(isUppercase = false, context = context),
+                currentMonth
+            )
+        )
 
         months.forEach { month ->
-            monthNames.add(Pair(month.monthNumber.getMonthName(isUppercase = false, context = context), month.monthNumber))
+            monthNames.add(
+                Pair(
+                    month.monthNumber.getMonthName(
+                        isUppercase = false,
+                        context = context
+                    ), month.monthNumber
+                )
+            )
         }
         return monthNames
     }

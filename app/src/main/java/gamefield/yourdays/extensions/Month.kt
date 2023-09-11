@@ -3,7 +3,7 @@ package gamefield.yourdays.extensions
 import gamefield.yourdays.data.entity.Day
 import gamefield.yourdays.data.entity.Emotion
 import gamefield.yourdays.data.entity.Month
-import gamefield.yourdays.utils.main_screen.DaySelectedContainer
+import gamefield.yourdays.presentation.screen.main_screen.view_model.DaySelectedContainer
 import java.util.Calendar
 
 fun Month.getDayFromNumberInMonth(dayNumber: Int): Day? {
@@ -39,8 +39,9 @@ fun List<Month>.selectCurrentDay(
 
     forEach { month ->
         if (month.monthNumber == currentMonthNumber && month.year == currentYear) {
-            val searchedDay =
-                month.getDayFromNumberInMonth(currentDayOfMonth)?.apply { isSelected = true }
+            val searchedDay = month
+                .getDayFromNumberInMonth(currentDayOfMonth)
+                ?.apply { isSelected = true }
             selectedDayEmotion = searchedDay?.emotion
         }
     }

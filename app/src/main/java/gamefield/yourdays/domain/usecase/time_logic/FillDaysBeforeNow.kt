@@ -24,18 +24,32 @@ class FillDaysBeforeNow(context: Context) {
 
         calendar.set(currentYear, currentMonth, 1)
 
-        while (isSameMonth(currentMonth = currentMonth, currentDay = currentDay, currentWeek = currentWeek)) {
+        while (isSameMonth(
+                currentMonth = currentMonth,
+                currentDay = currentDay,
+                currentWeek = currentWeek
+            )
+        ) {
 
             val weekInMonth = calendar.get(Calendar.WEEK_OF_MONTH)
             var dayInWeekNumber = calendar.get(Calendar.DAY_OF_WEEK)
 
-            while (isSameWeek(currentMonth = currentMonth, currentWeek = currentWeek, currentDay = currentDay,  weekInMonth = weekInMonth)) {
+            while (isSameWeek(
+                    currentMonth = currentMonth,
+                    currentWeek = currentWeek,
+                    currentDay = currentDay,
+                    weekInMonth = weekInMonth
+                )
+            ) {
                 if (weekInMonth > month.weeks.size) {
                     month.weeks.add(Week(getEmptyWeek()))
                 }
                 with(month.weeks[weekInMonth - 1].days[dayInWeekNumber - 1]) {
                     if (emotion == null) {
-                        month.weeks[weekInMonth - 1].days.setEmptyDay(dayInWeekNumber - 1, calendar.get(Calendar.DAY_OF_MONTH))
+                        month.weeks[weekInMonth - 1].days.setEmptyDay(
+                            dayInWeekNumber - 1,
+                            calendar.get(Calendar.DAY_OF_MONTH)
+                        )
                     }
                 }
                 calendar.set(currentYear, currentMonth, calendar.get(Calendar.DAY_OF_MONTH) + 1)
@@ -51,7 +65,12 @@ class FillDaysBeforeNow(context: Context) {
                 currentWeek >= calendar.get(Calendar.WEEK_OF_MONTH)
     }
 
-    private fun isSameWeek(currentMonth: Int, currentWeek: Int, currentDay: Int, weekInMonth: Int): Boolean {
+    private fun isSameWeek(
+        currentMonth: Int,
+        currentWeek: Int,
+        currentDay: Int,
+        weekInMonth: Int
+    ): Boolean {
         return currentMonth == calendar.get(Calendar.MONTH) &&
                 currentDay >= calendar.get(Calendar.DAY_OF_MONTH) &&
                 weekInMonth == calendar.get(Calendar.WEEK_OF_MONTH) &&
