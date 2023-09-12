@@ -1,9 +1,8 @@
 
-# <img src="https://github.com/BalitskyIvan/Yourdays/assets/60246726/89b512ed-0a3a-482a-88f2-784ddbc2602f" height="64"/> YOURDAYS - Emotions in art
+# <img src="https://github.com/BalitskyIvan/Yourdays/blob/509cdaea2e0610994e3d8536a2694326a921ac65/app/src/main/icon-playstore.png" height="64"/> YOURDAYS - Emotions in art
 
-<img width="717" alt="Screenshot 2023-09-12 at 12 26 27" src="https://github.com/BalitskyIvan/Yourdays/assets/60246726/ebbb0b02-ee88-4867-b1a5-8fab523d8ff5">
-<img width="533" alt="Screenshot 2023-09-12 at 12 26 59" src="https://github.com/BalitskyIvan/Yourdays/assets/60246726/443b144c-0531-4f15-93c2-22b2c21399ba">
-
+<img width="717" alt="Screenshot 2023-09-12 at 12 26 27" src="https://github.com/BalitskyIvan/Yourdays/assets/60246726/c3e905b2-86b9-4c81-9a4c-0f78a3fbf198">
+<img width="533" alt="Screenshot 2023-09-12 at 12 26 59" src="https://github.com/BalitskyIvan/Yourdays/assets/60246726/19e99fac-a5ee-48f4-bb89-adda3239c445">
 
 ## 🌟 [Google play](https://play.google.com/store/apps/details?id=gamefield.yourdays)
 
