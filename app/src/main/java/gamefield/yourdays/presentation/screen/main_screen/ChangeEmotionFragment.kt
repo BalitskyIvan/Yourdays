@@ -10,12 +10,12 @@ import gamefield.yourdays.databinding.FragmentChangeEmotionBinding
 import gamefield.yourdays.presentation.components.animation.ChangeEmotionOpeCloseAnimation
 import gamefield.yourdays.extensions.setOnRippleClickListener
 import gamefield.yourdays.presentation.screen.main_screen.utils.EmotionSeekBarListener
-import gamefield.yourdays.presentation.screen.main_screen.view_model.MainScreenFragmentViewModel
+import gamefield.yourdays.presentation.screen.main_screen.view_model.MainScreenViewModel
 
 class ChangeEmotionFragment : Fragment() {
 
     private lateinit var binding: FragmentChangeEmotionBinding
-    private lateinit var viewModel: MainScreenFragmentViewModel
+    private lateinit var viewModel: MainScreenViewModel
 
     private lateinit var changeEmotionOpeCloseAnimation: ChangeEmotionOpeCloseAnimation
 
@@ -23,7 +23,7 @@ class ChangeEmotionFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         viewModel =
-            ViewModelProvider(requireActivity()).get(MainScreenFragmentViewModel::class.java)
+            ViewModelProvider(requireActivity()).get(MainScreenViewModel::class.java)
         binding = FragmentChangeEmotionBinding.inflate(inflater, container, false)
         changeEmotionOpeCloseAnimation = ChangeEmotionOpeCloseAnimation(
             resources = resources,

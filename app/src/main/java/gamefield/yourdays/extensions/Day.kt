@@ -10,7 +10,6 @@ import gamefield.yourdays.presentation.components.customviews.emotions.EmptyEmot
 import gamefield.yourdays.presentation.components.customviews.emotions.MinusEmotionView
 import gamefield.yourdays.presentation.components.customviews.emotions.PlusEmotionView
 import gamefield.yourdays.presentation.components.customviews.emotions.ZeroEmotionView
-import gamefield.yourdays.ui.customviews.emotions.*
 
 fun Day.getEmotionViewFromDay(context: Context, forceLightenTheme: Boolean = false): DayContainer? =
     when (emotion?.type) {

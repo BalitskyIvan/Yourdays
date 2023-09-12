@@ -16,7 +16,7 @@ import gamefield.yourdays.presentation.components.animation.SoftVisibilityAnimat
 import gamefield.yourdays.presentation.screen.onboarding.view_model.CloseChangeEmotionContainerData
 import java.util.Calendar
 
-class MainScreenFragmentEmotionViewModel : ViewModel() {
+class MainScreenEmotionViewModel : ViewModel() {
 
     private val _currentEmotionType = MutableLiveData<EmotionType>()
     val currentEmotionType = _currentEmotionType.toImmutable()

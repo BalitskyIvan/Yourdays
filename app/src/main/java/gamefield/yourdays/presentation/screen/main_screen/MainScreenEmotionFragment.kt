@@ -16,14 +16,14 @@ import gamefield.yourdays.presentation.components.customviews.emotions.MinusEmot
 import gamefield.yourdays.presentation.components.customviews.emotions.PlusEmotionView
 import gamefield.yourdays.presentation.components.customviews.emotions.ZeroEmotionView
 import gamefield.yourdays.presentation.components.animation.DateTitleAnimation
-import gamefield.yourdays.presentation.screen.main_screen.view_model.MainScreenFragmentEmotionViewModel
-import gamefield.yourdays.presentation.screen.main_screen.view_model.MainScreenFragmentViewModel
+import gamefield.yourdays.presentation.screen.main_screen.view_model.MainScreenEmotionViewModel
+import gamefield.yourdays.presentation.screen.main_screen.view_model.MainScreenViewModel
 
 class MainScreenEmotionFragment : Fragment() {
 
     private lateinit var binding: FragmentMainScreenEmotionBinding
-    private lateinit var mainScreenViewModel: MainScreenFragmentViewModel
-    private lateinit var viewModel: MainScreenFragmentEmotionViewModel
+    private lateinit var mainScreenViewModel: MainScreenViewModel
+    private lateinit var viewModel: MainScreenEmotionViewModel
 
     private lateinit var dateTitleAnimation: DateTitleAnimation
 
@@ -60,9 +60,9 @@ class MainScreenEmotionFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mainScreenViewModel = ViewModelProvider(requireActivity())
-            .get(MainScreenFragmentViewModel::class.java)
+            .get(MainScreenViewModel::class.java)
         viewModel = ViewModelProvider(requireActivity())
-            .get(MainScreenFragmentEmotionViewModel::class.java)
+            .get(MainScreenEmotionViewModel::class.java)
         viewModel.initializeAction(context = view.context)
         navigation = requireActivity() as Navigation
 
