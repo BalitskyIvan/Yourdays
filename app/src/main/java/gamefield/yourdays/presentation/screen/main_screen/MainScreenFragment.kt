@@ -12,12 +12,12 @@ import gamefield.yourdays.R
 import gamefield.yourdays.databinding.FragmentMainScreenBinding
 import gamefield.yourdays.presentation.components.adapter.MonthAdapter
 import gamefield.yourdays.domain.analytics.AnalyticsTracks
-import gamefield.yourdays.presentation.screen.main_screen.view_model.MainScreenFragmentViewModel
+import gamefield.yourdays.presentation.screen.main_screen.view_model.MainScreenViewModel
 
 class MainScreenFragment : Fragment() {
 
     private lateinit var binding: FragmentMainScreenBinding
-    private lateinit var viewModel: MainScreenFragmentViewModel
+    private lateinit var viewModel: MainScreenViewModel
     private lateinit var monthAdapter: MonthAdapter
 
     override fun onCreateView(
@@ -40,7 +40,7 @@ class MainScreenFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(requireActivity())
-            .get(MainScreenFragmentViewModel::class.java)
+            .get(MainScreenViewModel::class.java)
         viewModel.initWithContext(
             context = requireActivity().applicationContext,
             analyticsTracks = requireActivity() as AnalyticsTracks

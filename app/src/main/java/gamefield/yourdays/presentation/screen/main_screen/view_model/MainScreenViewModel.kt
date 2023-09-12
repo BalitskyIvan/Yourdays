@@ -22,7 +22,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.Calendar
 
-class MainScreenFragmentViewModel : ViewModel() {
+class MainScreenViewModel : ViewModel() {
 
     private val _worryEmotionChangedEvent = MutableLiveData<Int>()
     val worryEmotionChangedEvent = _worryEmotionChangedEvent.toImmutable()

@@ -42,19 +42,27 @@ android {
 
 dependencies {
 
-    implementation 'androidx.core:core-ktx:1.7.0'
-    implementation 'androidx.appcompat:appcompat:1.4.1'
-    implementation 'com.google.android.material:material:1.5.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
+    // Androidx
+    implementation "androidx.activity:activity:1.7.2"
+    implementation "androidx.fragment:fragment:1.6.1"
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.1'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1'
-    implementation 'androidx.room:room-runtime:2.4.3'
-    implementation 'androidx.room:room-ktx:2.4.3'
-    implementation "androidx.activity:activity:1.6.1"
-    implementation "androidx.fragment:fragment:1.5.5"
-    implementation 'com.google.firebase:firebase-analytics-ktx:20.1.2'
-    implementation 'com.google.firebase:firebase-crashlytics-ktx:18.2.9'
-    kapt "androidx.room:room-compiler:2.4.3"
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.6.2'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2'
+    implementation 'androidx.core:core-ktx:1.12.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.9.0'
+
+    // Room
+    implementation 'androidx.room:room-runtime:2.5.2'
+    implementation 'androidx.room:room-ktx:2.5.2'
+    kapt "androidx.room:room-compiler:2.5.2"
+
+
+    // Analytics
+    implementation 'com.google.firebase:firebase-analytics-ktx:21.3.0'
+    implementation 'com.google.firebase:firebase-crashlytics-ktx:18.4.1'
+
+    // Gson
     implementation 'com.google.code.gson:gson:2.10'
 }
