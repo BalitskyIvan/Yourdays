@@ -1,18 +1,12 @@
 package gamefield.yourdays.domain.usecase.io
 
-import android.content.Context
-import gamefield.yourdays.data.AppDatabase
-import gamefield.yourdays.data.Repository
 import gamefield.yourdays.data.entity.Emotion
 import gamefield.yourdays.data.entity.Month
+import gamefield.yourdays.data.repository.EmotionsRepository
 
 class AddDayUseCase(
-    context: Context
+    private val emotionsRepository: EmotionsRepository
 ) {
-
-    private val repository = Repository.getInstance(
-        AppDatabase.getInstance(context = context).monthDao()
-    )
 
     operator fun invoke(month: Month, dayNumber: Int, emotion: Emotion) {
         month
@@ -26,7 +20,7 @@ class AddDayUseCase(
                         }
                     }
             }
-        repository.updateMonth(month)
+        emotionsRepository.updateMonth(month)
     }
 
 }

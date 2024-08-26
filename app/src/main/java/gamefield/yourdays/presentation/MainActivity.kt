@@ -13,23 +13,23 @@ import gamefield.yourdays.domain.analytics.LogEventUseCase
 import gamefield.yourdays.domain.analytics.main_screen.AppClosedEvent
 import gamefield.yourdays.domain.analytics.main_screen.AppOpenedEvent
 import gamefield.yourdays.presentation.screen.main_screen.view_model.DateToExportData
+import org.koin.android.ext.android.inject
 import java.util.UUID
 
 class MainActivity : AppCompatActivity(), Navigation, AnalyticsTracks {
 
     private val mainScreenFragment = MainScreenFragment.newInstance()
     private val onboardingScreenFragment = OnboardingFragment.newInstance()
-    private lateinit var logEventUseCase: LogEventUseCase
+
+    private val logEventUseCase: LogEventUseCase by inject()
+    private val firebaseAnalytics: FirebaseAnalytics by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         val isNeedToShowOnboarding =
             getPreferences(MODE_PRIVATE).getBoolean(NEED_TO_SHOW_ONBOARDING_KEY, true)
-        val firebaseAnalytics = FirebaseAnalytics.getInstance(this)
-
         initAnalytics(firebaseAnalytics)
-        logEventUseCase = LogEventUseCase(analytics = firebaseAnalytics)
 
         setContentView(R.layout.activity_main)
 

@@ -148,7 +148,7 @@ class MonthViewHolder(
         val daysInWeek = getMonthMarkupByFirstDayOfWeekUseCase.invoke(view.context, firstDayOfWeek)
 
         with(month) {
-            monthTitle.text = monthNumber.getMonthName(context = view.context, year = month.year)
+            monthTitle.text = monthNumber.getMonthName(resources = view.context.resources, year = month.year)
 
             if (weeks.isEmpty())
                 return

@@ -7,17 +7,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProvider
 import gamefield.yourdays.databinding.FragmentDayPickerBinding
 import gamefield.yourdays.presentation.screen.export_screen.view_model.PickedDateData
 import gamefield.yourdays.presentation.screen.export_screen.view_model.ExportToInstagramViewModel
+import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DayPickerFragment : Fragment() {
 
     private lateinit var binding: FragmentDayPickerBinding
-    private lateinit var viewModel: ExportToInstagramViewModel
-
-    private val calendar = Calendar.getInstance()
+    private val viewModel: ExportToInstagramViewModel by viewModel()
+    private val calendar: Calendar by inject()
 
     private var dateInPicker = PickedDateData(
         year = calendar.get(Calendar.YEAR),
@@ -53,8 +53,6 @@ class DayPickerFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(requireActivity()).get(ExportToInstagramViewModel::class.java)
-
         observeDateInPickerChanged()
     }
 

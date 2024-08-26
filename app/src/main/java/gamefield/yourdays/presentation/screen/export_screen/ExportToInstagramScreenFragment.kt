@@ -13,7 +13,6 @@ import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.lifecycle.ViewModelProvider
 import gamefield.yourdays.presentation.Navigation
 import gamefield.yourdays.R
 import gamefield.yourdays.databinding.FragmentExportToInstagramScreenBinding
@@ -27,13 +26,14 @@ import gamefield.yourdays.presentation.screen.export_screen.view_model.Instagram
 import gamefield.yourdays.presentation.screen.export_screen.view_model.OpenInstagramUtils
 import gamefield.yourdays.presentation.screen.export_screen.view_model.PickedDateData
 import gamefield.yourdays.presentation.screen.export_screen.view_model.ExportToInstagramViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.Calendar
 
 class ExportToInstagramScreenFragment : Fragment() {
 
     private lateinit var navigation: Navigation
     private lateinit var binding: FragmentExportToInstagramScreenBinding
-    private lateinit var viewModel: ExportToInstagramViewModel
+    private val viewModel: ExportToInstagramViewModel by viewModel()
     private lateinit var pickImageActivityResult: ActivityResultLauncher<PickVisualMediaRequest>
 
     private val calendar = Calendar.getInstance()
@@ -76,11 +76,7 @@ class ExportToInstagramScreenFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(requireActivity()).get(ExportToInstagramViewModel::class.java)
-        viewModel.initWithContext(
-            context = requireContext(),
-            analyticsTracks = requireActivity() as AnalyticsTracks
-        )
+        viewModel.initWithContext(resources = resources)
         viewModel.initSelectedData(dateData = initDate, isExportDay = isExportDay)
 
         colorSelector = requireContext().getDrawable(R.drawable.color_selctor)!!

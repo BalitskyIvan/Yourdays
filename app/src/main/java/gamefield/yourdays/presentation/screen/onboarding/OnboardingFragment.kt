@@ -12,12 +12,13 @@ import gamefield.yourdays.databinding.FragmentOnboardingBinding
 import gamefield.yourdays.presentation.screen.onboarding.view_model.OnboardingSectionsAnimationState
 import gamefield.yourdays.presentation.screen.onboarding.view_model.OnboardingState
 import gamefield.yourdays.presentation.screen.onboarding.view_model.OnboardingViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class OnboardingFragment : Fragment() {
 
     private lateinit var navigation: Navigation
     private lateinit var binding: FragmentOnboardingBinding
-    private lateinit var viewModel: OnboardingViewModel
+    private val viewModel: OnboardingViewModel by viewModel()
 
     private var firstSectionViews = arrayListOf<View>()
     private var secondSectionViews = arrayListOf<View>()
@@ -34,7 +35,6 @@ class OnboardingFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(requireActivity()).get(OnboardingViewModel::class.java)
         navigation = requireActivity() as Navigation
 
         binding.buttonNext.setOnClickListener {

@@ -20,6 +20,7 @@
         android:maxSdkVersion="29" />
 
     <application
+        android:name=".Application"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -28,7 +29,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Yourdays"
         android:screenOrientation="portrait"
-        tools:targetApi="31">
+        tools:targetApi="34">
         <activity
             android:name=".presentation.MainActivity"
             android:exported="true">

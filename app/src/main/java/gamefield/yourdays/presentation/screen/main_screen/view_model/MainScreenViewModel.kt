@@ -1,6 +1,5 @@
 package gamefield.yourdays.presentation.screen.main_screen.view_model
 
-import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -11,7 +10,7 @@ import gamefield.yourdays.domain.usecase.io.AddDayUseCase
 import gamefield.yourdays.domain.usecase.io.GetAllMonthsListUseCase
 import gamefield.yourdays.extensions.getDayFromNumberInMonth
 import gamefield.yourdays.extensions.toImmutable
-import gamefield.yourdays.domain.analytics.AnalyticsTracks
+import gamefield.yourdays.domain.analytics.LogEventUseCase
 import gamefield.yourdays.domain.analytics.main_screen.MainScreenEmotionClickedEvent
 import gamefield.yourdays.domain.analytics.main_screen.MainScreenExportToInstagramBtnClickedEvent
 import gamefield.yourdays.domain.analytics.main_screen.MainScreenExportToInstagramByDayBtnClickedEvent
@@ -22,7 +21,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.Calendar
 
-class MainScreenViewModel : ViewModel() {
+class MainScreenViewModel(
+    private val addDayUseCase: AddDayUseCase,
+    private val getAllMonthsListUseCase: GetAllMonthsListUseCase,
+    private val logEventUseCase: LogEventUseCase
+) : ViewModel() {
 
     private val _worryEmotionChangedEvent = MutableLiveData<Int>()
     val worryEmotionChangedEvent = _worryEmotionChangedEvent.toImmutable()
@@ -76,10 +79,6 @@ class MainScreenViewModel : ViewModel() {
 
     private val calendar = Calendar.getInstance()
 
-    private lateinit var addDayUseCase: AddDayUseCase
-    private lateinit var getAllMonthsListUseCase: GetAllMonthsListUseCase
-    private lateinit var analyticsTracks: AnalyticsTracks
-
     private var selectedDate: DaySelectedContainer = DaySelectedContainer(
         month = Calendar.getInstance().get(Calendar.MONTH),
         day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH),
@@ -105,32 +104,22 @@ class MainScreenViewModel : ViewModel() {
                 )
             }
         }
-    }
 
-    fun initWithContext(context: Context, analyticsTracks: AnalyticsTracks) {
-        this.analyticsTracks = analyticsTracks
-        analyticsTracks.logEvent(MainScreenOpenedEvent())
+        logEventUseCase.invoke(MainScreenOpenedEvent())
         _changeEmotionFragmentOpenCloseAction.value = null
         _showCantChangeEmotionToastEvent.value = null
         isFillEmotionClicked = false
         isEmotionContainerOpened = false
 
-        addDayUseCase = AddDayUseCase(context)
         _navigateToExportScreen.postValue(null)
-        getAllMonthsListUseCase = GetAllMonthsListUseCase(
-            context = context,
-            firstDayOfWeekChanged = _firstDayOfWeekChangedEvent,
-            mothListChangedEvent = _mothListChangedEvent,
-            viewModelScope = viewModelScope,
-            daySelectedEvent = _daySelectedEvent,
-            currentDaySelectedEvent = _currentDaySelected
-        )
 
         fetchMonths()
     }
 
     private fun fetchMonths() {
-        getAllMonthsListUseCase.invoke()
+        viewModelScope.launch {
+            getAllMonthsListUseCase.invoke()
+        }
     }
 
     fun worryChanged(progress: Int) {
@@ -162,7 +151,7 @@ class MainScreenViewModel : ViewModel() {
                 isEmotionNotFilled = isEmotionNotFilled
             )
         )
-        analyticsTracks.logEvent(
+        logEventUseCase.invoke(
             MainScreenOkButtonClickedEvent(
                 emotion = emotion,
                 isFilled = !isEmotionNotFilled
@@ -204,7 +193,7 @@ class MainScreenViewModel : ViewModel() {
 
     fun onFillEmotionClicked() {
         val isEmotionNotFilled = isEmotionNotFilled()
-        analyticsTracks.logEvent(MainScreenEmotionClickedEvent(isEmotionFilled = isEmotionNotFilled))
+        logEventUseCase.invoke(MainScreenEmotionClickedEvent(isEmotionFilled = isEmotionNotFilled))
 
         if (!isFillEmotionClicked) {
             isFillEmotionClicked = true
@@ -281,7 +270,7 @@ class MainScreenViewModel : ViewModel() {
     }
 
     private fun logExportToInstagramClicked(isExportDay: Boolean) {
-        analyticsTracks.logEvent(
+        logEventUseCase.invoke(
             event = if (isExportDay) {
                 MainScreenExportToInstagramByDayBtnClickedEvent(!isEmotionNotFilled())
             } else {

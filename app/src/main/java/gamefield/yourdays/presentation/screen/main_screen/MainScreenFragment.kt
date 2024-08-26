@@ -6,18 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import gamefield.yourdays.R
 import gamefield.yourdays.databinding.FragmentMainScreenBinding
 import gamefield.yourdays.presentation.components.adapter.MonthAdapter
-import gamefield.yourdays.domain.analytics.AnalyticsTracks
 import gamefield.yourdays.presentation.screen.main_screen.view_model.MainScreenViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainScreenFragment : Fragment() {
 
     private lateinit var binding: FragmentMainScreenBinding
-    private lateinit var viewModel: MainScreenViewModel
+    private val viewModel: MainScreenViewModel by viewModel()
     private lateinit var monthAdapter: MonthAdapter
 
     override fun onCreateView(
@@ -39,12 +38,7 @@ class MainScreenFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(requireActivity())
-            .get(MainScreenViewModel::class.java)
-        viewModel.initWithContext(
-            context = requireActivity().applicationContext,
-            analyticsTracks = requireActivity() as AnalyticsTracks
-        )
+
         binding.mainScreeScrollView.setOnScrollChangeListener { p0, p1, p2, p3, p4 ->
             viewModel.onEmotionPeriodScrolled(y = p2)
         }
