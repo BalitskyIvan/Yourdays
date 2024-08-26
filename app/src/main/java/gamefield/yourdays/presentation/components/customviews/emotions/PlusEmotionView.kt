@@ -95,11 +95,11 @@ class PlusEmotionView @JvmOverloads constructor(
         drawBottomVertical = height / 2f - (height / 8f)
     }
 
-    override fun onDraw(canvas: Canvas?) {
+    override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         calculateHorizontalGradient()
         calculateVerticalGradient()
-        canvas?.drawRoundRect(
+        canvas.drawRoundRect(
             drawLeftHorizontal,
             drawTopHorizontal,
             drawRightHorizontal,
@@ -108,7 +108,7 @@ class PlusEmotionView @JvmOverloads constructor(
             rectangleCornerRadius,
             if (!isDrawStroke) horizontalPaint else strokePaint
         )
-        canvas?.drawRoundRect(
+        canvas.drawRoundRect(
             drawLeftVertical,
             drawTopVertical,
             drawRightVertical,
@@ -117,7 +117,7 @@ class PlusEmotionView @JvmOverloads constructor(
             rectangleCornerRadius,
             invisiblePaint
         )
-        canvas?.drawRoundRect(
+        canvas.drawRoundRect(
             drawLeftVertical,
             drawTopVertical,
             drawRightVertical,
@@ -126,7 +126,7 @@ class PlusEmotionView @JvmOverloads constructor(
             rectangleCornerRadius,
             if (!isDrawStroke) verticalPaint else strokePaint
         )
-        canvas?.drawRoundRect(
+        canvas.drawRoundRect(
             drawLeftHorizontal - strokePaintWidth / 2,
             drawTopHorizontal - strokePaintWidth,
             drawRightHorizontal + strokePaintWidth / 2,
@@ -136,7 +136,7 @@ class PlusEmotionView @JvmOverloads constructor(
             invisiblePaint
         )
         if (happiness != 0 || worry != 0 || sadness != 0 || productivity != 0) {
-            canvas?.drawRoundRect(
+            canvas.drawRoundRect(
                 drawLeftHorizontal - strokePaintWidth / 2,
                 drawTopHorizontal - strokePaintWidth / 2,
                 drawRightHorizontal + strokePaintWidth / 2,
@@ -145,7 +145,7 @@ class PlusEmotionView @JvmOverloads constructor(
                 rectangleCornerRadius,
                 backgroundVerticalPaint
             )
-            canvas?.drawRoundRect(
+            canvas.drawRoundRect(
                 drawLeftVertical - strokePaintWidth / 2,
                 drawTopVertical - strokePaintWidth / 2,
                 drawRightVertical + strokePaintWidth / 2,
@@ -155,7 +155,7 @@ class PlusEmotionView @JvmOverloads constructor(
                 backgroundHorizontalPaint
             )
         }
-        canvas?.drawRoundRect(
+        canvas.drawRoundRect(
             drawLeftHorizontal - strokePaintWidth / 2,
             drawTopHorizontal - strokePaintWidth / 2,
             drawRightHorizontal + strokePaintWidth / 2,
@@ -164,7 +164,7 @@ class PlusEmotionView @JvmOverloads constructor(
             rectangleCornerRadius,
             horizontalPaint
         )
-        canvas?.drawRoundRect(
+        canvas.drawRoundRect(
             drawLeftVertical - strokePaintWidth / 2,
             drawTopVertical - strokePaintWidth / 2,
             drawRightVertical + strokePaintWidth / 2,

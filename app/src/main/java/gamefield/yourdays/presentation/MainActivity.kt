@@ -2,8 +2,7 @@ package gamefield.yourdays.presentation
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.analytics.ktx.analytics
-import com.google.firebase.ktx.Firebase
+import com.google.firebase.analytics.FirebaseAnalytics
 import gamefield.yourdays.R
 import gamefield.yourdays.presentation.screen.onboarding.OnboardingFragment
 import gamefield.yourdays.presentation.screen.export_screen.ExportToInstagramScreenFragment
@@ -27,9 +26,10 @@ class MainActivity : AppCompatActivity(), Navigation, AnalyticsTracks {
 
         val isNeedToShowOnboarding =
             getPreferences(MODE_PRIVATE).getBoolean(NEED_TO_SHOW_ONBOARDING_KEY, true)
+        val firebaseAnalytics = FirebaseAnalytics.getInstance(this)
 
-        initAnalytics()
-        logEventUseCase = LogEventUseCase(analytics = Firebase.analytics)
+        initAnalytics(firebaseAnalytics)
+        logEventUseCase = LogEventUseCase(analytics = firebaseAnalytics)
 
         setContentView(R.layout.activity_main)
 
@@ -89,18 +89,18 @@ class MainActivity : AppCompatActivity(), Navigation, AnalyticsTracks {
             .commitNow()
     }
 
-    private fun initAnalytics() {
+    private fun initAnalytics(firebaseAnalytics: FirebaseAnalytics) {
         getPreferences(MODE_PRIVATE).getString(ANALYTICS_USER_ID_KEY, null).apply {
             if (this == null) {
                 val userId = UUID.randomUUID().toString()
-                Firebase.analytics.setUserId(userId)
+                firebaseAnalytics.setUserId(userId)
                 getPreferences(MODE_PRIVATE)
                     .edit()
                     .putString(ANALYTICS_USER_ID_KEY, userId)
                     .apply()
                 goBack()
             } else {
-                Firebase.analytics.setUserId(this)
+               firebaseAnalytics.setUserId(this)
             }
         }
     }

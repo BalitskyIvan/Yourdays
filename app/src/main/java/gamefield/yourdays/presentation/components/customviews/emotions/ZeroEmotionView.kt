@@ -28,15 +28,15 @@ class ZeroEmotionView @JvmOverloads constructor(
         innerRadius = width / 4.1f
     }
 
-    override fun onDraw(canvas: Canvas?) {
+    override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
 
-        canvas?.drawCircle(circleX, circleY, radius, verticalPaint)
-        canvas?.drawCircle(circleX, circleY, radius, horizontalPaint)
-        canvas?.drawCircle(circleX, circleY, innerRadius, invisiblePaint)
+        canvas.drawCircle(circleX, circleY, radius, verticalPaint)
+        canvas.drawCircle(circleX, circleY, radius, horizontalPaint)
+        canvas.drawCircle(circleX, circleY, innerRadius, invisiblePaint)
         if (isDrawStroke) {
-            canvas?.drawCircle(circleX, circleY, radius, strokePaint)
-            canvas?.drawCircle(circleX, circleY, innerRadius, strokePaint)
+            canvas.drawCircle(circleX, circleY, radius, strokePaint)
+            canvas.drawCircle(circleX, circleY, innerRadius, strokePaint)
         }
     }
 
