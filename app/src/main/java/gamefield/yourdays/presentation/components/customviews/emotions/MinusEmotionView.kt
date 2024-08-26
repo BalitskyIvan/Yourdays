@@ -32,9 +32,9 @@ class MinusEmotionView @JvmOverloads constructor(
         drawBottomVertical = height / 2f - (height / 8f)
     }
 
-    override fun onDraw(canvas: Canvas?) {
+    override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        canvas?.drawRoundRect(
+        canvas.drawRoundRect(
             drawLeftVertical,
             drawTopVertical,
             drawRightVertical,
@@ -43,7 +43,7 @@ class MinusEmotionView @JvmOverloads constructor(
             rectangleCornerRadius,
             verticalPaint
         )
-        canvas?.drawRoundRect(
+        canvas.drawRoundRect(
             drawLeftVertical,
             drawTopVertical,
             drawRightVertical,
@@ -53,7 +53,7 @@ class MinusEmotionView @JvmOverloads constructor(
             horizontalPaint
         )
         if (isDrawStroke) {
-            canvas?.drawRoundRect(
+            canvas.drawRoundRect(
                 drawLeftVertical,
                 drawTopVertical,
                 drawRightVertical,

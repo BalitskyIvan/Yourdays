@@ -132,8 +132,4 @@ abstract class EmotionView @JvmOverloads constructor(
         calculateHorizontalGradient()
     }
 
-    override fun onDraw(canvas: Canvas?) {
-        super.onDraw(canvas)
-    }
-
 }
