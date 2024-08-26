@@ -18,12 +18,13 @@ import gamefield.yourdays.presentation.components.customviews.emotions.ZeroEmoti
 import gamefield.yourdays.presentation.components.animation.DateTitleAnimation
 import gamefield.yourdays.presentation.screen.main_screen.view_model.MainScreenEmotionViewModel
 import gamefield.yourdays.presentation.screen.main_screen.view_model.MainScreenViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainScreenEmotionFragment : Fragment() {
 
     private lateinit var binding: FragmentMainScreenEmotionBinding
-    private lateinit var mainScreenViewModel: MainScreenViewModel
-    private lateinit var viewModel: MainScreenEmotionViewModel
+    private val mainScreenViewModel: MainScreenViewModel by viewModel()
+    private val viewModel: MainScreenEmotionViewModel by viewModel()
 
     private lateinit var dateTitleAnimation: DateTitleAnimation
 
@@ -59,11 +60,7 @@ class MainScreenEmotionFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mainScreenViewModel = ViewModelProvider(requireActivity())
-            .get(MainScreenViewModel::class.java)
-        viewModel = ViewModelProvider(requireActivity())
-            .get(MainScreenEmotionViewModel::class.java)
-        viewModel.initializeAction(context = view.context)
+        viewModel.initializeAction(resources = resources)
         navigation = requireActivity() as Navigation
 
         binding.uploadMonthToInstagramButton.setOnClickListener {
@@ -212,7 +209,7 @@ class MainScreenEmotionFragment : Fragment() {
         mainScreenViewModel.daySelectedEvent.observe(viewLifecycleOwner) {
             viewModel.onDayChanged(
                 daySelectedContainer = it,
-                context = requireContext()
+                resources = resources
             )
         }
     }

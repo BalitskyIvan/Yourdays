@@ -3,9 +3,9 @@ package gamefield.yourdays.domain.usecase.time_logic
 import gamefield.yourdays.data.entity.Month
 import java.util.Calendar
 
-class IsNeedToAddDaysInMonthUseCase {
-
-    private val calendar = Calendar.getInstance()
+class IsNeedToAddDaysInMonthUseCase(
+    private val calendar: Calendar
+) {
 
     operator fun invoke(month: Month): Boolean {
         calendar.toInstant()

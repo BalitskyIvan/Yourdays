@@ -1,19 +1,19 @@
 package gamefield.yourdays.presentation.screen.export_screen
 
-import android.content.Context
+import android.content.res.Resources
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProvider
 import gamefield.yourdays.databinding.FragmentMonthPickerBinding
 import gamefield.yourdays.presentation.screen.export_screen.view_model.ExportToInstagramViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MonthPickerFragment : Fragment() {
 
     private lateinit var binding: FragmentMonthPickerBinding
-    private lateinit var viewModel: ExportToInstagramViewModel
+    private val viewModel: ExportToInstagramViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,7 +25,7 @@ class MonthPickerFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(requireActivity()).get(ExportToInstagramViewModel::class.java)
+
         observePickersDataChanged()
         observeCurrentValueChanged()
         setPickerListeners()
@@ -64,11 +64,11 @@ class MonthPickerFragment : Fragment() {
         }
     }
 
-    private fun onPickersChanged(listener: (monthName: String, yearName: String, context: Context) -> Unit) {
+    private fun onPickersChanged(listener: (monthName: String, yearName: String, resources: Resources) -> Unit) {
         listener.invoke(
             binding.monthPicker.displayedValues[binding.monthPicker.value],
             binding.yearPicker.displayedValues[binding.yearPicker.value],
-            requireContext()
+            resources
         )
     }
 

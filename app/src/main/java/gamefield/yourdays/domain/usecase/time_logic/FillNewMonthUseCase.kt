@@ -1,26 +1,24 @@
 package gamefield.yourdays.domain.usecase.time_logic
 
-import android.content.Context
-import gamefield.yourdays.data.AppDatabase
-import gamefield.yourdays.data.Repository
 import gamefield.yourdays.data.entity.Day
 import gamefield.yourdays.data.entity.Month
 import gamefield.yourdays.data.entity.Week
+import gamefield.yourdays.data.repository.EmotionsRepository
 import gamefield.yourdays.extensions.setEmptyDay
 import java.util.*
 
-class FillNewMonthUseCase(context: Context) {
-
-    private val calendar = Calendar.getInstance()
-    private val repository =
-        Repository.getInstance(AppDatabase.getInstance(context = context).monthDao())
+class FillNewMonthUseCase(
+    private val calendar: Calendar,
+    private val emotionsRepository: EmotionsRepository
+) {
 
     operator fun invoke() {
         val currentYear = calendar.get(Calendar.YEAR)
         val currentMonth = calendar.get(Calendar.MONTH)
         val currentDay = calendar.get(Calendar.DAY_OF_MONTH)
-        val weeksList = mutableListOf<Week>()
         calendar.set(currentYear, currentMonth, 1)
+
+        val weeksList = mutableListOf<Week>()
 
         while (isSameMonth(currentMonth = currentMonth, currentDay = currentDay)) {
 
@@ -40,7 +38,7 @@ class FillNewMonthUseCase(context: Context) {
             }
             weeksList.add(Week(days))
         }
-        repository.addMonth(
+        emotionsRepository.addMonth(
             Month(
                 id = UUID.randomUUID(),
                 monthNumber = currentMonth,

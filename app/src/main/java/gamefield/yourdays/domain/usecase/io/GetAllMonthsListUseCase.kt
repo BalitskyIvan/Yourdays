@@ -1,52 +1,49 @@
 package gamefield.yourdays.domain.usecase.io
 
-import android.content.Context
 import androidx.lifecycle.MutableLiveData
-import gamefield.yourdays.data.AppDatabase
-import gamefield.yourdays.data.Repository
 import gamefield.yourdays.data.entity.Month
-import gamefield.yourdays.domain.usecase.time_logic.FillDaysBeforeNow
+import gamefield.yourdays.data.repository.EmotionsRepository
+import gamefield.yourdays.domain.usecase.time_logic.FillDaysBeforeNowUseCase
 import gamefield.yourdays.domain.usecase.time_logic.FillNewMonthUseCase
 import gamefield.yourdays.domain.usecase.time_logic.IsNeedToAddDaysInMonthUseCase
 import gamefield.yourdays.extensions.selectCurrentDay
+import gamefield.yourdays.extensions.toImmutable
 import gamefield.yourdays.presentation.screen.main_screen.view_model.DaySelectedContainer
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 import java.util.*
 
 class GetAllMonthsListUseCase(
-    context: Context,
-    private val firstDayOfWeekChanged: MutableLiveData<Int>,
-    private val mothListChangedEvent: MutableLiveData<List<Month>>,
-    private val viewModelScope: CoroutineScope,
-    private val daySelectedEvent: MutableLiveData<DaySelectedContainer>? = null,
-    private val currentDaySelectedEvent: MutableLiveData<DaySelectedContainer>? = null
+    private val calendar: Calendar,
+    private val emotionsRepository: EmotionsRepository,
+    private val fillNewMonthUseCase: FillNewMonthUseCase,
+    private val getCalendarFirstDayOfWeekUseCase: GetCalendarFirstDayOfWeekUseCase,
+    private val isNeedToAddDaysInMonthUseCase: IsNeedToAddDaysInMonthUseCase,
+    private val fillDaysBeforeNowUseCase: FillDaysBeforeNowUseCase
 ) {
 
-    private val repository =
-        Repository.getInstance(AppDatabase.getInstance(context = context).monthDao())
-    private val calendar = Calendar.getInstance()
-    private val isNeedToAddDaysInMonthUseCase = IsNeedToAddDaysInMonthUseCase()
-    private var isFirstTimeMonthFetched = true
-    private val fillNewMonthUseCase: FillNewMonthUseCase = FillNewMonthUseCase(context)
-    private val getCalendarFirstDayOfWeekUseCase = GetCalendarFirstDayOfWeekUseCase(context)
-    private val fillDaysBeforeNow: FillDaysBeforeNow = FillDaysBeforeNow(context)
+    private val _firstDayOfWeekChangedEvent = MutableLiveData<Int>()
+    val firstDayOfWeekChangedEvent = _firstDayOfWeekChangedEvent.toImmutable()
 
-    operator fun invoke() {
-        viewModelScope.launch(Dispatchers.IO) {
-            val firstDayOfWeek: Int
-            runBlocking {
-                firstDayOfWeek = getCalendarFirstDayOfWeekUseCase.invoke()
-                firstDayOfWeekChanged.postValue(firstDayOfWeek)
-            }
+    private val _monthListChangedEvent = MutableLiveData<List<Month>>()
+    val monthListChangedEvent = _monthListChangedEvent.toImmutable()
+
+    private val _daySelectedEvent = MutableLiveData<DaySelectedContainer>()
+    val daySelectedEvent = _daySelectedEvent.toImmutable()
+
+    private var isFirstTimeMonthFetched = true
+
+    suspend operator fun invoke() {
+        withContext(Dispatchers.IO) {
+            val firstDayOfWeek = getCalendarFirstDayOfWeekUseCase.invoke()
+            _firstDayOfWeekChangedEvent.postValue(firstDayOfWeek)
+
             fetch(firstDayOfWeek)
         }
     }
 
     private suspend fun fetch(firstDayOfWeek: Int) {
-        repository.getMonths().collect { monthList ->
+        emotionsRepository.getMonths().collect { monthList ->
             calendar.toInstant()
 
             val initData = monthList.getNeedToFillAndMonthIndex()
@@ -58,7 +55,7 @@ class GetAllMonthsListUseCase(
                 fetch(firstDayOfWeek)
             } else {
                 if (isNeedToAddDaysInMonthUseCase.invoke(month = monthList[currentMonthIndex])) {
-                    fillDaysBeforeNow.invoke(month = monthList[currentMonthIndex])
+                    fillDaysBeforeNowUseCase.invoke(month = monthList[currentMonthIndex])
                     fetch(firstDayOfWeek)
                 } else {
                     monthList.putMonthList()
@@ -71,13 +68,13 @@ class GetAllMonthsListUseCase(
         val sortedMonthList = sortMonths()
 
         isFirstTimeMonthFetched = false
-        mothListChangedEvent.postValue(sortedMonthList)
+        _monthListChangedEvent.postValue(sortedMonthList)
         if (daySelectedEvent != null) {
             val selectedDay = sortedMonthList.selectCurrentDay(
                 daySelectedContainer = daySelectedEvent.value,
                 isSelectCurrentDay = isFirstTimeMonthFetched
             )
-            currentDaySelectedEvent?.postValue(selectedDay)
+         //   currentDaySelectedEvent?.postValue(selectedDay)
         }
     }
 

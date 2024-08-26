@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import gamefield.yourdays.databinding.FragmentDayPreviewFragmentBinding
 import gamefield.yourdays.domain.models.EmotionType
 import gamefield.yourdays.extensions.parseEmotionInEmotionView
@@ -15,10 +14,11 @@ import gamefield.yourdays.presentation.components.customviews.emotions.MinusEmot
 import gamefield.yourdays.presentation.components.customviews.emotions.PlusEmotionView
 import gamefield.yourdays.presentation.components.customviews.emotions.ZeroEmotionView
 import gamefield.yourdays.presentation.screen.export_screen.view_model.ExportToInstagramViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DayPreviewFragment : Fragment() {
 
-    private lateinit var viewModel: ExportToInstagramViewModel
+    private val viewModel: ExportToInstagramViewModel by viewModel()
     private lateinit var binding: FragmentDayPreviewFragmentBinding
 
     private lateinit var emptyEmotionView: EmptyEmotionView
@@ -38,7 +38,6 @@ class DayPreviewFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(requireActivity()).get(ExportToInstagramViewModel::class.java)
 
         emptyEmotionView = EmptyEmotionView(context = requireContext(), forceLightenTheme = true)
         plusEmotionView = PlusEmotionView(context = requireContext(), forceLightenTheme = true)

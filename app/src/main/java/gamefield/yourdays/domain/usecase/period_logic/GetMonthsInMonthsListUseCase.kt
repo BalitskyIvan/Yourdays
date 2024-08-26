@@ -1,12 +1,12 @@
 package gamefield.yourdays.domain.usecase.period_logic
 
-import android.content.Context
+import android.content.res.Resources
 import gamefield.yourdays.data.entity.Month
 import gamefield.yourdays.extensions.getMonthName
 import java.util.*
 
 class GetMonthsInMonthsListUseCase(
-    private val context: Context
+    private val resources: Resources
 ) {
 
     private val calendar = Calendar.getInstance()
@@ -15,7 +15,7 @@ class GetMonthsInMonthsListUseCase(
         val currentMonth = calendar.get(Calendar.MONTH)
         val monthNames = mutableSetOf(
             Pair(
-                currentMonth.getMonthName(isUppercase = false, context = context),
+                currentMonth.getMonthName(isUppercase = false, resources = resources),
                 currentMonth
             )
         )
@@ -25,7 +25,7 @@ class GetMonthsInMonthsListUseCase(
                 Pair(
                     month.monthNumber.getMonthName(
                         isUppercase = false,
-                        context = context
+                        resources = resources
                     ), month.monthNumber
                 )
             )

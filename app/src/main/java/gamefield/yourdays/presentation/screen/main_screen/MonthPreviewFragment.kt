@@ -17,11 +17,12 @@ import gamefield.yourdays.extensions.getMonthName
 import gamefield.yourdays.presentation.components.adapter.DayContainer
 import gamefield.yourdays.presentation.screen.export_screen.view_model.MonthPreviewUtils
 import gamefield.yourdays.presentation.screen.export_screen.view_model.ExportToInstagramViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MonthPreviewFragment : Fragment() {
 
     private lateinit var binding: FragmentMonthPreviewFragmetBinding
-    private lateinit var viewModel: ExportToInstagramViewModel
+    private val viewModel: ExportToInstagramViewModel by viewModel()
 
     private lateinit var getMonthMarkupByFirstDayOfWeekUseCase: GetMonthMarkupByFirstDayOfWeekUseCase
 
@@ -47,8 +48,6 @@ class MonthPreviewFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(requireActivity()).get(ExportToInstagramViewModel::class.java)
-
         observeMonthChanged()
     }
 
@@ -56,7 +55,7 @@ class MonthPreviewFragment : Fragment() {
         viewModel.currentMonthInPreviewChanged.observe(viewLifecycleOwner) { data ->
             binding.cardPeriodMonthName.text =
                 data.first.monthNumber.getMonthName(
-                    context = requireContext(),
+                    resources = resources,
                     year = data.first.year
                 )
 

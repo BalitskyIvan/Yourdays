@@ -1,6 +1,6 @@
 package gamefield.yourdays.presentation.screen.main_screen.view_model
 
-import android.content.Context
+import android.content.res.Resources
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -87,12 +87,12 @@ class MainScreenEmotionViewModel : ViewModel() {
         _clickToChangeEmotionTextAlphaChangedEvent.postValue(0f)
     }
 
-    fun initializeAction(context: Context) {
+    fun initializeAction(resources: Resources) {
         calendarNow = Calendar.getInstance()
-        calcDateTitle(
+        calculateDateTitle(
             month = calendarNow.get(Calendar.MONTH),
             day = calendarNow.get(Calendar.DAY_OF_MONTH),
-            context = context
+            resources = resources
         )
     }
 
@@ -114,7 +114,7 @@ class MainScreenEmotionViewModel : ViewModel() {
         }
     }
 
-    fun onDayChanged(daySelectedContainer: DaySelectedContainer, context: Context) {
+    fun onDayChanged(daySelectedContainer: DaySelectedContainer, resources: Resources) {
         if (daySelectedContainer.emotion?.isEmotionNotFilled() == true) {
             exportToInstagramVisibilityAnimation.start(SoftVisibilityAnimation.State.DISAPPEAR)
             clickToFillVisibilityAnimation.start(SoftVisibilityAnimation.State.APPEAR)
@@ -146,13 +146,13 @@ class MainScreenEmotionViewModel : ViewModel() {
             )
         }
 
-        calcDateTitle(month = daySelectedContainer.month, day = daySelectedContainer.day, context)
+        calculateDateTitle(month = daySelectedContainer.month, day = daySelectedContainer.day, resources = resources)
     }
 
-    private fun calcDateTitle(month: Int, day: Int, context: Context) {
+    private fun calculateDateTitle(month: Int, day: Int, resources: Resources) {
         _dateTitleChanged.value = TITLE_DATE_STRING
             .format(
-                month.getMonthName(isUppercase = false, context = context),
+                month.getMonthName(isUppercase = false, resources = resources),
                 day
             )
     }

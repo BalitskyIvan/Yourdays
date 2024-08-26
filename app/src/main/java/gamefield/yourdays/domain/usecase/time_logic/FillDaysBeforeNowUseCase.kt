@@ -1,19 +1,17 @@
 package gamefield.yourdays.domain.usecase.time_logic
 
-import android.content.Context
-import gamefield.yourdays.data.AppDatabase
-import gamefield.yourdays.data.Repository
 import gamefield.yourdays.data.entity.Day
 import gamefield.yourdays.data.entity.Month
 import gamefield.yourdays.data.entity.Week
+import gamefield.yourdays.data.repository.EmotionsRepository
 import gamefield.yourdays.extensions.setEmptyDay
 import java.util.*
 
-class FillDaysBeforeNow(context: Context) {
+class FillDaysBeforeNowUseCase(
+    private val emotionsRepository: EmotionsRepository
+) {
 
     private val calendar = Calendar.getInstance()
-    private val repository =
-        Repository.getInstance(AppDatabase.getInstance(context = context).monthDao())
 
     operator fun invoke(month: Month) {
         calendar.toInstant()
@@ -56,7 +54,7 @@ class FillDaysBeforeNow(context: Context) {
                 dayInWeekNumber = calendar.get(Calendar.DAY_OF_WEEK)
             }
         }
-        repository.updateMonth(month)
+        emotionsRepository.updateMonth(month)
     }
 
     private fun isSameMonth(currentMonth: Int, currentDay: Int, currentWeek: Int): Boolean {
