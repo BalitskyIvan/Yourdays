@@ -196,8 +196,4 @@ class MonthPreviewFragment : Fragment() {
         }
     }
 
-    companion object {
-        @JvmStatic
-        fun newInstance() = MonthPreviewFragment()
-    }
 }

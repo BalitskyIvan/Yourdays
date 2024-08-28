@@ -7,7 +7,7 @@ class GetCalendarFirstDayOfWeekUseCase(
     private val emotionsRepository: EmotionsRepository
 ) {
 
-    operator fun invoke(): Int {
+    suspend operator fun invoke(): Int {
         val firstDayOfWeekInDatabase = emotionsRepository.getCalendarFirstDayOfWeek()
 
         return if (firstDayOfWeekInDatabase == null) {

@@ -13,6 +13,7 @@ val viewModelModule = module {
         MainScreenViewModel(
             addDayUseCase = get(),
             getAllMonthsListUseCase = get(),
+            getCalendarFirstDayOfWeekUseCase = get(),
             logEventUseCase = get()
         )
     }

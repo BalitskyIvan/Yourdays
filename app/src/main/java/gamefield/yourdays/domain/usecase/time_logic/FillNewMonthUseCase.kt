@@ -12,7 +12,7 @@ class FillNewMonthUseCase(
     private val emotionsRepository: EmotionsRepository
 ) {
 
-    operator fun invoke() {
+    suspend operator fun invoke() {
         val currentYear = calendar.get(Calendar.YEAR)
         val currentMonth = calendar.get(Calendar.MONTH)
         val currentDay = calendar.get(Calendar.DAY_OF_MONTH)

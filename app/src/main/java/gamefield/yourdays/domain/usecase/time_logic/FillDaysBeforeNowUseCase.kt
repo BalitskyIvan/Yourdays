@@ -13,7 +13,7 @@ class FillDaysBeforeNowUseCase(
 
     private val calendar = Calendar.getInstance()
 
-    operator fun invoke(month: Month) {
+    suspend operator fun invoke(month: Month) {
         calendar.toInstant()
         val currentYear = calendar.get(Calendar.YEAR)
         val currentMonth = calendar.get(Calendar.MONTH)

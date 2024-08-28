@@ -8,7 +8,7 @@ class AddDayUseCase(
     private val emotionsRepository: EmotionsRepository
 ) {
 
-    operator fun invoke(month: Month, dayNumber: Int, emotion: Emotion) {
+    suspend operator fun invoke(month: Month, dayNumber: Int, emotion: Emotion) {
         month
             .weeks
             .forEach { week ->

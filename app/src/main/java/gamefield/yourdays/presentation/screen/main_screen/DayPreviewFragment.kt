@@ -130,8 +130,5 @@ class DayPreviewFragment : Fragment() {
 
     companion object {
         private const val EMOTION_PROGRESS = "%s/10"
-
-        @JvmStatic
-        fun newInstance() = DayPreviewFragment()
     }
 }

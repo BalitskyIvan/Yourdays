@@ -18,12 +18,13 @@ import gamefield.yourdays.presentation.components.customviews.emotions.ZeroEmoti
 import gamefield.yourdays.presentation.components.animation.DateTitleAnimation
 import gamefield.yourdays.presentation.screen.main_screen.view_model.MainScreenEmotionViewModel
 import gamefield.yourdays.presentation.screen.main_screen.view_model.MainScreenViewModel
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainScreenEmotionFragment : Fragment() {
 
     private lateinit var binding: FragmentMainScreenEmotionBinding
-    private val mainScreenViewModel: MainScreenViewModel by viewModel()
+    private val mainScreenViewModel: MainScreenViewModel by activityViewModel()
     private val viewModel: MainScreenEmotionViewModel by viewModel()
 
     private lateinit var dateTitleAnimation: DateTitleAnimation
@@ -238,9 +239,4 @@ class MainScreenEmotionFragment : Fragment() {
         currentEmotion?.isDrawStroke = isDraw
     }
 
-    companion object {
-
-        @JvmStatic
-        fun newInstance() = MainScreenEmotionFragment()
-    }
 }
