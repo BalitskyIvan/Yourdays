@@ -122,12 +122,14 @@ class MainScreenViewModel(
     private fun fetchMonths() {
         viewModelScope.launch {
             val monthList = getAllMonthsListUseCase.invoke()
+            val firstDayOfWeek = getCalendarFirstDayOfWeekUseCase.invoke()
+
             _mothListChangedEvent.postValue(monthList)
                 val selectedDay = monthList.selectCurrentDay(
                     daySelectedContainer = daySelectedEvent.value,
                     isSelectCurrentDay = false
                 )
-            _firstDayOfWeekChangedEvent.postValue(getCalendarFirstDayOfWeekUseCase.invoke())
+            _firstDayOfWeekChangedEvent.postValue(firstDayOfWeek)
             _currentDaySelected.postValue(selectedDay)
         }
     }

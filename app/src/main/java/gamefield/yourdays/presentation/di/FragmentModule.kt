@@ -9,17 +9,17 @@ import gamefield.yourdays.presentation.screen.main_screen.MainScreenEmotionFragm
 import gamefield.yourdays.presentation.screen.main_screen.MainScreenFragment
 import gamefield.yourdays.presentation.screen.main_screen.MonthPreviewFragment
 import gamefield.yourdays.presentation.screen.onboarding.OnboardingFragment
-import org.koin.androidx.fragment.dsl.fragment
+import org.koin.androidx.fragment.dsl.fragmentOf
 import org.koin.dsl.module
 
 val fragmentModule = module{
-    fragment { DayPickerFragment() }
-    fragment { ExportToInstagramScreenFragment() }
-    fragment { MonthPickerFragment() }
-    fragment { ChangeEmotionFragment() }
-    fragment { DayPreviewFragment() }
-    fragment { MainScreenEmotionFragment() }
-    fragment { MainScreenFragment() }
-    fragment { MonthPreviewFragment() }
-    fragment { OnboardingFragment() }
+    fragmentOf(::DayPickerFragment)
+    fragmentOf(::ExportToInstagramScreenFragment)
+    fragmentOf(::MonthPickerFragment)
+    fragmentOf(::ChangeEmotionFragment)
+    fragmentOf(::DayPreviewFragment)
+    fragmentOf(::MainScreenEmotionFragment)
+    fragmentOf(::MainScreenFragment)
+    fragmentOf(::MonthPreviewFragment)
+    fragmentOf(::OnboardingFragment)
 }
