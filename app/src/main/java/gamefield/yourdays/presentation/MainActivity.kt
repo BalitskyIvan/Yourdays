@@ -14,19 +14,19 @@ import gamefield.yourdays.domain.analytics.main_screen.AppClosedEvent
 import gamefield.yourdays.domain.analytics.main_screen.AppOpenedEvent
 import gamefield.yourdays.presentation.screen.main_screen.view_model.DateToExportData
 import org.koin.android.ext.android.inject
+import org.koin.androidx.fragment.android.replace
+import org.koin.androidx.fragment.android.setupKoinFragmentFactory
 import java.util.UUID
 
 class MainActivity : AppCompatActivity(), Navigation, AnalyticsTracks {
-
-    private val mainScreenFragment = MainScreenFragment.newInstance()
-    private val onboardingScreenFragment = OnboardingFragment.newInstance()
 
     private val logEventUseCase: LogEventUseCase by inject()
     private val firebaseAnalytics: FirebaseAnalytics by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+        setupKoinFragmentFactory()
 
+        super.onCreate(savedInstanceState)
         val isNeedToShowOnboarding =
             getPreferences(MODE_PRIVATE).getBoolean(NEED_TO_SHOW_ONBOARDING_KEY, true)
         initAnalytics(firebaseAnalytics)
@@ -36,12 +36,12 @@ class MainActivity : AppCompatActivity(), Navigation, AnalyticsTracks {
         if (isNeedToShowOnboarding) {
             supportFragmentManager
                 .beginTransaction()
-                .replace(R.id.main_screen_container, onboardingScreenFragment)
+                .replace<OnboardingFragment>(R.id.main_screen_container)
                 .commitNow()
         } else {
             supportFragmentManager
                 .beginTransaction()
-                .replace(R.id.main_screen_container, mainScreenFragment)
+                .replace<MainScreenFragment>(R.id.main_screen_container)
                 .commitNow()
         }
     }
@@ -59,13 +59,17 @@ class MainActivity : AppCompatActivity(), Navigation, AnalyticsTracks {
     override fun goToExportToInstagramScreen(dateToExportData: DateToExportData) {
         supportFragmentManager
             .beginTransaction()
-            .replace(
-                R.id.main_screen_container, ExportToInstagramScreenFragment.newInstance(
-                    day = dateToExportData.day,
-                    month = dateToExportData.month,
-                    year = dateToExportData.year,
-                    isExportDay = dateToExportData.isExportDay
-                )
+            .replace<ExportToInstagramScreenFragment>(
+                containerViewId = R.id.main_screen_container,
+                args = Bundle().apply {
+                    putInt(ExportToInstagramScreenFragment.DAY_KEY, dateToExportData.day)
+                    putInt(ExportToInstagramScreenFragment.MONTH_KEY, dateToExportData.month)
+                    putInt(ExportToInstagramScreenFragment.YEAR_KEY, dateToExportData.year)
+                    putBoolean(
+                        ExportToInstagramScreenFragment.IS_EXPORT_DAY_KEY,
+                        dateToExportData.isExportDay
+                    )
+                },
             )
             .commitNow()
     }
@@ -85,7 +89,7 @@ class MainActivity : AppCompatActivity(), Navigation, AnalyticsTracks {
     override fun goBack() {
         supportFragmentManager
             .beginTransaction()
-            .replace(R.id.main_screen_container, mainScreenFragment)
+            .replace<MainScreenFragment>(R.id.main_screen_container)
             .commitNow()
     }
 
@@ -100,7 +104,7 @@ class MainActivity : AppCompatActivity(), Navigation, AnalyticsTracks {
                     .apply()
                 goBack()
             } else {
-               firebaseAnalytics.setUserId(this)
+                firebaseAnalytics.setUserId(this)
             }
         }
     }

@@ -13,21 +13,18 @@ import kotlinx.coroutines.flow.Flow
 interface MonthDao {
 
     @Query("SELECT * FROM months")
-    fun getAll(): Flow<List<Month>>
+    suspend fun getAll(): List<Month>
 
     @Update
-    fun updateMonth(month: Month)
+    suspend fun updateMonth(month: Month)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertMonth(month: Month)
+    suspend fun insertMonth(month: Month)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertCalendarFirstDayOfWeek(firstDay: FirstDayOfWeek)
+    suspend fun insertCalendarFirstDayOfWeek(firstDay: FirstDayOfWeek)
 
     @Query("SELECT * FROM firstDayOfMonth")
-    fun getCalendarFirstDayOfWeek(): FirstDayOfWeek
-
-    @Query("DELETE FROM months")
-    fun clearDatabase()
+    suspend fun getCalendarFirstDayOfWeek(): FirstDayOfWeek
 
 }

@@ -61,10 +61,4 @@ class DayPickerFragment : Fragment() {
             dateInPicker = date
         }
     }
-
-    companion object {
-        @JvmStatic
-        fun newInstance() =
-            DayPickerFragment()
-    }
 }

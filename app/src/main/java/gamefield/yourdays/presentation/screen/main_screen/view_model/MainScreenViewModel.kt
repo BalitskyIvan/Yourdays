@@ -16,6 +16,8 @@ import gamefield.yourdays.domain.analytics.main_screen.MainScreenExportToInstagr
 import gamefield.yourdays.domain.analytics.main_screen.MainScreenExportToInstagramByDayBtnClickedEvent
 import gamefield.yourdays.domain.analytics.main_screen.MainScreenOkButtonClickedEvent
 import gamefield.yourdays.domain.analytics.main_screen.MainScreenOpenedEvent
+import gamefield.yourdays.domain.usecase.io.GetCalendarFirstDayOfWeekUseCase
+import gamefield.yourdays.extensions.selectCurrentDay
 import gamefield.yourdays.presentation.screen.onboarding.view_model.CloseChangeEmotionContainerData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -24,6 +26,7 @@ import java.util.Calendar
 class MainScreenViewModel(
     private val addDayUseCase: AddDayUseCase,
     private val getAllMonthsListUseCase: GetAllMonthsListUseCase,
+    private val getCalendarFirstDayOfWeekUseCase: GetCalendarFirstDayOfWeekUseCase,
     private val logEventUseCase: LogEventUseCase
 ) : ViewModel() {
 
@@ -118,7 +121,16 @@ class MainScreenViewModel(
 
     private fun fetchMonths() {
         viewModelScope.launch {
-            getAllMonthsListUseCase.invoke()
+            val monthList = getAllMonthsListUseCase.invoke()
+            val firstDayOfWeek = getCalendarFirstDayOfWeekUseCase.invoke()
+
+            _mothListChangedEvent.postValue(monthList)
+                val selectedDay = monthList.selectCurrentDay(
+                    daySelectedContainer = daySelectedEvent.value,
+                    isSelectCurrentDay = false
+                )
+            _firstDayOfWeekChangedEvent.postValue(firstDayOfWeek)
+            _currentDaySelected.postValue(selectedDay)
         }
     }
 

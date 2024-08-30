@@ -11,12 +11,13 @@ import gamefield.yourdays.R
 import gamefield.yourdays.databinding.FragmentMainScreenBinding
 import gamefield.yourdays.presentation.components.adapter.MonthAdapter
 import gamefield.yourdays.presentation.screen.main_screen.view_model.MainScreenViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.fragment.android.replace
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
 class MainScreenFragment : Fragment() {
 
     private lateinit var binding: FragmentMainScreenBinding
-    private val viewModel: MainScreenViewModel by viewModel()
+    private val viewModel: MainScreenViewModel by activityViewModel()
     private lateinit var monthAdapter: MonthAdapter
 
     override fun onCreateView(
@@ -26,11 +27,11 @@ class MainScreenFragment : Fragment() {
         binding = FragmentMainScreenBinding.inflate(inflater, container, false)
         childFragmentManager
             .beginTransaction()
-            .replace(R.id.change_emotion_container, ChangeEmotionFragment.newInstance())
+            .replace<ChangeEmotionFragment>(R.id.change_emotion_container)
             .commitNow()
         childFragmentManager
             .beginTransaction()
-            .replace(R.id.emotion_container, MainScreenEmotionFragment.newInstance())
+            .replace<MainScreenEmotionFragment>(R.id.emotion_container)
             .commitNow()
 
         return binding.root
@@ -83,10 +84,5 @@ class MainScreenFragment : Fragment() {
             monthAdapter.months.addAll(it)
             monthAdapter.notifyDataSetChanged()
         }
-    }
-
-    companion object {
-        @JvmStatic
-        fun newInstance() = MainScreenFragment()
     }
 }

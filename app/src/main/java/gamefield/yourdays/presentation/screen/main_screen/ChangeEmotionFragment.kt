@@ -5,18 +5,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProvider
 import gamefield.yourdays.databinding.FragmentChangeEmotionBinding
 import gamefield.yourdays.presentation.components.animation.ChangeEmotionOpeCloseAnimation
 import gamefield.yourdays.extensions.setOnRippleClickListener
 import gamefield.yourdays.presentation.screen.main_screen.utils.EmotionSeekBarListener
 import gamefield.yourdays.presentation.screen.main_screen.view_model.MainScreenViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
 class ChangeEmotionFragment : Fragment() {
 
     private lateinit var binding: FragmentChangeEmotionBinding
-    private val viewModel: MainScreenViewModel by viewModel()
+    private val viewModel: MainScreenViewModel by activityViewModel()
 
     private lateinit var changeEmotionOpeCloseAnimation: ChangeEmotionOpeCloseAnimation
 
@@ -97,10 +96,7 @@ class ChangeEmotionFragment : Fragment() {
         }
     }
 
-    companion object {
-        private const val EMOTION_PROGRESS = "%s/10"
-
-        @JvmStatic
-        fun newInstance() = ChangeEmotionFragment()
+    private companion object {
+        const val EMOTION_PROGRESS = "%s/10"
     }
 }
