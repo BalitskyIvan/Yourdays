@@ -14,11 +14,11 @@ import gamefield.yourdays.presentation.components.customviews.emotions.MinusEmot
 import gamefield.yourdays.presentation.components.customviews.emotions.PlusEmotionView
 import gamefield.yourdays.presentation.components.customviews.emotions.ZeroEmotionView
 import gamefield.yourdays.presentation.screen.export_screen.view_model.ExportToInstagramViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
 class DayPreviewFragment : Fragment() {
 
-    private val viewModel: ExportToInstagramViewModel by viewModel()
+    private val viewModel: ExportToInstagramViewModel by activityViewModel()
     private lateinit var binding: FragmentDayPreviewFragmentBinding
 
     private lateinit var emptyEmotionView: EmptyEmotionView

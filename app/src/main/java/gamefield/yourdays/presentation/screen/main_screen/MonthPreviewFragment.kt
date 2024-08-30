@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.TextView
-import androidx.lifecycle.ViewModelProvider
 import gamefield.yourdays.data.entity.Month
 import gamefield.yourdays.databinding.FragmentMonthPreviewFragmetBinding
 import gamefield.yourdays.domain.models.EmotionType
@@ -17,12 +16,12 @@ import gamefield.yourdays.extensions.getMonthName
 import gamefield.yourdays.presentation.components.adapter.DayContainer
 import gamefield.yourdays.presentation.screen.export_screen.view_model.MonthPreviewUtils
 import gamefield.yourdays.presentation.screen.export_screen.view_model.ExportToInstagramViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
 class MonthPreviewFragment : Fragment() {
 
     private lateinit var binding: FragmentMonthPreviewFragmetBinding
-    private val viewModel: ExportToInstagramViewModel by viewModel()
+    private val viewModel: ExportToInstagramViewModel by activityViewModel()
 
     private lateinit var getMonthMarkupByFirstDayOfWeekUseCase: GetMonthMarkupByFirstDayOfWeekUseCase
 

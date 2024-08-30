@@ -136,7 +136,8 @@ class ExportToInstagramViewModel(
         }
 
         viewModelScope.launch {
-            getAllMonthsListUseCase.invoke()
+            val monthList = getAllMonthsListUseCase.invoke()
+            _monthListChangedEvent.postValue(monthList)
         }
     }
 

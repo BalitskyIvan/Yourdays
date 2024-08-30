@@ -11,12 +11,12 @@ import gamefield.yourdays.databinding.FragmentDayPickerBinding
 import gamefield.yourdays.presentation.screen.export_screen.view_model.PickedDateData
 import gamefield.yourdays.presentation.screen.export_screen.view_model.ExportToInstagramViewModel
 import org.koin.android.ext.android.inject
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
 class DayPickerFragment : Fragment() {
 
     private lateinit var binding: FragmentDayPickerBinding
-    private val viewModel: ExportToInstagramViewModel by viewModel()
+    private val viewModel: ExportToInstagramViewModel by activityViewModel()
     private val calendar: Calendar by inject()
 
     private var dateInPicker = PickedDateData(
