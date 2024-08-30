@@ -129,7 +129,7 @@ class ExportToInstagramScreenFragment : Fragment() {
                         val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
                         val canvas = Canvas(bitmap)
                         fragment.view?.draw(canvas)
-                        viewModel.upload(bitmap, requireContext())
+                        viewModel.upload(bitmap)
                     }
                 }
             }
@@ -143,7 +143,7 @@ class ExportToInstagramScreenFragment : Fragment() {
                         val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
                         val canvas = Canvas(bitmap)
                         fragment.view?.draw(canvas)
-                        viewModel.upload(bitmap, requireContext())
+                        viewModel.upload(bitmap)
                     }
                 }
             }

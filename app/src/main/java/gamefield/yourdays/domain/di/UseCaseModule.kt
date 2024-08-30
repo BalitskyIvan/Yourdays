@@ -25,5 +25,6 @@ val useCaseModule = module {
     singleOf(::GetCurrentEmotionFromMonthListUseCase)
     singleOf(::GetDateStrFromDateUseCase)
     singleOf(::GetMonthsInMonthsListUseCase)
+    singleOf(::SaveAndGetUriUseCase)
     singleOf(::GetYearsInMonthsListUseCase)
 }

@@ -6,10 +6,9 @@ import gamefield.yourdays.extensions.getMonthName
 import java.util.*
 
 class GetMonthsInMonthsListUseCase(
+    private val calendar: Calendar,
     private val resources: Resources
 ) {
-
-    private val calendar = Calendar.getInstance()
 
     operator fun invoke(months: List<Month>): Set<Pair<String, Int>> {
         val currentMonth = calendar.get(Calendar.MONTH)
