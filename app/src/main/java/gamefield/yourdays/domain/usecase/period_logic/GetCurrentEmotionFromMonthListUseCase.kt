@@ -9,11 +9,9 @@ class GetCurrentEmotionFromMonthListUseCase {
     operator fun invoke(monthList: List<Month>, date: PickedDateData): Emotion? {
         monthList.forEach { month ->
             if (date.month == month.monthNumber && date.year == month.year) {
-                month
-                    .weeks
+                month.weeks
                     .forEach { week ->
-                        week
-                            .days
+                        week.days
                             .forEach { day ->
                                 if (day.dayInMonth == date.day) {
                                     return day.emotion

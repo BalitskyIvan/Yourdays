@@ -8,12 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import gamefield.yourdays.databinding.FragmentMonthPickerBinding
 import gamefield.yourdays.presentation.screen.export_screen.view_model.ExportToInstagramViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 
 class MonthPickerFragment : Fragment() {
 
     private lateinit var binding: FragmentMonthPickerBinding
-    private val viewModel: ExportToInstagramViewModel by viewModel()
+    private val viewModel: ExportToInstagramViewModel by activityViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

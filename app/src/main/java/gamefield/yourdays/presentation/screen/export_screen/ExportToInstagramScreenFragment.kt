@@ -20,21 +20,20 @@ import gamefield.yourdays.extensions.setOnRippleClickListener
 import gamefield.yourdays.presentation.components.alert_dialog.CommonErrorDialog
 import gamefield.yourdays.presentation.screen.main_screen.DayPreviewFragment
 import gamefield.yourdays.presentation.screen.main_screen.MonthPreviewFragment
-import gamefield.yourdays.domain.analytics.AnalyticsTracks
 import gamefield.yourdays.presentation.screen.export_screen.view_model.DatePickerType
 import gamefield.yourdays.presentation.screen.export_screen.view_model.InstagramStoriesBackgroundColor
 import gamefield.yourdays.presentation.screen.export_screen.view_model.OpenInstagramUtils
 import gamefield.yourdays.presentation.screen.export_screen.view_model.PickedDateData
 import gamefield.yourdays.presentation.screen.export_screen.view_model.ExportToInstagramViewModel
 import org.koin.androidx.fragment.android.replace
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 import java.util.Calendar
 
 class ExportToInstagramScreenFragment : Fragment() {
 
     private lateinit var navigation: Navigation
     private lateinit var binding: FragmentExportToInstagramScreenBinding
-    private val viewModel: ExportToInstagramViewModel by viewModel()
+    private val viewModel: ExportToInstagramViewModel by activityViewModel()
     private lateinit var pickImageActivityResult: ActivityResultLauncher<PickVisualMediaRequest>
 
     private val calendar = Calendar.getInstance()
@@ -49,6 +48,7 @@ class ExportToInstagramScreenFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        viewModel.initWithContext(resources = resources)
         pickImageActivityResult =
             registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
                 viewModel.onBackgroundImagePicked(uri)
@@ -60,6 +60,8 @@ class ExportToInstagramScreenFragment : Fragment() {
                 year = it.getInt(YEAR_KEY)
             )
             isExportDay = it.getBoolean(IS_EXPORT_DAY_KEY)
+
+            viewModel.initSelectedData(dateData = initDate, isExportDay = isExportDay)
         }
     }
 
@@ -73,8 +75,6 @@ class ExportToInstagramScreenFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.initWithContext(resources = resources)
-        viewModel.initSelectedData(dateData = initDate, isExportDay = isExportDay)
 
         colorSelector = requireContext().getDrawable(R.drawable.color_selctor)!!
         navigation = requireActivity() as Navigation
@@ -120,25 +120,33 @@ class ExportToInstagramScreenFragment : Fragment() {
     }
 
     private fun observeUploadPreviewEvent() {
-        viewModel.uploadDayEvent.observe(viewLifecycleOwner) {
-//            it?.let {
-//                with(dayPreviewFragment.requireView()) {
-//                    val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
-//                    val canvas = Canvas(bitmap)
-//                    dayPreviewFragment.view?.draw(canvas)
-//                    viewModel.upload(bitmap, requireContext())
-//                }
-//            }
+        viewModel.uploadDayEvent.observe(viewLifecycleOwner) { event ->
+            event?.let {
+                val fragment = childFragmentManager.findFragmentByTag("DayPreviewFragment")
+
+                if (fragment != null) {
+                    with(fragment.requireView()) {
+                        val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+                        val canvas = Canvas(bitmap)
+                        fragment.view?.draw(canvas)
+                        viewModel.upload(bitmap)
+                    }
+                }
+            }
         }
         viewModel.uploadMonthEvent.observe(viewLifecycleOwner) {
-//            it?.let {
-//                with(monthPreviewFragment.requireView()) {
-//                    val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
-//                    val canvas = Canvas(bitmap)
-//                    monthPreviewFragment.view?.draw(canvas)
-//                    viewModel.upload(bitmap, requireContext())
-//                }
-//            }
+            it?.let {
+                val fragment = childFragmentManager.findFragmentByTag("MonthPreviewFragment")
+
+                if (fragment != null) {
+                    with(fragment.requireView()) {
+                        val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+                        val canvas = Canvas(bitmap)
+                        fragment.view?.draw(canvas)
+                        viewModel.upload(bitmap)
+                    }
+                }
+            }
         }
     }
 
@@ -180,8 +188,15 @@ class ExportToInstagramScreenFragment : Fragment() {
                 .beginTransaction()
                 .apply {
                     when (type) {
-                        DatePickerType.DAY -> replace<DayPreviewFragment>(R.id.preview_container)
-                        DatePickerType.MONTH -> replace<MonthPreviewFragment>(R.id.preview_container)
+                        DatePickerType.DAY -> replace<DayPreviewFragment>(
+                            containerViewId = R.id.preview_container,
+                            tag = "DayPreviewFragment"
+                        )
+
+                        DatePickerType.MONTH -> replace<MonthPreviewFragment>(
+                            containerViewId = R.id.preview_container,
+                            tag = "MonthPreviewFragment"
+                        )
                     }
                 }
                 .commitNow()
@@ -189,8 +204,15 @@ class ExportToInstagramScreenFragment : Fragment() {
                 .beginTransaction()
                 .apply {
                     when (type) {
-                        DatePickerType.DAY -> replace<DayPreviewFragment>(R.id.preview_container)
-                        DatePickerType.MONTH -> replace<MonthPreviewFragment>(R.id.preview_container)
+                        DatePickerType.DAY -> replace<DayPreviewFragment>(
+                            containerViewId = R.id.preview_container,
+                            tag = "DayPreviewFragment"
+                        )
+
+                        DatePickerType.MONTH -> replace<MonthPreviewFragment>(
+                            containerViewId = R.id.preview_container,
+                            tag = "MonthPreviewFragment"
+                        )
                     }
                 }
                 .commitNow()

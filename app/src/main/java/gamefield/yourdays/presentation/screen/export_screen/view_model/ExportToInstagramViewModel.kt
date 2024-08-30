@@ -1,12 +1,8 @@
 package gamefield.yourdays.presentation.screen.export_screen.view_model
 
-import android.content.ContentValues
-import android.content.Context
 import android.content.res.Resources
 import android.graphics.Bitmap
 import android.net.Uri
-import android.os.Environment
-import android.provider.MediaStore
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -31,9 +27,9 @@ import gamefield.yourdays.domain.analytics.export_to_instagram_screen.ExportToIn
 import gamefield.yourdays.domain.analytics.export_to_instagram_screen.ExportToInstagramScreenOpenedEvent
 import gamefield.yourdays.domain.analytics.export_to_instagram_screen.ExportToInstagramScreenUploadBackgroundBtnClickedEvent
 import gamefield.yourdays.domain.analytics.export_to_instagram_screen.ExportToInstagramScreenUploadBtnClickedEvent
+import gamefield.yourdays.domain.usecase.ui.SaveAndGetUriUseCase
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.io.IOException
-import java.text.SimpleDateFormat
 import java.util.*
 
 class ExportToInstagramViewModel(
@@ -42,6 +38,7 @@ class ExportToInstagramViewModel(
     private val getAllMonthsListUseCase: GetAllMonthsListUseCase,
     private val getYearsInMonthsListUseCase: GetYearsInMonthsListUseCase,
     private val getCurrentEmotionFromMonthListUseCase: GetCurrentEmotionFromMonthListUseCase,
+    private val saveAndGetUriUseCase: SaveAndGetUriUseCase,
     private val logEventUseCase: LogEventUseCase
 ) : ViewModel() {
 
@@ -136,7 +133,8 @@ class ExportToInstagramViewModel(
         }
 
         viewModelScope.launch {
-            getAllMonthsListUseCase.invoke()
+            val monthList = getAllMonthsListUseCase.invoke()
+            _monthListChangedEvent.postValue(monthList)
         }
     }
 
@@ -260,57 +258,23 @@ class ExportToInstagramViewModel(
         }
     }
 
-    fun upload(bitmap: Bitmap, context: Context) {
+    fun upload(bitmap: Bitmap) {
         logEventUseCase.invoke(ExportToInstagramScreenUploadBackgroundBtnClickedEvent())
-        val uri = saveBitmap(
-            context = context,
-            bitmap = bitmap,
-            format = Bitmap.CompressFormat.PNG,
-            mimeType = "",
-            displayName = Stored_path
-        )
-        _openInstagramEvent.postValue(
-            OpenInstagramData(
-                uri = uri,
-                background = _backgroundImagePickedEvent.value,
-                backgroundColor = _colorSelectedEvent.value
-            )
-        )
-    }
 
-    private fun saveBitmap(
-        context: Context, bitmap: Bitmap, format: Bitmap.CompressFormat,
-        mimeType: String, displayName: String
-    ): Uri {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val uri = saveAndGetUriUseCase.invoke(bitmap = bitmap)
 
-        val values = ContentValues().apply {
-            put(MediaStore.MediaColumns.DISPLAY_NAME, displayName)
-            put(MediaStore.MediaColumns.MIME_TYPE, mimeType)
-            put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DCIM)
-        }
-
-        var uri: Uri? = null
-
-        return runCatching {
-            with(context.contentResolver) {
-                insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)?.also {
-                    uri = it // Keep uri reference so it can be removed on failure
-
-                    openOutputStream(it)?.use { stream ->
-                        if (!bitmap.compress(format, 100, stream))
-                            throw IOException("Failed to save bitmap.")
-                    } ?: throw IOException("Failed to open output stream.")
-
-                } ?: throw IOException("Failed to create new MediaStore record.")
+                _openInstagramEvent.postValue(
+                    OpenInstagramData(
+                        uri = uri,
+                        background = _backgroundImagePickedEvent.value,
+                        backgroundColor = _colorSelectedEvent.value
+                    )
+                )
+            } catch (e: Exception) {
+                _showErrorAlertEvent.postValue(ErrorType.FILE_SYSTEM_ERROR)
             }
-        }.getOrElse {
-            _showErrorAlertEvent.postValue(ErrorType.FILE_SYSTEM_ERROR)
-            uri?.let { orphanUri ->
-                // Don't leave an orphan entry in the MediaStore
-                context.contentResolver.delete(orphanUri, null, null)
-            }
-
-            throw it
         }
     }
 
@@ -435,9 +399,5 @@ class ExportToInstagramViewModel(
     private companion object {
         const val SELECTED_ALPHA = 1f
         const val UNSELECTED_ALPHA = 0.5f
-
-        val DIRECTORY = Environment.getDownloadCacheDirectory().path + "/YourDays/"
-        val FILENAME: String = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
-        val Stored_path = "$DIRECTORY$FILENAME.png"
     }
 }

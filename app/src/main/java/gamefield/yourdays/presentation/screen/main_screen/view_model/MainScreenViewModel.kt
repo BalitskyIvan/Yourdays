@@ -27,7 +27,8 @@ class MainScreenViewModel(
     private val addDayUseCase: AddDayUseCase,
     private val getAllMonthsListUseCase: GetAllMonthsListUseCase,
     private val getCalendarFirstDayOfWeekUseCase: GetCalendarFirstDayOfWeekUseCase,
-    private val logEventUseCase: LogEventUseCase
+    private val logEventUseCase: LogEventUseCase,
+    private val calendar: Calendar
 ) : ViewModel() {
 
     private val _worryEmotionChangedEvent = MutableLiveData<Int>()
@@ -80,8 +81,6 @@ class MainScreenViewModel(
 
     private var emotionType: EmotionType = EmotionType.PLUS
 
-    private val calendar = Calendar.getInstance()
-
     private var selectedDate: DaySelectedContainer = DaySelectedContainer(
         month = Calendar.getInstance().get(Calendar.MONTH),
         day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH),
@@ -125,10 +124,10 @@ class MainScreenViewModel(
             val firstDayOfWeek = getCalendarFirstDayOfWeekUseCase.invoke()
 
             _mothListChangedEvent.postValue(monthList)
-                val selectedDay = monthList.selectCurrentDay(
-                    daySelectedContainer = daySelectedEvent.value,
-                    isSelectCurrentDay = false
-                )
+            val selectedDay = monthList.selectCurrentDay(
+                daySelectedContainer = daySelectedEvent.value,
+                isSelectCurrentDay = false
+            )
             _firstDayOfWeekChangedEvent.postValue(firstDayOfWeek)
             _currentDaySelected.postValue(selectedDay)
         }

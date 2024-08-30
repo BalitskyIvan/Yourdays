@@ -11,6 +11,7 @@ import gamefield.yourdays.domain.usecase.period_logic.GetYearsInMonthsListUseCas
 import gamefield.yourdays.domain.usecase.time_logic.FillDaysBeforeNowUseCase
 import gamefield.yourdays.domain.usecase.time_logic.FillNewMonthUseCase
 import gamefield.yourdays.domain.usecase.time_logic.IsNeedToAddDaysInMonthUseCase
+import gamefield.yourdays.domain.usecase.ui.SaveAndGetUriUseCase
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
 
@@ -25,5 +26,6 @@ val useCaseModule = module {
     singleOf(::GetCurrentEmotionFromMonthListUseCase)
     singleOf(::GetDateStrFromDateUseCase)
     singleOf(::GetMonthsInMonthsListUseCase)
+    singleOf(::SaveAndGetUriUseCase)
     singleOf(::GetYearsInMonthsListUseCase)
 }
